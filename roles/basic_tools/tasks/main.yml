@@ -19,30 +19,3 @@
   ansible.builtin.fail:
     msg: "SSH password authentication is enabled. Please disable it by setting 'PasswordAuthentication no' in /etc/ssh/sshd_config."
   when: "not password_auth"
-
-- name: Install UFW
-  ansible.builtin.apt:
-    name: ufw
-    state: present
-
-- name: 'UFW : Allow OpenSSH'
-  community.general.ufw:
-    rule: allow
-    name: OpenSSH
-
-- name: 'UFW : Allow HTTP'
-  community.general.ufw:
-    rule: allow
-    port: http
-    proto: tcp
-
-- name: 'UFW : Allow HTTPS'
-  community.general.ufw:
-    rule: allow
-    port: https
-    proto: tcp
-
-- name: 'UFW : Enable and close other access'
-  community.general.ufw:
-    state: enabled
-    policy: deny
