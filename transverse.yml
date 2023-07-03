@@ -1,5 +1,10 @@
 - name: Ensure system setup
   hosts: transverse
   become: true
+  vars:
+    docker_apt_gpg_key: 'https://download.docker.com/linux/debian/gpg'
+    docker_apt_repository: 'deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable'
+
   roles:
     - basic_tools
+    - geerlingguy.docker
