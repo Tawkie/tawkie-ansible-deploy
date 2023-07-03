@@ -2,4 +2,8 @@
 roles:
 - name: geerlingguy.docker
   version: "6.1.0"
+- src: git+https://github.com/devture/com.devture.ansible.role.systemd_docker_base.git
+  version: v1.0.0-0
+- src: git+https://github.com/devture/com.devture.ansible.role.postgres.git
+  version: v15.3-0
 
