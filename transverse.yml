@@ -1,0 +1,5 @@
+- name: Ensure system setup
+  hosts: transverse
+  become: true
+  roles:
+    - basic_tools
