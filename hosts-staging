@@ -1,0 +1,3 @@
+[transverse]
+staging ansible_host=staging.tawkie.fr ansible_user=debian
+
