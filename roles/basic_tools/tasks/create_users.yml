@@ -1,0 +1,15 @@
+---
+
+- name: Ensure Postgres group is created
+  ansible.builtin.group:
+    name: "{{ devture_postgres_gid }}"
+    gid: "{{ omit if devture_postgres_gid is none else devture_postgres_gid }}"
+    state: present
+
+- name: Ensure Postgres user is created
+  ansible.builtin.user:
+    name: "{{ devture_postgres_uid }}"
+    uid: "{{ omit if devture_postgres_uid is none else devture_postgres_uid }}"
+    state: present
+    group: "{{ devture_postgres_gid }}"
+    system: true
