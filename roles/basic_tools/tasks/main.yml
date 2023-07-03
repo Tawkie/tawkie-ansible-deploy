@@ -1,0 +1,48 @@
+- name: Get system facts
+  ansible.builtin.setup:
+    filter: ansible_distribution*
+
+- name: Check Debian 12
+  ansible.builtin.fail:
+    msg: "This playbook requires Debian 12, but the target system is running {{ ansible_distribution }} version {{ ansible_distribution_version }}"
+  when: "'Debian' in ansible_distribution and '12' not in ansible_distribution_version"
+
+- name: Check if PasswordAuthentication is set to 'no'
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+    state: present
+  register: password_auth
+
+- name: Fail if SSH password authentication is enabled
+  ansible.builtin.fail:
+    msg: "SSH password authentication is enabled. Please disable it by setting 'PasswordAuthentication no' in /etc/ssh/sshd_config."
+  when: "not password_auth"
+
+- name: Install UFW
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: 'UFW : Allow OpenSSH'
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: 'UFW : Allow HTTP'
+  community.general.ufw:
+    rule: allow
+    port: http
+    proto: tcp
+
+- name: 'UFW : Allow HTTPS'
+  community.general.ufw:
+    rule: allow
+    port: https
+    proto: tcp
+
+- name: 'UFW : Enable and close other access'
+  community.general.ufw:
+    state: enabled
+    policy: deny
