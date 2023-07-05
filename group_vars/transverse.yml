@@ -1,5 +1,6 @@
 docker_apt_gpg_key: 'https://download.docker.com/linux/debian/gpg'
 docker_apt_repository: 'deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable'
+docker_install_compose: false
 
 devture_playbook_help_container_retries_delay: '10'
 devture_playbook_help_container_retries_count: '10'
