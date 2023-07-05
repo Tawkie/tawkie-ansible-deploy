@@ -1,0 +1,20 @@
+- name: Ensure ntfy-ssh-login line is in /etc/pam.d/sshd
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/sshd
+    line: "session optional pam_exec.so /usr/bin/ntfy-ssh-login.sh"
+  notify: Reload PAM
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-pam
+
+
+- name: Apply template to ntfy-ssh-login.sh
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/ntfy-ssh-login.sh.j2"
+    dest: /usr/bin/ntfy-ssh-login.sh
+    mode: "0755"
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-pam

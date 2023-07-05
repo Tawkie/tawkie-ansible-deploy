@@ -1,0 +1,6 @@
+- name: Include ntfy pam tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/pam.yml"
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-pam

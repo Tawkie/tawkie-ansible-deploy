@@ -1,0 +1,8 @@
+- name: Reload PAM
+  ansible.builtin.systemd:
+    name: sshd
+    state: restarted
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-pam

@@ -3,6 +3,7 @@
   become: true
   roles:
     - basic_tools
+    - ntfy
     - geerlingguy.docker
     - com.devture.ansible.role.systemd_docker_base
     - com.devture.ansible.role.postgres

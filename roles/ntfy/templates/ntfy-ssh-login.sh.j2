@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ "${PAM_TYPE}" = "open_session" ]; then
+  curl \
+    -H prio:default \
+    -H tags:warning \
+    -d "SSH login: ${PAM_USER} on {{ ansible_host }} from ${PAM_RHOST}" \
+    https://n.rie.re/tawkie-server-logins-ijZCQyjVAueiHpCK
+fi
