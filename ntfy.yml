@@ -1,0 +1,5 @@
+- name: Ensure ntfy alerts setup
+  hosts: all
+  become: true
+  roles:
+    - ntfy
