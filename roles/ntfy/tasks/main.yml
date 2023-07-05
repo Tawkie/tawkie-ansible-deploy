@@ -4,3 +4,10 @@
     - setup-all
     - setup-ntfy
     - setup-ntfy-pam
+
+- name: Include ntfy apt-upgradable tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/apt-upgradable.yml"
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-apt-upgradable

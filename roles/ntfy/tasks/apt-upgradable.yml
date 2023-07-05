@@ -1,0 +1,21 @@
+- name: Schedule cron ntfy-apt-upgradable for 6 AM
+  ansible.builtin.cron:
+    name: Run ntfy-apt-upgradable at 6 AM
+    minute: 0
+    hour: 6
+    job: "/usr/bin/ntfy-apt-upgradable.sh"
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-apt
+
+
+- name: Apply template to ntfy-apt-upgradable.sh
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/ntfy-apt-upgradable.sh.j2"
+    dest: /usr/bin/ntfy-apt-upgradable.sh
+    mode: "0755"
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-apt

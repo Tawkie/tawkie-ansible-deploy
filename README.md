@@ -20,6 +20,7 @@ Existing tags :
 - setup-postgres
 - setup-ntfy
 - setup-ntfy-pam
+- setup-ntfy-apt
 
 ### SSH
 
