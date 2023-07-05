@@ -4,6 +4,10 @@
   ansible.builtin.group:
     name: "{{ devture_postgres_gid }}"
     state: present
+  tags:
+    - setup-all
+    - setup-postgres
+
 
 - name: Ensure Postgres user is created
   ansible.builtin.user:
@@ -11,3 +15,6 @@
     state: present
     group: "{{ devture_postgres_gid }}"
     system: true
+  tags:
+    - setup-postgres
+    - setup-all

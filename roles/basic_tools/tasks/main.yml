@@ -1,11 +1,15 @@
 - name: Get system facts
   ansible.builtin.setup:
     filter: ansible_distribution*
+  tags:
+    - setup-all
 
 - name: Check Debian 12
   ansible.builtin.fail:
     msg: "This playbook requires Debian 12, but the target system is running {{ ansible_distribution }} version {{ ansible_distribution_version }}"
   when: "'Debian' in ansible_distribution and '12' not in ansible_distribution_version"
+  tags:
+    - setup-all
 
 - name: Check if PasswordAuthentication is set to 'no'
   ansible.builtin.lineinfile:
@@ -14,11 +18,18 @@
     line: 'PasswordAuthentication no'
     state: present
   register: password_auth
+  tags:
+    - setup-all
 
 - name: Fail if SSH password authentication is enabled
   ansible.builtin.fail:
     msg: "SSH password authentication is enabled. Please disable it by setting 'PasswordAuthentication no' in /etc/ssh/sshd_config."
   when: "not password_auth"
+  tags:
+    - setup-all
 
 - name: Include user creation tasks
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/create_users.yml"
+  tags:
+    - setup-all
+    - setup-postgres
