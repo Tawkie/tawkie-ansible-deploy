@@ -14,3 +14,9 @@ Run playbook :
 ```
 ansible-playbook -i hosts-staging -e @secrets-staging.enc --ask-vault-pass transverse.yml --tags setup-all
 ```
+
+Existing tags :
+- setup-all
+- setup-postgres
+- setup-ntfy
+- setup-ntfy-pam
