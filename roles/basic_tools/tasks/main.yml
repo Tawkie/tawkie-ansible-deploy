@@ -19,3 +19,6 @@
   ansible.builtin.fail:
     msg: "SSH password authentication is enabled. Please disable it by setting 'PasswordAuthentication no' in /etc/ssh/sshd_config."
   when: "not password_auth"
+
+- name: Include user creation tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/create_users.yml"
