@@ -12,5 +12,5 @@ if [[ $upgradable_packages -gt 0 ]]; then
     -H prio:default \
     -H tags:magnet \
     -d "${upgradable_packages} upgradable package(s) on {{ ansible_host }}" \
-    https://n.rie.re/matrix-technique-UXzpWpzMWGPN8Iww
+    {{ ntfy_apt_upgradable_url }}
 fi
