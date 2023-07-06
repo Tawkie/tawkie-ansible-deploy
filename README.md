@@ -22,6 +22,12 @@ Existing tags :
 - setup-ntfy-pam
 - setup-ntfy-apt
 
+Update apt packages on all hosts :
+
+```
+ansible-playbook -i hosts-all apt-update.yml  -K
+```
+
 ### SSH
 
 To avoid providing a password for each key, you can use `ssh-agent` :

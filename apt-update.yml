@@ -1,0 +1,13 @@
+- name: Update apt packages
+  hosts: all
+  become: true
+  tasks:
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Upgrade APT packages
+      ansible.builtin.apt:
+        upgrade: true
+        autoremove: true
+        autoclean: true
