@@ -1,0 +1,28 @@
+---
+
+- name: Ensure Kratos image is pulled
+  community.docker.docker_image:
+    name: "{{ tawkie_kratos_docker_image }}"
+    source: "pull"
+  register: result
+  retries: "{{ devture_playbook_help_container_retries_count }}"
+  delay: "{{ devture_playbook_help_container_retries_delay }}"
+  until: result is not failed
+  tags:
+    - setup-all
+    - setup-kratos
+
+
+- name: Ensure Kratos paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0750
+    owner: "kratos"
+    group: "kratos"
+  with_items:
+    - "/tawkie/kratos"
+    - "/tawkie/kratos/config"
+  tags:
+    - setup-all
+    - setup-kratos
