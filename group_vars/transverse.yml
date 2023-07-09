@@ -7,3 +7,13 @@ devture_playbook_help_container_retries_count: '10'
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_uid: 'postgres'
 devture_postgres_gid: 'postgres'
+devture_postgres_managed_databases_auto: |
+  {{
+    [{
+      'name': 'tawkie-kratos',
+      'username': tawkie_kratos_database_user,
+      'password': tawkie_kratos_database_password,
+  }]
+}}
+
+tawkie_kratos_docker_image: 'oryd/kratos:v0.13.0'
