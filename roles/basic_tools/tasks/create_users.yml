@@ -36,6 +36,26 @@
     - setup-postgres
     - setup-all
 
+
+- name: Ensure Kratos group is created
+  ansible.builtin.group:
+    name: "kratos"
+    state: present
+  tags:
+    - setup-all
+    - setup-kratos
+
+
+- name: Ensure Kratos user is created
+  ansible.builtin.user:
+    name: "kratos"
+    state: present
+    group: "kratos"
+    system: true
+  tags:
+    - setup-kratos
+    - setup-all
+
 - name: Ensure Tawkie directory is created
   ansible.builtin.file:
     path: /tawkie
