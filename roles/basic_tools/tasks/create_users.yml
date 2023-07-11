@@ -54,6 +54,7 @@
   ansible.builtin.group:
     name: "kratos"
     state: present
+  register: kratos_group
   tags:
     - setup-all
     - setup-kratos
@@ -65,9 +66,19 @@
     state: present
     group: "kratos"
     system: true
+    shell: '/bin/false'
+  register: kratos_user
   tags:
     - setup-kratos
     - setup-all
+
+- name: Initialize tawkie_kratos_uid and tawkie_kratos_gid
+  ansible.builtin.set_fact:
+    tawkie_kratos_uid: "{{ kratos_user.uid }}"
+    tawkie_kratos_gid: "{{ kratos_group.gid }}"
+  tags:
+    - setup-all
+    - setup-kratos
 
 - name: Ensure Tawkie directory is created
   ansible.builtin.file:

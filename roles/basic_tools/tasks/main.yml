@@ -33,3 +33,4 @@
   tags:
     - setup-all
     - setup-postgres
+    - setup-kratos

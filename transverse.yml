@@ -7,3 +7,6 @@
     - geerlingguy.docker
     - com.devture.ansible.role.systemd_docker_base
     - com.devture.ansible.role.postgres
+    - ory-kratos
+    - when: devture_systemd_service_manager_enabled | bool
+      role: com.devture.ansible.role.systemd_service_manager

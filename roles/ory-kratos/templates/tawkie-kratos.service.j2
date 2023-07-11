@@ -1,0 +1,37 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Ory Kratos
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-kratos 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-kratos 2>/dev/null || true'
+
+ExecStart=docker run \
+			--rm \
+			--name tawkie-kratos \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/kratos:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_kratos_uid }}:{{ tawkie_kratos_gid }} \
+			--network={{ devture_postgres_container_network }} \
+	    --mount type=bind,src=/tawkie/kratos,dst=/opt/kratos/config,ro \
+	    --entrypoint=/bin/sh \
+	    {{ tawkie_kratos_docker_image }} \
+	    -c \
+	    'kratos -c /opt/kratos/config/config.yaml serve'
+
+ExecStop=-bash -c 'docker kill tawkie-kratos 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-kratos 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-kratos
+
+[Install]
+WantedBy=multi-user.target

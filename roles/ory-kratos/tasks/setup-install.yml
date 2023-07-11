@@ -17,12 +17,78 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: 0750
+    mode: "0500"
     owner: "kratos"
     group: "kratos"
   with_items:
     - "/tawkie/kratos"
-    - "/tawkie/kratos/config"
+  tags:
+    - setup-all
+    - setup-kratos
+
+
+- name: Ensure Kratos config template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/config.yaml.j2"
+    dest: "/tawkie/kratos/config.yaml"
+    mode: "0400"
+    owner: "kratos"
+    group: "kratos"
+  tags:
+    - setup-all
+    - setup-kratos
+
+
+- name: Ensure Kratos identity schema template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/identity.schema.json.j2"
+    dest: "/tawkie/kratos/identity.schema.json"
+    mode: "0400"
+    owner: "kratos"
+    group: "kratos"
+  tags:
+    - setup-all
+    - setup-kratos
+
+
+- name: Migrate database
+  ansible.builtin.command:
+    cmd: >-
+      docker run
+      --rm
+      --user={{ tawkie_kratos_uid }}:{{ tawkie_kratos_gid }}
+      --cap-drop=ALL
+      --read-only
+      --network={{ devture_postgres_container_network }}
+      --mount type=bind,src=/tawkie/kratos,dst=/opt/kratos/config,ro
+      --entrypoint=/bin/sh
+      {{ tawkie_kratos_docker_image }}
+      -c
+      'kratos -c /opt/kratos/config/config.yaml migrate sql -y postgres://kratos:{{ secret_postgres_db_kratos_password }}@{{ devture_postgres_container_network }}:5432/kratos?sslmode=disable'
+  register: tawkie_kratos_db_migration_output
+  changed_when: "not 'Migrations already up to date' in tawkie_kratos_db_migration_output.stderr"
+  tags:
+    - setup-all
+    - setup-kratos
+
+
+- name: Ensure docker image is noted (for future migrations)
+  ansible.builtin.copy:
+    content: "{{ tawkie_kratos_docker_image }}"
+    dest: "/tawkie/kratos/image-version.txt"
+    mode: "0740"
+    owner: "kratos"
+    group: "kratos"
+  tags:
+    - setup-all
+    - setup-kratos
+
+- name: Ensure Kratos systemd template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/tawkie-kratos.service.j2"
+    dest: "/etc/systemd/system/tawkie-kratos.service"
+    mode: "0600"
+    owner: "root"
   tags:
     - setup-all
     - setup-kratos
