@@ -15,12 +15,13 @@
     group: "tawkie"
     system: true
   tags:
-  - setup-all
+    - setup-all
 
 - name: Ensure Postgres group is created
   ansible.builtin.group:
-    name: "{{ devture_postgres_gid }}"
+    name: "postgres"
     state: present
+  register: postgres_group
   tags:
     - setup-all
     - setup-postgres
@@ -28,13 +29,25 @@
 
 - name: Ensure Postgres user is created
   ansible.builtin.user:
-    name: "{{ devture_postgres_uid }}"
+    name: "postgres"
     state: present
-    group: "{{ devture_postgres_gid }}"
+    group: "postgres"
+    home: "/postgres"
+    create_home: false
     system: true
+  register: postgres_user
   tags:
     - setup-postgres
     - setup-all
+
+
+- name: Initialize devture_postgres_uid and devture_postgres_gid
+  ansible.builtin.set_fact:
+    devture_postgres_uid: "{{ postgres_user.uid }}"
+    devture_postgres_gid: "{{ postgres_group.gid }}"
+  tags:
+    - setup-all
+    - setup-postgres
 
 
 - name: Ensure Kratos group is created
