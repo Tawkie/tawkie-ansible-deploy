@@ -6,4 +6,5 @@ roles:
   version: v1.0.0-0
 - src: git+https://github.com/devture/com.devture.ansible.role.postgres.git
   version: v15.3-0
-
+- src: git+https://github.com/devture/com.devture.ansible.role.systemd_service_manager.git
+  version: v1.0.0-1

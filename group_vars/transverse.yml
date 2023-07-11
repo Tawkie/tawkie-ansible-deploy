@@ -10,10 +10,19 @@ devture_postgres_base_path: "/postgres"
 devture_postgres_managed_databases_auto: |
   {{
     [{
-      'name': 'tawkie-kratos',
-      'username': tawkie_kratos_database_user,
-      'password': tawkie_kratos_database_password,
-  }]
-}}
+      'name': 'kratos',
+      'username': 'kratos',
+      'password': secret_postgres_db_kratos_password
+    }]
+  }}
 
 tawkie_kratos_docker_image: 'oryd/kratos:v0.13.0'
+
+devture_systemd_service_manager_enabled: true
+devture_systemd_service_manager_services_autostart_enabled: true
+devture_systemd_service_manager_services_list_auto: |
+  {{
+    ([{'name': 'devture-postgres.service', 'priority': 10000}])
+    +
+    ([{'name': 'tawkie-kratos.service', 'priority': 9000}])
+  }}
