@@ -1,0 +1,33 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie NATS
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-nats 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-nats 2>/dev/null || true'
+
+ExecStart=docker run \
+			--rm \
+			--name tawkie-nats \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/kratos:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_nats_uid }}:{{ tawkie_nats_gid }} \
+			--network={{ tawkie_nats_container_network }} \
+	    {{ tawkie_nats_docker_image }}
+
+ExecStop=-bash -c 'docker kill tawkie-nats 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-nats 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-nats
+
+[Install]
+WantedBy=multi-user.target

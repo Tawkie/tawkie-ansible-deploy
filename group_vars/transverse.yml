@@ -18,6 +18,9 @@ devture_postgres_managed_databases_auto: |
 
 tawkie_kratos_docker_image: 'oryd/kratos:v0.13.0'
 
+tawkie_nats_docker_image: 'nats:2.9.19-scratch'
+tawkie_nats_container_network: 'tawkie-nats'
+
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
 devture_systemd_service_manager_services_list_auto: |
@@ -25,4 +28,6 @@ devture_systemd_service_manager_services_list_auto: |
     ([{'name': 'devture-postgres.service', 'priority': 10000}])
     +
     ([{'name': 'tawkie-kratos.service', 'priority': 9000}])
+    +
+    ([{'name': 'tawkie-nats.service', 'priority': 8000}])
   }}

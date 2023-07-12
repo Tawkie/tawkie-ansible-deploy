@@ -89,3 +89,33 @@
     mode: '0771'
   tags:
     - setup-all
+
+- name: Ensure NATS group is created
+  ansible.builtin.group:
+    name: "nats"
+    state: present
+  register: nats_group
+  tags:
+    - setup-all
+    - setup-nats
+
+
+- name: Ensure NATS user is created
+  ansible.builtin.user:
+    name: "nats"
+    state: present
+    group: "nats"
+    system: true
+    shell: '/bin/false'
+  register: nats_user
+  tags:
+    - setup-all
+    - setup-nats
+
+- name: Initialize tawkie_nats_uid and tawkie_nats_gid
+  ansible.builtin.set_fact:
+    tawkie_nats_uid: "{{ nats_user.uid }}"
+    tawkie_nats_gid: "{{ nats_group.gid }}"
+  tags:
+    - setup-all
+    - setup-nats
