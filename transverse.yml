@@ -9,6 +9,7 @@
     - com.devture.ansible.role.postgres
     - ory-kratos
     - nats
+    - traefik
 
     - when: devture_systemd_service_manager_enabled | bool
       role: com.devture.ansible.role.systemd_service_manager

@@ -35,3 +35,4 @@
     - setup-postgres
     - setup-kratos
     - setup-nats
+    - setup-traefik

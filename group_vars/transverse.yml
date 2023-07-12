@@ -21,6 +21,9 @@ tawkie_kratos_docker_image: 'oryd/kratos:v0.13.0'
 tawkie_nats_docker_image: 'nats:2.9.19-scratch'
 tawkie_nats_container_network: 'tawkie-nats'
 
+tawkie_traefik_docker_image: 'traefik:v2.10.3'
+tawkie_traefik_container_network: 'tawkie-traefik'
+
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
 devture_systemd_service_manager_services_list_auto: |
@@ -30,4 +33,6 @@ devture_systemd_service_manager_services_list_auto: |
     ([{'name': 'tawkie-kratos.service', 'priority': 9000}])
     +
     ([{'name': 'tawkie-nats.service', 'priority': 8000}])
+    +
+    ([{'name': 'tawkie-traefik.service', 'priority': 5000}])
   }}

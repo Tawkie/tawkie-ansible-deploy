@@ -119,3 +119,33 @@
   tags:
     - setup-all
     - setup-nats
+
+- name: Ensure Traefik group is created
+  ansible.builtin.group:
+    name: "docker"
+    state: present
+  register: traefik_group
+  tags:
+    - setup-all
+    - setup-traefik
+
+
+- name: Ensure Traefik user is created
+  ansible.builtin.user:
+    name: "traefik"
+    state: present
+    group: "docker"
+    system: true
+    shell: '/bin/false'
+  register: traefik_user
+  tags:
+    - setup-all
+    - setup-traefik
+
+- name: Initialize tawkie_traefik_uid and tawkie_traefik_gid
+  ansible.builtin.set_fact:
+    tawkie_traefik_uid: "{{ traefik_user.uid }}"
+    tawkie_traefik_gid: "{{ traefik_group.gid }}"
+  tags:
+    - setup-all
+    - setup-traefik
