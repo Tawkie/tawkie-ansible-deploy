@@ -51,6 +51,19 @@
     - setup-kratos
 
 
+- name: Copy email template files
+  ansible.builtin.copy:
+    src: "{{ role_path }}/templates/email-templates"
+    dest: "/tawkie/kratos/"
+    mode: "0400"
+    directory_mode: "0400"
+    owner: "kratos"
+    group: "kratos"
+  tags:
+    - setup-all
+    - setup-kratos
+
+
 - name: Migrate database
   ansible.builtin.command:
     cmd: >-
