@@ -4,16 +4,16 @@ dsn: "postgres://kratos:{{ secret_postgres_db_kratos_password }}@{{ devture_post
 
 serve:
   public:
-    base_url: http://127.0.0.1:4433/
+    base_url: {{ tawkie_kratos_public_base_url }}
     cors:
       enabled: true
   admin:
-    base_url: http://kratos:4434/
+    base_url: {{ tawkie_kratos_admin_base_url }}
 
 selfservice:
-  default_browser_return_url: http://127.0.0.1:4455/
+  default_browser_return_url: {{ tawkie_kratos_selfservice_base_url }}
   allowed_return_urls:
-    - http://127.0.0.1:4455
+    - {{ tawkie_kratos_selfservice_base_url }}
 
   methods:
     password:
@@ -31,36 +31,36 @@ selfservice:
 
   flows:
     error:
-      ui_url: http://127.0.0.1:4455/error
+      ui_url: {{ tawkie_kratos_selfservice_base_url }}/error
 
     settings:
-      ui_url: http://127.0.0.1:4455/settings
+      ui_url: {{ tawkie_kratos_selfservice_base_url }}/settings
       privileged_session_max_age: 15m
       required_aal: highest_available
 
     recovery:
       enabled: true
-      ui_url: http://127.0.0.1:4455/recovery
+      ui_url: {{ tawkie_kratos_selfservice_base_url }}/recovery
       use: code
 
     verification:
       enabled: true
-      ui_url: http://127.0.0.1:4455/verification
+      ui_url: {{ tawkie_kratos_selfservice_base_url }}/verification
       use: code
       after:
-        default_browser_return_url: http://127.0.0.1:4455/
+        default_browser_return_url: {{ tawkie_kratos_selfservice_base_url }}/
 
     logout:
       after:
-        default_browser_return_url: http://127.0.0.1:4455/login
+        default_browser_return_url: {{ tawkie_kratos_selfservice_base_url }}/login
 
     login:
-      ui_url: http://127.0.0.1:4455/login
+      ui_url: {{ tawkie_kratos_selfservice_base_url }}/login
       lifespan: 10m
 
     registration:
       lifespan: 10m
-      ui_url: http://127.0.0.1:4455/registration
+      ui_url: {{ tawkie_kratos_selfservice_base_url }}/registration
       after:
         password:
           hooks:
@@ -74,9 +74,9 @@ log:
 
 secrets:
   cookie:
-    - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
+    - {{ tawkie_kratos_secrets_cookie }}
   cipher:
-    - 32-LONG-SECRET-NOT-SECURE-AT-ALL
+    - {{ tawkie_kratos_secrets_cipher }}
 
 ciphers:
   algorithm: xchacha20-poly1305
@@ -84,7 +84,7 @@ ciphers:
 hashers:
   algorithm: bcrypt
   bcrypt:
-    cost: 8
+    cost: {{ tawkie_kratos_bcrypt_cost }}
 
 identity:
   default_schema_id: default
@@ -94,5 +94,5 @@ identity:
 
 courier:
   smtp:
-    connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
+    connection_uri: {{ tawkie_kratos_courier_smtp_uri }}
   template_override_path: /tawkie/kratos/templates

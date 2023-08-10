@@ -17,6 +17,13 @@ devture_postgres_managed_databases_auto: |
   }}
 
 tawkie_kratos_docker_image: 'oryd/kratos:v0.13.0'
+tawkie_kratos_public_base_url: 'http://127.0.0.1:4433/'
+tawkie_kratos_admin_base_url: 'http://127.0.0.1:4434/'
+tawkie_kratos_selfservice_base_url: 'http://127.0.0.1:4455'
+tawkie_kratos_secrets_cookie: 'PLEASE-CHANGE-ME-I-AM-VERY-INSECURE'
+tawkie_kratos_secrets_cipher: '32-LONG-SECRET-NOT-SECURE-AT-ALL'
+tawkie_kratos_bcrypt_cost: '8'
+tawkie_kratos_courier_smtp_uri: 'smtps://test:test@mailslurper:1025/?skip_ssl_verify=true'
 
 tawkie_nats_docker_image: 'nats:2.9.19-scratch'
 tawkie_nats_container_network: 'tawkie-nats'
