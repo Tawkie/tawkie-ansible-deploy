@@ -25,7 +25,7 @@ ExecStart=docker run \
 	    --entrypoint=/bin/sh \
 	    {{ tawkie_kratos_docker_image }} \
 	    -c \
-	    'kratos -c /opt/kratos/config/config.yaml serve'
+	    'kratos -c /opt/kratos/config/config.yaml serve --watch-courier'
 
 ExecStop=-bash -c 'docker kill tawkie-kratos 2>/dev/null || true'
 ExecStop=-bash -c 'docker rm tawkie-kratos 2>/dev/null || true'

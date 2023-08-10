@@ -26,7 +26,7 @@ tawkie_kratos_admin_base_url: 'http://127.0.0.1:4434/'
 tawkie_kratos_selfservice_base_url: 'http://127.0.0.1:4455'
 tawkie_kratos_secrets_cookie: '{{ secret_tawkie_kratos_secrets_cookie }}'
 tawkie_kratos_secrets_cipher: '{{ secret_tawkie_kratos_secrets_cipher }}'
-tawkie_kratos_bcrypt_cost: '8'
+tawkie_kratos_bcrypt_cost: '11'
 tawkie_kratos_courier_smtp_uri: '{{ tawkie_mail_uri }}'
 
 tawkie_nats_docker_image: 'nats:2.9.19-scratch'
