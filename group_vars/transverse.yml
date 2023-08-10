@@ -39,11 +39,11 @@ devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
 devture_systemd_service_manager_services_list_auto: |
   {{
-    ([{'name': 'devture-postgres.service', 'priority': 10000}])
+    ([{'name': 'devture-postgres.service', 'priority': 1000}])
     +
-    ([{'name': 'tawkie-kratos.service', 'priority': 9000}])
+    ([{'name': 'tawkie-kratos.service', 'priority': 2000}])
     +
-    ([{'name': 'tawkie-nats.service', 'priority': 8000}])
+    ([{'name': 'tawkie-nats.service', 'priority': 3000}])
     +
-    ([{'name': 'tawkie-traefik.service', 'priority': 5000}])
+    ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
   }}
