@@ -24,6 +24,7 @@ ExecStart=docker run \
 	    --publish 8080:8080 \
 	    --publish 80:80 \
 	    --mount type=bind,src=/tawkie/traefik/config.toml,dst=/etc/traefik/traefik.toml,ro \
+	    --mount type=bind,src=/tawkie/traefik/dynamic,dst=/etc/traefik/dynamic,ro \
 	    --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock,ro \
 	    {{ tawkie_traefik_docker_image }}
 

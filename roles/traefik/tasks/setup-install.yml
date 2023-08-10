@@ -53,3 +53,17 @@
   tags:
     - setup-all
     - setup-traefik
+
+
+- name: Ensure Traefik dynamic service templates set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/dynamic/{{ item }}.toml.j2"
+    dest: "/tawkie/traefik/dynamic/{{ item }}.toml"
+    mode: "0400"
+    owner: "traefik"
+    group: "traefik"
+  loop:
+    - kratos
+  tags:
+    - setup-all
+    - setup-traefik

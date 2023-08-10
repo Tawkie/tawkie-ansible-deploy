@@ -129,8 +129,6 @@
 
 # Enable Docker configuration backend
 [providers.docker]
-  exposedByDefault = false
-
   # Docker server endpoint. Can be a tcp or a unix socket endpoint.
   #
   # Required
@@ -150,5 +148,8 @@
   # Optional
   # Default: true
   #
-  # exposedByDefault = false
+  exposedByDefault = false
 
+# Enable the file provider to define routers / middlewares / services in file
+[providers.file]
+  directory = "/etc/traefik/dynamic"
