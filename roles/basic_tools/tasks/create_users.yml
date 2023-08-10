@@ -80,6 +80,35 @@
     - setup-all
     - setup-kratos
 
+- name: Ensure Kratos Panel group is created
+  ansible.builtin.group:
+    name: "kratos-panel"
+    state: present
+  register: kratos_panel_group
+  tags:
+    - setup-all
+    - setup-kratos-panel
+
+- name: Ensure Kratos Panel user is created
+  ansible.builtin.user:
+    name: "kratos-panel"
+    state: present
+    group: "kratos-panel"
+    system: true
+    shell: '/bin/false'
+  register: kratos_panel_user
+  tags:
+    - setup-kratos-panel
+    - setup-all
+
+- name: Initialize tawkie_kratos_panel_uid and tawkie_kratos_panel_gid
+  ansible.builtin.set_fact:
+    tawkie_kratos_panel_uid: "{{ kratos_panel_user.uid }}"
+    tawkie_kratos_panel_gid: "{{ kratos_panel_group.gid }}"
+  tags:
+    - setup-all
+    - setup-kratos-panel
+
 - name: Ensure Tawkie directory is created
   ansible.builtin.file:
     path: /tawkie
