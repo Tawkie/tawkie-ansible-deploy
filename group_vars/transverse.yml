@@ -31,6 +31,12 @@ tawkie_kratos_secrets_cipher: '{{ secret_tawkie_kratos_secrets_cipher }}'
 tawkie_kratos_bcrypt_cost: '11'
 tawkie_kratos_courier_smtp_uri: '{{ tawkie_mail_uri }}'
 
+tawkie_kratos_panel_repo_username: '{{ secret_tawkie_kratos_panel_repo_username }}'
+tawkie_kratos_panel_repo_password: '{{ secret_tawkie_kratos_panel_repo_password }}'
+tawkie_kratos_panel_repo_url: 'https://{{ tawkie_kratos_panel_repo_username | urlencode }}:{{ tawkie_kratos_panel_repo_password | urlencode }}@github.com/Tawkie/kratos-panel.git'
+tawkie_kratos_panel_repo_version: 'docker'
+
+
 tawkie_nats_docker_image: 'nats:2.9.19-scratch'
 tawkie_nats_container_network: 'tawkie-nats'
 
@@ -46,6 +52,8 @@ devture_systemd_service_manager_services_list_auto: |
     ([{'name': 'tawkie-kratos.service', 'priority': 2000}])
     +
     ([{'name': 'tawkie-nats.service', 'priority': 3000}])
+    +
+    ([{'name': 'tawkie-kratos-panel.service', 'priority': 4000}])
     +
     ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
   }}

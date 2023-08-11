@@ -1,0 +1,33 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Kratos Panel
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-kratos-panel 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-kratos-panel 2>/dev/null || true'
+
+ExecStart=docker run \
+			--rm \
+			--name tawkie-kratos-panel \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/kratos-panel:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_kratos_panel_uid }}:{{ tawkie_kratos_panel_gid }} \
+			--network={{ tawkie_traefik_container_network }} \
+	    tawkie-kratos-panel 
+
+ExecStop=-bash -c 'docker kill tawkie-kratos-panel 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-kratos-panel 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-kratos-panel
+
+[Install]
+WantedBy=multi-user.target

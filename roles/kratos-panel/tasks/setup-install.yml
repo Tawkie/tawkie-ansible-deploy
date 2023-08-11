@@ -1,0 +1,49 @@
+---
+
+- name: Ensure Tawkie Kratos Panel building directory is created
+  ansible.builtin.file:
+    path: '/tawkie-docker-build/tawkie-kratos-panel/'
+    state: directory
+    owner: 'kratos-panel'
+    group: 'kratos-panel'
+    mode: '0700'
+  tags:
+    - setup-all
+    - setup-kratos-panel
+
+- name: Ensure Tawkie Kratos Panel repository is present on self-build
+  ansible.builtin.git:
+    repo: "{{ tawkie_kratos_panel_repo_url }}"
+    version: "{{ tawkie_kratos_panel_repo_version }}"
+    dest: "/tawkie-docker-build/tawkie-kratos-panel"
+    force: "yes"
+  become: true
+  become_user: "kratos-panel" # requires `acl` package to work
+  register: tawkie_kratos_panel_git_pull_results
+  tags:
+    - setup-all
+    - setup-kratos-panel
+
+- name: Ensure Tawkie Kratos Panel container image is built
+  community.docker.docker_image:
+    name: "tawkie-kratos-panel"
+    source: build
+    force_source: "{{ tawkie_kratos_panel_git_pull_results.changed if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
+    force: "{{ omit if ansible_version.major > 2 or ansible_version.minor >= 8 else tawkie_kratos_panel_git_pull_results.changed }}"
+    build:
+      dockerfile: Dockerfile
+      path: "/tawkie-docker-build/tawkie-kratos-panel/"
+      pull: true
+  tags:
+    - setup-all
+    - setup-kratos-panel
+
+- name: Ensure Kratos systemd template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/tawkie-kratos-panel.service.j2"
+    dest: "/etc/systemd/system/tawkie-kratos-panel.service"
+    mode: "0600"
+    owner: "root"
+  tags:
+    - setup-all
+    - setup-kratos-panel

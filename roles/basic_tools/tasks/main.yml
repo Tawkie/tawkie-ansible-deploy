@@ -27,6 +27,15 @@
   when: "not password_auth"
   tags:
     - setup-all
+      
+# Required by chmod
+- name: Install acl package
+  ansible.builtin.apt:
+    name: acl
+    state: present
+  tags:
+    - setup-all
+    - setup-kratos-panel
 
 - name: Include user creation tasks
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/create_users.yml"

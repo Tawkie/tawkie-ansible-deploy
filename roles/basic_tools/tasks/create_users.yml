@@ -118,6 +118,17 @@
     mode: '0771'
   tags:
     - setup-all
+      
+- name: Ensure Tawkie docker building directory is created
+  ansible.builtin.file:
+    path: /tawkie-docker-build
+    state: directory
+    owner: tawkie
+    group: tawkie
+    mode: '0771'
+  tags:
+    - setup-all
+    - setup-kratos-panel
 
 - name: Ensure NATS group is created
   ansible.builtin.group:
