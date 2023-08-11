@@ -64,6 +64,7 @@
     group: "traefik"
   loop:
     - kratos
+    - kratos-panel
   tags:
     - setup-all
     - setup-traefik

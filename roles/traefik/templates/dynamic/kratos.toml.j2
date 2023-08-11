@@ -1,6 +1,6 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
-[http.routers.to-whoami]
+[http.routers.kratos]
 rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/auth/`)"
 # If the rule matches, forward to the whoami service (declared below)
 service = "kratos"
