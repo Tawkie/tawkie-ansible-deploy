@@ -5,6 +5,12 @@ rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/auth/`)"
 # If the rule matches, forward to the whoami service (declared below)
 service = "kratos"
 entryPoints = ["web"]
+middlewares = ["kratos"]
+
+# Strip prefix /auth
+[http.middlewares]
+  [http.middlewares.kratos.stripPrefix]
+    prefixes = ["/auth"]
 
 [http.services]
 # Define how to reach an existing service on our infrastructure
