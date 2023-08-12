@@ -64,6 +64,15 @@
     - setup-kratos
 
 
+- name: Ensure systemd is running before migration
+  ansible.builtin.systemd:
+    name: devture-postgres
+    state: started
+  tags:
+    - setup-all
+    - setup-kratos
+
+
 - name: Migrate database
   ansible.builtin.command:
     cmd: >-
