@@ -27,6 +27,8 @@ ExecStart=docker run \
 	    -c \
 	    'kratos -c /opt/kratos/config/config.yaml serve --watch-courier'
 
+ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-kratos'
+
 ExecStop=-bash -c 'docker kill tawkie-kratos 2>/dev/null || true'
 ExecStop=-bash -c 'docker rm tawkie-kratos 2>/dev/null || true'
 Restart=always

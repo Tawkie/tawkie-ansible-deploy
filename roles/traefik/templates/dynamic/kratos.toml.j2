@@ -1,16 +1,10 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
 [http.routers.kratos]
-rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/auth/`)"
+rule = "Host(`tawkie-traefik`)"
 # If the rule matches, forward to the whoami service (declared below)
 service = "kratos"
-entryPoints = ["web"]
-middlewares = ["kratos"]
-
-# Strip prefix /auth
-[http.middlewares]
-  [http.middlewares.kratos.stripPrefix]
-    prefixes = ["/auth"]
+entryPoints = ["kratos"]
 
 [http.services]
 # Define how to reach an existing service on our infrastructure
