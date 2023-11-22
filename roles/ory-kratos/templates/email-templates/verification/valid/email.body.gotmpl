@@ -1,5 +1,627 @@
-Hi, please verify your account by clicking the following link:
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+@media screen and (min-width: 275px){
+    .flexbox{
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+    }
+   
+    audio, canvas, embed, iframe, img, object, svg, video {
+        display: block;
+        vertical-align: middle;
+    }
+    .body{
+        background-color: rgb(24,24,26);
+    }
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px;
+        align-items: center;
+    }
+    .Tawkimg{
+        width: 50px;
+        height: 50px;
+    }
+    .text-message{
+        color: rgb(254, 234, 119);
+    }
+    .shadow-phone{
+        filter: drop-shadow(0 0 30px #761cae) drop-shadow(0 0 40px #d67e63) drop-shadow(0 0 50px #f9c84c);
+    }
+    .w-\[340px\]{
+        width: 340px;
 
-<a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
+    }
+    .h-\[650px\] {
+        height: 650px;
+    }
+    .relative {
+        position: relative;
+    }
+    .telephone{
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+    }
+    .text-URL{
+        display: flex;
+        justify-content: center;
+        position: relative;
+        bottom: 375px;
+    }
+    .text-black{
+        text-transform: uppercase;
+        text-decoration: underline;
+    }
+    .foot{
+        background: linear-gradient(1deg, #761cae, #d67e63);
+        display: flex;
+        justify-content: center;
+    }
+    .flexbx{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+    }
+    .lienfoot{
+        grid-column: 1;
+    }
+    .lienInscription{
+        grid-column: 2;
+    }
+    .tawkie-lien-foot{
+        grid-column: 3;
+        display: flex;
+        justify-content: center;
+    }
+    .legal-foot{
+        grid-column: 1;
+        grid-row: 3;
+    }
+    .legal-lien-foot{
+        grid-column: 3;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+    }
+    .contact-foot{
+        grid-column: 1;
+        grid-row: 4;
+    }
+    .contact-lien-foot{
+        grid-column: 2/4;
+        grid-row: 4;
+        font-size: 0.8em;
+    }
+}
+@media screen and (min-width: 360px){
+    .flexbox{
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+    }
+   
+    audio, canvas, embed, iframe, img, object, svg, video {
+        display: block;
+        vertical-align: middle;
+    }
+    .body{
+        background-color: rgb(24,24,26);
+    }
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px;
+        align-items: center;
+    }
+    .Tawkimg{
+        width: 50px;
+        height: 50px;
+    }
+    .text-message{
+        color: rgb(254, 234, 119);
+    }
+    .shadow-phone{
+        filter: drop-shadow(0 0 30px #761cae) drop-shadow(0 0 40px #d67e63) drop-shadow(0 0 50px #f9c84c);
+    }
+    .w-\[340px\]{
+        width: 340px;
 
-Thanks in HTML!!
+    }
+    .h-\[650px\] {
+        height: 650px;
+    }
+    .relative {
+        position: relative;
+    }
+    .telephone{
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+    }
+    .text-URL{
+        display: flex;
+        justify-content: center;
+        position: relative;
+        bottom: 375px;
+    }
+    .text-black{
+        text-transform: uppercase;
+        text-decoration: underline;
+    }
+    .foot{
+        background: linear-gradient(1deg, #761cae, #d67e63);
+        display: flex;
+        justify-content: center;
+    }
+    .flexbx{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+    }
+    .lienfoot{
+        grid-column: 1;
+    }
+    .lienInscription{
+        grid-column: 2;
+    }
+    .tawkie-lien-foot{
+        grid-column: 3;
+    }
+    .legal-foot{
+        grid-column: 1;
+        grid-row: 3;
+    }
+    .legal-lien-foot{
+        grid-column: 3;
+        grid-row: 3;
+    }
+    .contact-foot{
+        grid-column: 1;
+        grid-row: 4;
+    }
+    .contact-lien-foot{
+        grid-column: 2/4;
+        grid-row: 4;
+        font-size: 1em;
+    }
+}
+
+@media screen and (min-width: 385px) and (min-height: 840px){
+    .legal-lien-foot{
+        grid-column: 3;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+    }
+    .tawkie-lien-foot{
+        grid-column: 3;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media screen and (min-width: 400px) and (min-height: 890px){
+    .legal-lien-foot{
+        grid-column: 3;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+    }
+    .tawkie-lien-foot{
+        grid-column: 3;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media screen and (min-width: 410px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 33px;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 425px) and (min-height: 930px){
+    .flexbx{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+    }
+    .legal-lien-foot{
+        grid-column: 4;
+        grid-row: 3;
+        display: flex;
+        justify-content: start;
+    }
+    .tawkie-lien-foot{
+        grid-column: 4;
+        display: flex;
+        justify-content: start;
+    }
+}
+@media screen and (min-width: 535px) and (min-height: 720px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 92px;
+        align-items: center;
+    }
+    .legal-lien-foot{
+        grid-column: 3;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+    }
+    .tawkie-lien-foot{
+        grid-column: 3;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media screen and (min-width: 599px) and (min-height: 1020px) {
+  .flexbx {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(50px, auto);
+  }
+  .message-case {
+    display: inline-flex;
+    border-radius: 1rem;
+    justify-content: center;
+    background: linear-gradient(200deg, #761cae, #d67e63);
+    position: relative;
+    bottom: 650px;
+    left: 125px;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 650px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 150px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 720px) and (min-height: 535px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 184px;
+        align-items: center;
+    }
+    .legal-lien-foot{
+        grid-column: 3;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+    }
+    .tawkie-lien-foot{
+        grid-column: 3;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media screen and (min-width: 760px) and (min-height: 1020px){
+    .flexbx{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+    }
+    .legal-lien-foot{
+        grid-column: 5;
+        grid-row: 3;
+        display: flex;
+        justify-content: start;
+    }
+    .tawkie-lien-foot{
+        grid-column: 5;
+        display: flex;
+        justify-content: start;
+    }
+    .lienInscription{
+        grid-column: 3;
+    }
+    .contact-lien-foot{
+        grid-column: 3/5;
+        grid-row: 4;
+    }
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 210px;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 815px) and (min-height: 1175px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 235px;
+        align-items: center;
+    }
+    .flexbx{
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+    }
+    .lienfoot{
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        justify-content: center;
+    }
+    .lienInscription{
+        grid-column: 4;
+        grid-row: 2;
+    }
+    .tawkie-lien-foot{
+        grid-column: 6;
+        grid-row: 2;
+    }
+    .legal-foot{
+        grid-column: 2;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+    }
+    .legal-lien-foot{
+        grid-column: 6;
+        grid-row: 3;
+    }
+    .contact-foot{
+        grid-column: 2;
+        grid-row: 4;
+        display: flex;
+        justify-content: center;
+    }
+    .contact-lien-foot{
+        grid-column: 4/5;
+        grid-row: 4;
+    }
+}
+@media screen and (min-width: 910px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 282px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 910px) and (min-height: 1360px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 280px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 1020px) and (min-height: 600px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 336px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 1020px) and (min-height: 1360px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 335px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 1280px) and (min-height: 800px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 462px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 1360px) and (min-height: 800px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 752px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 1360px) and (min-height: 1020px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 505px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 1900px) and (min-height: 1020px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 786px;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 3800px) and (min-height: 2100px){
+    .message-case{
+        display: inline-flex;
+        border-radius: 1rem;
+        justify-content: center;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        position: relative;
+        bottom: 650px; left: 1743px;
+        align-items: center;
+    }
+}
+    </style>
+</head>
+
+
+<body class="body" style="font-family:source sans pro,sans-serif">
+<div class="telephone">
+    <svg class="h-[650px] w-[340px] shadow-phone" viewBox="0 0 425 856" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_i_7641_636)">
+            <rect x="3" width="419" height="856" rx="62" fill="#e6e6e6"></rect>
+        </g>
+        <rect x="3.5" y=".5" width="418" height="855" rx="61.5" stroke="url(#paint0_linear_7641_636)"></rect>
+        <rect x="7" y="4" width="411" height="848" rx="58" fill="#000"></rect>
+        <g filter="url(#filter1_i_7641_636)">
+            <path d="M0 137.6C0 137.04.0 136.76.108993 136.546.204867 136.358.357847 136.205.546009 136.109.759921 136 1.03995 136 1.6 136H3v30H1.6C1.03995 166 .759921 166 .546009 165.891.357847 165.795.204867 165.642.108993 165.454.0 165.24.0 164.96.0 164.4V137.6z" fill="#ccc"></path>
+        </g>
+        <g filter="url(#filter2_i_7641_636)">
+            <path d="M0 199.6C0 199.04.0 198.76.108993 198.546.204867 198.358.357847 198.205.546009 198.109.759921 198 1.03995 198 1.6 198H3v62H1.6C1.03995 260 .759921 260 .546009 259.891.357847 259.795.204867 259.642.108993 259.454.0 259.24.0 258.96.0 258.4V199.6z" fill="#ccc"></path>
+        </g>
+        <g filter="url(#filter3_i_7641_636)">
+            <path d="M0 279.6C0 279.04.0 278.76.108993 278.546.204867 278.358.357847 278.205.546009 278.109.759921 278 1.03995 278 1.6 278H3v62H1.6C1.03995 340 .759921 340 .546009 339.891.357847 339.795.204867 339.642.108993 339.454.0 339.24.0 338.96.0 338.4V279.6z" fill="#ccc"></path>
+        </g>
+        <g filter="url(#filter4_i_7641_636)">
+            <path d="M422 220H423.4C423.96 220 424.24 220 424.454 220.109 424.642 220.205 424.795 220.358 424.891 220.546 425 220.76 425 221.04 425 221.6v96.8C425 318.96 425 319.24 424.891 319.454 424.795 319.642 424.642 319.795 424.454 319.891 424.24 320 423.96 320 423.4 320H422V220z" fill="#ccc"></path>
+        </g>
+        <rect x="25" y="22" width="375" height="812" rx="40" fill="#fff"></rect>
+        <defs>
+            <filter id="filter0_i_7641_636" x="3" y="0" width="419" height="856" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+                <feOffset></feOffset>
+                <feGaussianBlur stdDeviation="4"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"></feComposite>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"></feColorMatrix>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_7641_636"></feBlend>
+            </filter>
+            <filter id="filter1_i_7641_636" x="0" y="136" width="4" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+                <feOffset dx="1"></feOffset>
+                <feGaussianBlur stdDeviation="1"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"></feComposite>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"></feColorMatrix>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_7641_636"></feBlend>
+            </filter>
+            <filter id="filter2_i_7641_636" x="0" y="198" width="4" height="62" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+                <feOffset dx="1"></feOffset>
+                <feGaussianBlur stdDeviation="1"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"></feComposite>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"></feColorMatrix>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_7641_636"></feBlend>
+            </filter>
+            <filter id="filter3_i_7641_636" x="0" y="278" width="4" height="62" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+                <feOffset dx="1"></feOffset>
+                <feGaussianBlur stdDeviation="1"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"></feComposite>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"></feColorMatrix>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_7641_636"></feBlend>
+            </filter>
+            <filter id="filter4_i_7641_636" x="421" y="220" width="4" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+                <feOffset dx="-1"></feOffset>
+                <feGaussianBlur stdDeviation="1"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"></feComposite>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"></feColorMatrix>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_7641_636"></feBlend>
+            </filter>
+            <linearGradient id="paint0_linear_7641_636" x1="212.5" y1="0" x2="212.5" y2="856" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fff" stop-opacity=".6">
+                </stop>
+                <stop offset="1" stop-color="#fff" stop-opacity=".3">
+                </stop>
+            </linearGradient>
+        </defs>
+    </svg>
+</div>
+<div class="message-case">
+    <img src="https://tawkie.fr/images/logo-v1.2-lourd_hu825643b94366eada4084f15b03cc93e7_1411427_128x0_resize_q75_box_3.png" alt="Tawkie" class="Tawkimg">
+    <div class="">
+        <p class="font-medium text-gray-500">
+        <strong><span class="text-black">Tawkie</span><strong>
+        </p>
+        <p class="text-message">Hi, please verify your account by <br>clicking the following link:</p>
+    </div>
+</div>
+<p class="text-URL"><a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a></p>
+
+<footer class="foot">
+    <div class="flexbx">
+        <h1 class="titre-foot">Tawkie</h1>
+        <h4 class="lienfoot">Liens</h4>
+        <a href="https://framaforms.org/inscription-pour-le-alpha-testing-1679743352" target="_blank" class="lienInscription">Inscrivez-vous</a>
+        <a href="https://tawkie.fr/faq/" class="tawkie-lien-foot">FAQ</a>
+        <h4 class="legal-foot">Légal</h4>
+        <a href="https://tawkie.fr/legal/" class="legal-lien-foot">Légal</a>
+        <h4 class="contact-foot">Contact</h4>
+        <a href="mailto:contact@tawkie.fr" class="contact-lien-foot">contact@tawkie.fr</a>
+    </div>            
+</footer>
+</body>
+</html>
