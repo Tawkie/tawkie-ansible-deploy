@@ -20,7 +20,7 @@ tawkie_panel_host: 'staging.tawkie.fr'
 
 tawkie_mail_username: '{{ secret_tawkie_mail_username }}'
 tawkie_mail_password: '{{ secret_tawkie_mail_password }}'
-tawkie_mail_uri: 'smtps://{{ tawkie_mail_password }}:{{ tawkie_mail_password }}@smtp.tem.scw.cloud:465/'
+tawkie_mail_uri: 'smtps://{{ tawkie_mail_username }}:{{ tawkie_mail_password }}@smtp.tem.scw.cloud:465/'
 
 tawkie_kratos_docker_image: 'oryd/kratos:v0.13.0'
 tawkie_kratos_public_base_url: 'http://127.0.0.1:4433/'
