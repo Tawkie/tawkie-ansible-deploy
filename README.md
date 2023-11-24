@@ -59,3 +59,23 @@ ssh-agent bash        # or another shell
 ssh-add ~/.id/rsa     # or another key
 ansible-playbook ...
 ```
+
+### Sending emails
+
+Emails can be a pain. We currently use [Scaleway's transactional emails][scaleway-emails].
+
+The API key should be created for an application with an IAM policy with permissions for sending
+mail. If you're having trouble with authentication, you can debug with curl :
+
+```
+curl smtps://smtp.tem.scw.cloud:465 --ssl-reqd -v \
+   --mail-from "no-reply@tawkie.fr" \
+   --mail-rcpt "dest@tawkie.fr" \
+   --user "project-id:api-key-private" \
+   -T <(echo -e "From: no-reply@tawkie.fr\nTo: dest@tawkie.fr\nSubject: Your Subject\n\nYour email body.")
+```
+
+The Scaleway Transaction Email panel can be found [here][scaleway-email-panel].
+
+[scaleway-emails]: https://www.scaleway.com/en/docs/managed-services/transactional-email/how-to/generate-api-keys-for-tem-with-iam/
+[scaleway-email-panel]: https://console.scaleway.com/transactional-email/domains
