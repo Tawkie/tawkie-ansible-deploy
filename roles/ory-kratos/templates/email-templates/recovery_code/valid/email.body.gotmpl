@@ -31,9 +31,39 @@
         justify-content: center;
         margin-top: 5%;
     }
-    .message{
+    .Tawkimg{
+        height: 50px;
+    }
+    .message-p{
         display: flex;
-        
+        justify-content: center;
+        align-items: center;
+    }
+    .message{
+        display: inline-flex;
+        background: linear-gradient(200deg, #761cae, #d67e63);
+        border-radius: 1rem;
+        color: rgb(254, 234, 119);
+        position: relative;
+        bottom: 600px;
+    }
+    .recovery-p{
+        display: flex;
+        justify-content: center;
+    }
+    .recovery{
+        display: inline-flex;
+        position: relative;
+        bottom: 350px;
+    }
+    .flexbx-p{
+        display: flex;
+        justify-content: center;
+    }
+    .flexbx{
+        display: inline-flex;
+        position: relative;
+        bottom: 200px;
     }
 }
     </style>
@@ -125,10 +155,14 @@
         Hi,please recover access to your account <br>by entering the following code:
     </div>
 </div>
-<div class="recovery"
-    {{ .RecoveryCode }}
+<div class="recovery-p">
+    <div class="recovery">
+        {{ .RecoveryCode }}
+    </div>
 </div>
-<div class="flexbx">
-    <a href="mailto:contact@tawkie.fr" class="contact-lien-foot">contact@tawkie.fr</a>
+<div class="flexbx-p">
+    <div class="flexbx">
+        <a href="mailto:contact@tawkie.fr" class="contact-lien-foot">contact@tawkie.fr</a>
+    </div>
 </div> 
 </body>
