@@ -22,6 +22,7 @@
     group: "kratos"
   with_items:
     - "/tawkie/kratos"
+    - "/tawkie/kratos/email-templates"
   tags:
     - setup-all
     - setup-kratos
@@ -56,7 +57,7 @@
     src: "{{ role_path }}/templates/email-templates"
     dest: "/tawkie/kratos/"
     mode: "0400"
-    directory_mode: "0400"
+    directory_mode: "0500"
     owner: "kratos"
     group: "kratos"
   tags:
