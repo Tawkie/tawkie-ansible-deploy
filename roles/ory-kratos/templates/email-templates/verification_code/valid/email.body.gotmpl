@@ -8,51 +8,47 @@
 <body class="body" style="background-color: rgb(24, 24, 26); font-family:source sans pro,sans-serif;">
 <div >
   <div style="padding: 30px 0; margin: 0 auto; max-width: 450px; color: white;">
-    <h1 style="color: #FEEA77; display: flex; justify-content: center; margin-bottom: 10px;">Email verification</h1>
+    <h1 style="color: #FEEA77; display: flex; padding-bottom: 20px; justify-content: center;">Email verification</h1>
     <div class="telephone">
-    <div style="filter: drop-shadow(0 0 30px #761cae) drop-shadow(0 0 40px #d67e63) drop-shadow(0 0 50px #f9c84c); border-radius: 40px;display: flex; justify-content: center;  align-items: center;">
-    <div style="position: relative; width: 340px; height: 650px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); ">
-        <div style="position: absolute; top: 25px; left: 0; width: 100%; height: 100%; background: #e6e6e6; border-radius: 40px;"></div>
-        <div style="position: absolute; top: 32px; left: 3.3px; width: 98%; height: 98%; background: #000; border-radius: 40px;"></div>
-        <div style="position: absolute; top: 40px; left: 17px; width: 90%; height: 95%; background: #fff; border-radius: 62px;">
-            <!-- Contenu de l'écran du téléphone -->
-        </div>
+      <div style="filter: drop-shadow(0 0 30px #761cae) drop-shadow(0 0 40px #d67e63) drop-shadow(0 0 50px #f9c84c); border-radius: 40px;display: flex ; align-items: center;justify-content: center;">
+        <div style="position: relative; width: 340px; height: 650px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); ">
+          <div style="position: absolute; top: 25px; left: 0; width: 100%; height: 100%; background: #e6e6e6; border-radius: 40px;"></div>
+          <div style="position: absolute; top: 32px; left: 3.3px; width: 98%; height: 98%; background: #000; border-radius: 40px;"></div>
+          <div style="position: absolute; top: 40px; left: 17px; width: 90%; height: 95%; background: #fff; border-radius: 62px;">
+            <div class="message-parent" style="display:flex;justify-content:center;align-items:center;">
+              <div class="message-case" style="display:inline-flex;border-radius:1rem;background:linear-gradient(200deg, #761cae, #d67e63);align-items:center;">
+                <img class="Tawkimg" src="https://tawkie.fr/images/logo-v1.2-lourd_hu825643b94366eada4084f15b03cc93e7_1411427_128x0_resize_q75_box_3.png" alt="Tawkie" style="height: 50px; padding: 5px;">
+                <p style=" display: flex; color: #FEEA77;">
+                Hi, 
+                You're almost set to start enjoying Tawkie. Simply click the link below to verify your email address
+                </p>
+              </div>
+            </div>
+            <div class="button-p">
+              <div class="button" style="padding: 50px 0px 25px 17%;">
+                <a 
+                href="{{ .VerificationURL }}"
+                style="background-color: #feea77; color: #18181A; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+                Verify email address
+                </a>
+              </div>
+            </div>
+            <div class="message-parentI" style="padding: 25px 0px 25px 0px;">
+              <div class="message-caseI" style="display: inline-flex; border-radius: 1rem; background: linear-gradient(200deg, #761cae, #d67e63);">
+                <img src="https://tawkie.fr/images/logo-v1.2-lourd_hu825643b94366eada4084f15b03cc93e7_1411427_128x0_resize_q75_box_3.png" alt="Tawkie" class="Tawkimg" style="height: 50px; padding: 5px;">
+                <p style="margin: 12px 0; color: #FEEA77;">or enter the following code on the verification page:</p>
+              </div>
+            </div>
+            <div class="lien" style="font-size: 1.2rem; color: black; text-align: center;padding: 50px 0px 0px 0px;">
+              {{ .VerificationCode }}
+            </div>
+            <div class="flexbx" style="padding: 200px 0px 0px 25%;">
+              <a href="mailto:contact@tawkie.fr" class="contact-lien-foot" style="color: black;">contact@tawkie.fr</a>
+            </div> 
+          </div>
+        </div>       
+      </div>
     </div>
-</div>
-</div>
-<div class="message-parent" style="display: flex; justify-content: center; align-items: center;">
-  <div class="message-case" style="display: inline-flex; border-radius: 1rem; background: linear-gradient(200deg, #761cae, #d67e63); position: relative; bottom: 640px; align-items: center;">
-        <p style=" display: flex; color: #FEEA77;">
-        <img class="Tawkimg" src="https://tawkie.fr/images/logo-v1.2-lourd_hu825643b94366eada4084f15b03cc93e7_1411427_128x0_resize_q75_box_3.png" alt="Tawkie" style="height: 50px;">
-        Hi, 
-        You're almost set to start enjoying Tawkie. Simply click the link below to verify your email address
-      </p>
   </div>
 </div>
-<div class="button-p">
-  <div class="button" style="display: flex; justify-content: center; position: relative; bottom: 550px;">
-      <a 
-        href="{{ .VerificationURL }}"
-        style="background-color: #feea77; color: #18181A; padding: 10px 20px; border-radius: 5px; text-decoration: none;"
-      >
-        Verify email address
-      </a>
-  </div>
-</div>
-<div class="message-parentI" style="display: flex; justify-content: center; align-items: center;">
-  <div class="message-caseI" style="display: inline-flex; border-radius: 1rem; background: linear-gradient(200deg, #761cae, #d67e63); position: relative; bottom: 455px; align-items: center;">
-    <img src="https://tawkie.fr/images/logo-v1.2-lourd_hu825643b94366eada4084f15b03cc93e7_1411427_128x0_resize_q75_box_3.png" alt="Tawkie" class="Tawkimg" style="height: 50px;">
-    <p style="margin: 12px 0; color: #FEEA77;">or enter the following code on the verification page:</p>
-  </div>
-</div>
-    <div class="lien" style="font-size: 1.2rem; color: black; text-align: center; position: relative; bottom: 380px;">
-      {{ .VerificationCode }}
-    </div>
-  </div>
-</div>
-<footer class="foot" style="display: flex; justify-content: center;">
-    <div class="flexbx" style="position: relative; bottom: 260px;">
-        <a href="mailto:contact@tawkie.fr" class="contact-lien-foot" style="font-color: black; color: black;">contact@tawkie.fr</a>
-    </div>            
-</footer>
 </body>
