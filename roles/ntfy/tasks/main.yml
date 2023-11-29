@@ -1,3 +1,13 @@
+- name: Ensure crontab is installed
+  ansible.builtin.apt:
+    name: cron
+    state: present
+  tags:
+    - setup-all
+    - setup-ntfy
+    - setup-ntfy-pam
+    - setup-ntfy-apt-upgradable
+
 - name: Include ntfy pam tasks
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/pam.yml"
   tags:
