@@ -5,5 +5,5 @@ staging ansible_host=staging.tawkie.fr ansible_user=debian
 gateway-0 ansible_host=loveto.party ansible_user=paul ansible_port=50022
 
 [matrix]
-matrix-loveto ansible_host=matrix.loveto.party ansible_user=paul
-matrix-alpha ansible_host=10.0.0.12 ansible_user=paul
+matrix-loveto ansible_host=matrix.loveto.party ansible_user=debian
+matrix-alpha ansible_host=51.178.130.15 ansible_port=32508 ansible_user=debian
