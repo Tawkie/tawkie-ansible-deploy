@@ -189,3 +189,33 @@
   tags:
     - setup-all
     - setup-traefik
+
+- name: Ensure Apache group is created
+  ansible.builtin.group:
+    name: "apache"
+    state: present
+  register: apache_group
+  tags:
+    - setup-all
+    - setup-static-apache2
+
+
+- name: Ensure Apache user is created
+  ansible.builtin.user:
+    name: "apache"
+    state: present
+    group: "apache"
+    system: true
+    shell: '/bin/false'
+  register: apache_user
+  tags:
+    - setup-all
+    - setup-static-apache2
+
+- name: Initialize tawkie_apache_uid and tawkie_apache_gid
+  ansible.builtin.set_fact:
+    tawkie_traefik_uid: "{{ apache_user.uid }}"
+    tawkie_traefik_gid: "{{ apache_group.gid }}"
+  tags:
+    - setup-all
+    - setup-static-apache2
