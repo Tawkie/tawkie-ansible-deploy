@@ -11,7 +11,7 @@
     - kratos-panel
     - nats
     - traefik
-    - static-apache2
+    - staticapache2
 
     - when: devture_systemd_service_manager_enabled | bool
       role: com.devture.ansible.role.systemd_service_manager

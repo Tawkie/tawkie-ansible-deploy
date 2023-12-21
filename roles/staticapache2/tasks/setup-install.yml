@@ -1,28 +1,28 @@
 - name: Ensure Tawkie Apache Panel building directory is created
   ansible.builtin.file:
-    path: '/tawkie/static-apache2/'
+    path: '/tawkie/staticapache2/'
     state: directory
-    owner: 'static-apache2'
-    group: 'static-apache2'
+    owner: 'staticapache2'
+    group: 'staticapache2'
     mode: '0700'
   tags:
     - setup-all
-    - setup-static-apache2
+    - setup-staticapache2
 
 - name: Ensure Apache config template set
   ansible.builtin.template:
     src: "{{ role_path }}/templates/index.html.j2"
-    dest: "/tawkie/static-apache2/index.html"
+    dest: "/tawkie/staticapache2/index.html"
     mode: "0400"
-    owner: "static-apache2"
-    group: "static-apache2"
+    owner: "staticapache2"
+    group: "staticapache2"
   tags:
     - setup-all
-    - setup-satic-apache2
+    - setup-saticapache2
 
 - name: Ensure Apache image is pulled
   community.docker.docker_image:
-    name: "{{ tawkie_static-apache2_docker_image }}"
+    name: "{{ tawkie_staticapache2_docker_image }}"
     source: "pull"
   register: result
   retries: "{{ devture_playbook_help_container_retries_count }}"
@@ -30,22 +30,22 @@
   until: result is not failed
   tags:
     - setup-all
-    - setup-static-apache2
+    - setup-staticapache2
 
 - name: Ensure Apache container network is created
   community.general.docker_network:
-    name: "{{ tawkie_Apache_container_network }}"
+    name: "{{ tawkie_staticapache2_container_network }}"
     driver: bridge
   tags:
     - setup-all
-    - setup-static-apache2
+    - setup-staticapache2
 
 - name: Ensure Apache systemd template set
   ansible.builtin.template:
-    src: "{{ role_path }}/templates/tawkie-static-apache2.service.j2"
-    dest: "/etc/systemd/system/tawkie-statis-apache2.service"
+    src: "{{ role_path }}/templates/index.html.j2"
+    dest: "/etc/systemd/system/index.html"
     mode: "0600"
     owner: "root"
   tags:
     - setup-all
-    - setup-static-apache2
+    - setup-staticapache2

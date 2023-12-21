@@ -1,0 +1,36 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Apache
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-staticapache2 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-staticapache2 2>/dev/null || true'
+
+ExecStart=docker run \
+			--rm \
+			--name tawkie-staticapache2 \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/kratos:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_staticapache2_uid }}:{{ tawkie_staticapache2_gid }} \
+			--network={{ tawkie_staticapache2_container_network }} \
+	    --mount type=bind,src=/tawkie/staticapache2/config.toml,dst=/etc/staticapache2/staticapache2.toml,ro \
+	    --mount type=bind,src=/tawkie/staticapache2/dynamic,dst=/etc/staticapache2/dynamic,ro \
+	    --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock,ro \
+	    {{ tawkie_staticapache2_docker_image }} 
+
+ExecStop=-bash -c 'docker kill tawkie-staticapache2 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-staticapache2 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-staticapache2
+
+[Install]
+WantedBy=multi-user.target

@@ -2,4 +2,4 @@
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup-install.yml"
   tags:
     - setup-all
-    - setup-static-apache2
+    - setup-staticapache2
