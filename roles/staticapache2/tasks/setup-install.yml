@@ -1,24 +1,27 @@
 - name: Ensure Tawkie Apache Panel building directory is created
   ansible.builtin.file:
-    path: '/tawkie/staticapache2/'
+    path: '{{ item }}'
     state: directory
     owner: 'staticapache2'
     group: 'staticapache2'
-    mode: '0700'
+    mode: '0705'
+  with_items:
+    - '/tawkie/staticapache2/'
+    - '/tawkie/staticapache2/html/'
   tags:
     - setup-all
     - setup-staticapache2
 
-- name: Ensure Apache config template set
+- name: Ensure static files are copied
   ansible.builtin.template:
     src: "{{ role_path }}/templates/index.html.j2"
-    dest: "/tawkie/staticapache2/index.html"
-    mode: "0400"
+    dest: "/tawkie/staticapache2/html/index.html"
+    mode: "0404"
     owner: "staticapache2"
     group: "staticapache2"
   tags:
     - setup-all
-    - setup-saticapache2
+    - setup-staticapache2
 
 - name: Ensure Apache image is pulled
   community.docker.docker_image:
@@ -42,8 +45,8 @@
 
 - name: Ensure Apache systemd template set
   ansible.builtin.template:
-    src: "{{ role_path }}/templates/index.html.j2"
-    dest: "/etc/systemd/system/index.html"
+    src: "{{ role_path }}/templates/tawkie-staticapache2.service.j2"
+    dest: "/etc/systemd/system/tawkie-staticapache2.service"
     mode: "0600"
     owner: "root"
   tags:
