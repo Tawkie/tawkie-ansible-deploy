@@ -28,6 +28,8 @@ ExecStart=docker run \
 	    --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock,ro \
 	    {{ tawkie_traefik_docker_image }}
 
+ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_staticapache2_container_network }} tawkie-traefik'
+
 ExecStop=-bash -c 'docker kill tawkie-traefik 2>/dev/null || true'
 ExecStop=-bash -c 'docker rm tawkie-traefik 2>/dev/null || true'
 Restart=always
