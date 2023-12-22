@@ -65,6 +65,7 @@
   loop:
     - kratos
     - kratos-panel
+    - staticapache2
   tags:
     - setup-all
     - setup-traefik

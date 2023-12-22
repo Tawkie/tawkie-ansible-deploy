@@ -45,6 +45,7 @@ tawkie_traefik_container_network: 'tawkie-traefik'
 
 tawkie_staticapache2_container_network: 'tawkie-staticapache2'
 tawkie_staticapache2_docker_image: 'httpd:2.4'
+tawkie_staticapache2_host: 'staging.tawkie.fr'
 
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
