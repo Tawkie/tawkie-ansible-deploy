@@ -58,5 +58,7 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': 'tawkie-kratos-panel.service', 'priority': 4000}])
     +
+    ([{'name': 'tawkie-staticapache2.service', 'priority': 6000}])
+    +
     ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
   }}
