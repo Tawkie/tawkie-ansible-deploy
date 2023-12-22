@@ -199,7 +199,6 @@
     - setup-all
     - setup-staticapache2
 
-
 - name: Ensure Apache user is created
   ansible.builtin.user:
     name: "staticapache2"
@@ -214,8 +213,8 @@
 
 - name: Initialize tawkie_apache_uid and tawkie_apache_gid
   ansible.builtin.set_fact:
-    tawkie_traefik_uid: "{{ apache_user.uid }}"
-    tawkie_traefik_gid: "{{ apache_group.gid }}"
+    tawkie_staticapache2_uid: "{{ apache_user.uid }}"
+    tawkie_staticapache2_gid: "{{ apache_group.gid }}"
   tags:
     - setup-all
     - setup-staticapache2
