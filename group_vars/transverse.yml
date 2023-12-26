@@ -46,6 +46,13 @@ tawkie_traefik_container_network: 'tawkie-traefik'
 tawkie_wireguard_admin_docker_image: 'linuxserver/wireguard:1.0.20210914'
 tawkie_wireguard_admin_container_network: 'tawkie-wireguard-admin'
 tawkie_wireguard_admin_listen_port: '5530'
+tawkie_wireguard_admin_conf_interface_ip: '10.0.4.1'
+tawkie_wireguard_admin_conf_interface_private_key: '{{ secret_tawkie_wireguard_admin_conf_interface_private_key }}'
+# interface public key : vDFTT+5yIYK1LOicDkLAUO0O4MoSZ3VJVMmthpyeyW0=
+tawkie_wireguard_admin_conf_peer_ip: '10.0.4.2'
+tawkie_wireguard_admin_conf_peer_public_key: '{{ secret_tawkie_wireguard_admin_conf_peer_public_key }}'
+# peer private key : see matrix ansible deploy
+
 
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
