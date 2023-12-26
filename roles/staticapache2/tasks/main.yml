@@ -3,3 +3,8 @@
   tags:
     - setup-all
     - setup-staticapache2
+- name: Include website tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/website.yml"
+  tags:
+    - setup-all
+    - setup-staticapache2

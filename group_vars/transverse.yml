@@ -37,15 +37,26 @@ tawkie_kratos_panel_repo_url: 'https://{{ tawkie_kratos_panel_repo_username | ur
 tawkie_kratos_panel_repo_version: 'docker'
 
 
+
 tawkie_nats_docker_image: 'nats:2.9.19-scratch'
 tawkie_nats_container_network: 'tawkie-nats'
 
 tawkie_traefik_docker_image: 'traefik:v2.10.3'
 tawkie_traefik_container_network: 'tawkie-traefik'
 
+<<<<<<< HEAD
 tawkie_staticapache2_container_network: 'tawkie-staticapache2'
 tawkie_staticapache2_docker_image: 'httpd:2.4'
 tawkie_staticapache2_host: 'staging.tawkie.fr'
+=======
+tawkie_staticapache2_uid: 'staticapache2'
+tawkie_staticapache2_gid: 'staticapache2'
+tawkie_staticapache2_container_network: 'tawkie-staticapache2'
+tawkie_staticapache2_panel_repo_username: '{{ secret_tawkie_staticapache2_panel_repo_username }}'
+tawkie_staticapache2_panel_repo_password: '{{ secret_tawkie_staticapache2_panel_repo_password }}'
+tawkie_staticapache2_panel_repo_url: 'https://{{ tawkie_staticapache2_panel_repo_username | urlencode }}:{{ tawkie_staticapache2_panel_repo_password | urlencode }}@github.com/Tawkie/staticapache2.git'
+tawkie_staticapache2_docker_image: 'httpd:2.4'
+>>>>>>> 0a68cbf (feat[staticapache2]:add repo url staticapache2)
 
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
@@ -59,7 +70,14 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': 'tawkie-kratos-panel.service', 'priority': 4000}])
     +
+<<<<<<< HEAD
     ([{'name': 'tawkie-staticapache2.service', 'priority': 6000}])
     +
     ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
   }}
+=======
+    ([{'name': 'tawkie-staticapache2-panel.service', 'priority': 6000}])
+    +
+    ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
+  }}
+>>>>>>> 0a68cbf (feat[staticapache2]:add repo url staticapache2)
