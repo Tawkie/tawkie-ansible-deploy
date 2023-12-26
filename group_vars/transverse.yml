@@ -43,6 +43,10 @@ tawkie_nats_container_network: 'tawkie-nats'
 tawkie_traefik_docker_image: 'traefik:v2.10.3'
 tawkie_traefik_container_network: 'tawkie-traefik'
 
+tawkie_wireguard_admin_docker_image: 'linuxserver/wireguard:1.0.20210914'
+tawkie_wireguard_admin_container_network: 'tawkie-wireguard-admin'
+tawkie_wireguard_admin_listen_port: '5530'
+
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
 devture_systemd_service_manager_services_list_auto: |
@@ -54,6 +58,8 @@ devture_systemd_service_manager_services_list_auto: |
     ([{'name': 'tawkie-nats.service', 'priority': 3000}])
     +
     ([{'name': 'tawkie-kratos-panel.service', 'priority': 4000}])
+    +
+    ([{'name': 'tawkie-wireguard-admin.service', 'priority': 4000}])
     +
     ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
   }}
