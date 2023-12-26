@@ -118,7 +118,7 @@
     mode: '0771'
   tags:
     - setup-all
-      
+
 - name: Ensure Tawkie docker building directory is created
   ansible.builtin.file:
     path: /tawkie-docker-build
@@ -182,6 +182,7 @@
     - setup-all
     - setup-traefik
 
+
 - name: Initialize tawkie_traefik_uid and tawkie_traefik_gid
   ansible.builtin.set_fact:
     tawkie_traefik_uid: "{{ traefik_user.uid }}"
@@ -189,3 +190,32 @@
   tags:
     - setup-all
     - setup-traefik
+
+- name: Ensure wireguard-admin group is created
+  ansible.builtin.group:
+    name: "wireguard-admin"
+    state: present
+  register: wireguard_admin_group
+  tags:
+    - setup-all
+    - setup-wireguard-admin
+
+- name: Ensure wireguard-admin user is created
+  ansible.builtin.user:
+    name: "wireguard-admin"
+    state: present
+    group: "wireguard-admin"
+    system: true
+    shell: '/bin/false'
+  register: wireguard_admin_user
+  tags:
+    - setup-all
+    - setup-wireguard-admin
+
+- name: Initialize tawkie_wireguard_admin_uid and tawkie_wireguard_admin_gid
+  ansible.builtin.set_fact:
+    tawkie_wireguard_admin_uid: "{{ wireguard_admin_user.uid }}"
+    tawkie_wireguard_admin_gid: "{{ wireguard_admin_group.gid }}"
+  tags:
+    - setup-all
+    - setup-wireguard-admin

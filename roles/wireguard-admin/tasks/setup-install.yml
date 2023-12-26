@@ -1,0 +1,56 @@
+- name: Ensure wireguard image is pulled
+  community.docker.docker_image:
+    name: "{{ tawkie_wireguard_admin_docker_image }}"
+    source: "pull"
+  register: result
+  retries: "{{ devture_playbook_help_container_retries_count }}"
+  delay: "{{ devture_playbook_help_container_retries_delay }}"
+  until: result is not failed
+  tags:
+    - setup-all
+    - setup-wireguard-admin
+
+
+- name: Ensure wireguard-admin systemd template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/tawkie-wireguard-admin.service.j2"
+    dest: "/etc/systemd/system/tawkie-wireguard-admin.service"
+    mode: "0600"
+    owner: "root"
+  tags:
+    - setup-all
+    - setup-wireguard-admin
+
+
+- name: Ensure wireguard-admin paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0500"
+    owner: "wireguard-admin"
+    group: "wireguard-admin"
+  with_items:
+    - "/tawkie/wireguard-admin"
+  tags:
+    - setup-all
+    - setup-wireguard-admin
+
+
+- name: Ensure wireguard-admin config template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/wg0.conf.j2"
+    dest: "/tawkie/wireguard-admin/wg0.conf"
+    mode: "0400"
+    owner: "wireguard-admin"
+  tags:
+    - setup-all
+    - setup-wireguard-admin
+
+
+- name: Ensure wireguard-admin container network is created
+  community.general.docker_network:
+    name: "{{ tawkie_wireguard_admin_container_network }}"
+    driver: bridge
+  tags:
+    - setup-all
+    - setup-wireguard-admin
