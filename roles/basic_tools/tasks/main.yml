@@ -46,3 +46,4 @@
     - setup-kratos-panel
     - setup-nats
     - setup-traefik
+    - setup-staticapache2

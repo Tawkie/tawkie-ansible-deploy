@@ -1,11 +1,46 @@
-Hi,
-
-please verify your account by entering the following code:
-
-{{ .VerificationCode }}
-
-or clicking the following link:
-
-{{ .VerificationURL }}
-
-Thanks TXT
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email verification</title>
+</head>
+<body class="body" style="background-color: rgb(24, 24, 26); font-family:source sans pro,sans-serif;">
+<div >
+    <div style="padding: 30px 0; margin: 0 auto; max-width: 450px; color: white;">
+        <div class="telephone" style="margin-top: 5%;">
+            <div style=" border-radius: 40px;display: flex ; align-items: center;justify-content: center;">
+                <div style="position: relative; width: 340px; height: 650px; filter: drop-shadow(0 0 30px #761cae) drop-shadow(0 0 40px #d67e63) drop-shadow(0 0 50px #f9c84c);">
+                    <div style="position: absolute; top: 25px; left: 0; width: 100%; height: 100%; background: #e6e6e6; border-radius: 40px; ">
+                        <div style="background: black; border-radius: 40px; width: 330px; height: 640px;margin: 5px 0px 0px 5px;">
+                            <div style="background: white; border-radius: 40px; width: 320px; height: 630px;margin: 5px 0px 0px 5px;">
+                                <div class="message-parentI" style="display: flex;justify-content: center;">
+                                    <div class="message-caseI" style="display: inline-flex;border-radius: 1rem;background: linear-gradient(200deg, #761cae, #d67e63);">
+                                        <img src="https://tawkie.fr/images/logo-v1.2-lourd_hu825643b94366eada4084f15b03cc93e7_1411427_128x0_resize_q75_box_3.png" alt="Tawkie" class="Tawkimg" style="height: 50px; margin: 10px 5px 0px 5px;">
+                                        <p class="mess-un">Hi,please verify your account <br>by entering the following code:</p>
+                                    </div>
+                                </div>
+                                <div class="code" style="color: black; margin-top: 100px; margin-left: 20%;display: inline-flex; background-color: #feea77; color: #18181A; border-radius: 5px;padding: 10px 20px;">
+                                    {{ .VerificationCode }}
+                                </div>
+                                <div class="message-parentII" style="display: flex;justify-content: center; margin-top: 100px;">
+                                    <div class="message-caseII" style="display: inline-flex;border-radius: 1rem;background: linear-gradient(200deg, #761cae, #d67e63);">
+                                        <img src="https://tawkie.fr/images/logo-v1.2-lourd_hu825643b94366eada4084f15b03cc93e7_1411427_128x0_resize_q75_box_3.png" alt="Tawkie" class="Tawkimg" style="height: 50px; margin: 0px 5px 0px 5px;">
+                                        <p class="mess-deux">Or clicking the following link:</p>
+                                    </div>
+                                </div>
+                                <div class="url" style="color: black; margin-top: 100px; margin-left: 20%;display: inline-flex; background-color: #feea77; color: #18181A; border-radius: 5px;padding: 10px 20px;">
+                                    {{ .VerificationURL }}
+                                </div>
+                                <div class="flexbx" style="margin-top: 110px; margin-left: 30%;">
+                                    <a href="mailto:contact@tawkie.fr" style="color: black;">contact@tawkie.fr</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

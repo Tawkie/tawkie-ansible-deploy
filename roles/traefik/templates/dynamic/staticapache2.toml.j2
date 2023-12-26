@@ -1,0 +1,13 @@
+#:schema https://json.schemastore.org/traefik-v2-file-provider.json
+
+[http.routers.staticapache2]
+rule = "Host(`{{ tawkie_staticapache2_host }}`) && PathPrefix(`/`) && !PathPrefix(`/panel/`)"
+# If the rule matches, forward to the kratos-panel service (declared below)
+service = "staticapache2"
+entryPoints = ["web"]
+
+[http.services]
+# Define how to reach an existing service on our infrastructure
+[http.services.staticapache2.loadBalancer]
+[[http.services.staticapache2.loadBalancer.servers]]
+url = "http://tawkie-staticapache2:80"
