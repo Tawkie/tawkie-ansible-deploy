@@ -46,3 +46,4 @@
     - setup-kratos-panel
     - setup-nats
     - setup-traefik
+    - setup-wireguard-admin

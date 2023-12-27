@@ -11,6 +11,7 @@
     - kratos-panel
     - nats
     - traefik
+    - wireguard-admin
 
     - when: devture_systemd_service_manager_enabled | bool
       role: com.devture.ansible.role.systemd_service_manager

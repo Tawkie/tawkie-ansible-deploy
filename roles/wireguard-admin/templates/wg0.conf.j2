@@ -1,0 +1,9 @@
+[Interface]
+Address = {{ tawkie_wireguard_admin_conf_interface_ip }}/24
+SaveConfig = false
+ListenPort = 51820
+PrivateKey = {{ tawkie_wireguard_admin_conf_interface_private_key }}
+
+[Peer]
+PublicKey = {{ tawkie_wireguard_admin_conf_peer_public_key }}
+AllowedIPs = {{ tawkie_wireguard_admin_conf_peer_ip }}/32
