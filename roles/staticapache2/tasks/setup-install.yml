@@ -52,3 +52,12 @@
   tags:
     - setup-all
     - setup-staticapache2
+
+- name: Install hugo packages
+  apt:
+    name: "hugo"
+    state: latest
+  changed_when: yes
+  tags:
+    - setup-all
+    - setup-staticapache2
