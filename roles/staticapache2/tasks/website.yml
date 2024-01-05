@@ -1,0 +1,28 @@
+- name: Install Hugo packages
+  apt:
+    name: "hugo"
+    state: latest
+  changed_when: yes
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Clone sources code website
+  ansible.builtin.git:
+    repo: "{{ tawkie_website_repo_url }}"
+    version: "{{ tawkie_website_repo_version }}"
+    dest: "/tawkie-docker-build/tawkiefr-website"
+    force: "yes"
+    update: yes
+  register: tawkie_website_git_pull_results
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Construire le site Hugo
+  command: "hugo"
+  args:
+    chdir: "/tawkie-docker-build/tawkiefr-website"
+  tags:
+    - setup-all
+    - setup-staticapache2

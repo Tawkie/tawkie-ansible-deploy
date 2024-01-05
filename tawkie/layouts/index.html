@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}" prefix="og: https://ogp.me/ns#">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{{ i18n "meta_title" }}</title>
+    <meta name="description" content="{{ i18n "meta_description" }}" />
+    {{ $favicon := resources.Get "favicon.ico" }}
+    <link rel="icon" href="{{ $favicon.Permalink }}" />
+    <meta name="keywords" content="{{ i18n "meta_keywords"}}" />
+    <meta name="og:site_name" content="{{ i18n "meta_title" }}" />
+    <meta name="og:description" content="{{ i18n "meta_description" }}" />
+    <meta name="og:type" content="website" />
+    {{ with resources.Get "images/logo-v1.2-lourd-no-bg.png" }}
+      {{ with .Resize "128x png q75" }}
+        <meta name="og:image" content="{{ .Permalink }}">
+      {{ end }}
+    {{ end }}
+    <meta name="og:url" content="{{ .Page.Permalink }}" />
+    <meta name="og:locale" content="{{ .Lang }}" />
+    {{ range .Translations }}
+    <meta name="og:locale:alternate" content="{{ .Lang }}" />
+    {{ end }}
+    <!-- <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/> -->
+    {{ $css := resources.Get "css/index.css" | resources.Fingerprint "md5" }}
+    <link rel="stylesheet" href="{{ $css.Permalink }}" />
+  </head>
+  <body
+    class="bg-[#18181A]"
+    style="font-family: 'Source Sans Pro', sans-serif"
+  >
+    <!-- Nav -->
+    <div class="container">
+      {{ partial "site-nav.html" . }}
+    </div>
+    <!-- Hero -->
+    <div class="container">
+      <div
+        class="flex items-center lg:flex-row flex-col py-20 space-y-8 sm:space-y-20"
+      >
+        <div class="space-y-10">
+          <!-- Text -->
+          <div class="space-y-5">
+            <!-- Pill -->
+            <!-- <div -->
+            <!--   class="flex w-fit mx-auto lg:mx-0 items-center gap-2 px-5 py-1 text-white bg-brand-purple-alt rounded-full" -->
+            <!-- > -->
+            <!--   <p class="text-sm lg:text-lg font-medium"> -->
+            <!--     Suis la campagne sur Kickstarter -->
+            <!--   </p> -->
+            <!--   {{ partial "svg/arrow-right.html" . }} -->
+            <!-- </div> -->
+            <h1
+              class="text-brand-yellow text-5xl md:text-7xl lg:text-7xl xl:text-9xl font-bold lg:text-left text-center"
+            >
+              {{ i18n "hero_title" . }}
+            </h1>
+            <p
+              class="text-brand-orange text-2xl lg:text-3xl font-medium max-w-lg lg:max-w-none lg:text-left text-center lg:mx-0 mx-auto"
+            >
+              {{ i18n "hero_subtitle" . }}
+            </p>
+          </div>
+          <!-- Buttons -->
+          <div class="space-x-6 lg:text-left text-center">
+            <a
+              href="#section_1"
+              class="inline-flex bg-white hover:bg-gray-200 transition-colors text-black px-4 py-3 rounded-md text-lg"
+            >
+              {{ i18n "hero_button" . }}
+            </a>
+          </div>
+          <p
+            class="text-gray-100 max-w-sm lg:max-w-none lg:text-left text-center lg:mx-0 mx-auto"
+          >
+            {{ i18n "hero_small_text" . }}
+          </p>
+        </div>
+        <div class="flex sm:w-full justify-center sm:scale-100 scale-[65%]">
+          {{ partial "phone.html" . }}
+        </div>
+      </div>
+    </div>
+    <!-- Section -->
+    <div id="section_1" class="container">
+      <div class="mt-32 space-y-28">
+        <h2
+          class="text-4xl md:text-5xl font-medium text-brand-yellow text-center mx-auto max-w-3xl"
+        >
+          {{ i18n "section_1_title" . }}
+        </h2>
+        <div class="flex flex-col md:flex-row gap-24">
+          <div class="w-full">
+            <h3 class="text-brand-orange text-3xl">
+              {{ i18n "section_1_1_title" . }}
+            </h3>
+            <p class="mt-5 text-gray-100 text-xl">
+              {{ i18n "section_1_1_text" . }}
+            </p>
+          </div>
+          <div class="w-full text-brand-purple-alt">
+            {{ partial "svg/search_app.html" . }}
+          </div>
+        </div>
+        <div class="flex flex-col-reverse md:flex-row gap-24 mt-24">
+          <div class="w-full text-brand-purple-alt">
+            {{ partial "svg/mindfulness.html" . }}
+          </div>
+          <div class="w-full">
+            <h3 class="text-brand-orange text-3xl">
+              {{ i18n "section_1_2_title" . }}
+            </h3>
+            <p class="mt-5 text-gray-100 text-xl">
+              {{ i18n "section_1_2_text" . }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="my-32">
+        <h2 class="text-4xl md:text-5xl font-medium text-brand-yellow text-center mx-auto max-w-3xl">
+          {{ i18n "team_title" . }}
+        </h2>
+        <p class="mt-5 text-gray-100 text-xl text-center max-w-6xl mx-auto">
+          {{ i18n "team_text" . }}
+        </p>
+        <div class="text-brand-purple-alt mt-20 flex justify-center">
+          {{ partial "svg/team.html" . }}
+        </div>
+      </div>
+    </div>
+    <!-- Pricing -->
+    <!-- <div class="container">
+      <div class="py-32 space-y-20">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-4xl md:text-5xl font-medium text-brand-yellow">
+            {{ i18n "pricing_title" . }}
+          </h2>
+          <p class="mt-5 text-gray-100 text-xl">
+            {{ i18n "pricing_text" . }}
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          {{ $plan_title := i18n "pricing_1_title" }}
+          {{ $plan_description := i18n "pricing_1_text" }}
+          {{ $plan_price := i18n "pricing_1_price" }}
+          {{ partial "pricing_plan.html" (dict "context" . "title" $plan_title "description" $plan_description "price" $plan_price) }}
+
+          {{ $plan_title := i18n "pricing_2_title" }}
+          {{ $plan_description := i18n "pricing_2_text" }}
+          {{ $plan_price := i18n "pricing_2_price" }}
+          {{ partial "pricing_plan.html" (dict "context" . "title" $plan_title "description" $plan_description "price" $plan_price) }}
+
+          {{ $plan_title := i18n "pricing_3_title" }}
+          {{ $plan_description := i18n "pricing_3_text" }}
+          {{ $plan_price := i18n "pricing_3_price" }}
+          {{ partial "pricing_plan.html" (dict "context" . "title" $plan_title "description" $plan_description "price" $plan_price) }}
+        </div>
+      </div>
+    </div> -->
+    <!-- CTA -->
+    <div class="px-16 py-24 mt-96 text-center max-w-5xl mx-auto rounded-2xl relative">
+      {{ with resources.Get "images/logo-v1.2-lourd-no-bg.png" }}
+        {{ with .Resize "650x png q75" }}
+          <img src="{{ .Permalink }}" alt="Tawkie" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1] opacity-40" />
+        {{ end }}
+      {{ end }}
+      <h2 class="text-xl sm:text-4xl text-white font-semibold sm:max-w-2xl sm:mx-auto text-center">
+        {{ i18n "alpha_title" . }}
+      </h2>
+      <p class="sm:text-xl text-gray-100 sm:max-w-xl mt-6 text-center font-medium sm:mx-auto">
+        {{ i18n "alpha_text" . }}
+      </p>
+      <a href={{ i18n "alpha_button_url" . }} target="_blank"  class="mt-4 sm:mt-10 inline-flex bg-white hover:bg-gray-200 transition-colors text-black px-4 py-3 rounded-md text-lg">
+        {{ i18n "alpha_signup" . }}
+      </a>
+    </div> 
+  <div class=" hover-zoom container2">
+    <div class="container">
+      <h2 class="text-4xl md:text-5xl font-medium yellow text-center mx-auto max-w-3xl my-3">ILS NOUS SOUTIENNENT</h2>
+      <div class="flex-wrap center">
+        <a href="https://www.lafrenchtechtoulouse.com/" target="_blank" class="mar-li">
+          {{ partial "ImageList8" . }}
+        </a>
+        <a href="https://www.incoplex-toulouse.co/" target="_blank" class="mar-li">
+          {{ partial "ImageList9" . }}
+        </a>
+        <a href="https://fondation.insa-toulouse.fr/fr/index.html" target="_blank" class="mar-li ">
+          {{ partial "ImageList1" . }}
+        </a>
+        <a href="https://www.univ-toulouse.fr/innover-et-entreprendre/entrepreneuriat-etudiant" target="_blank" class="mar-li">
+          {{ partial "ImageList2" . }}
+        </a>
+        <a href="https://www.univ-tlse3.fr/organisation/catalyseur" target="_blank" class="mar-li">
+          {{ partial "ImageList3" . }}
+        </a>
+        <a href="https://www.insa-alumni-toulouse.org/" target="_blank" class="mar-li">
+          {{ partial "ImageList7" . }}
+        </a>
+        <a href="https://www.expert-comptable.io/" target="_blank" class="mar-li">
+          {{ partial "ImageList5" . }}
+        </a>
+        <a href="https://www.pragma-consult.fr/" target="_blank" class="mar-li">
+          {{ partial "ImageList4" . }}
+        </a>
+        <a href="https://halt-avocats.fr/" target="_blank" class="mar-li">
+          {{ partial "ImageList6" . }}
+        </a>
+        
+      </div>
+    </div>
+  </div>
+    <!-- Footer -->
+    <div class="container">
+      {{ partial "site-footer.html" . }}
+    </div>
+  </body>
+</html>

@@ -54,6 +54,11 @@ tawkie_staticapache2_panel_repo_username: '{{ secret_tawkie_apache_website_repo_
 tawkie_staticapache2_panel_repo_password: '{{ secret_tawkie_apache_website_repo_pass }}'
 tawkie_staticapache2_panel_repo_url: 'https://{{ tawkie_staticapache2_website_repo_username | urlencode }}:{{ tawkie_staticapache2_website_repo_password | urlencode }}@github.com:Tawkie/tawkiefr-website.git'
 
+tawkie_website_repo_username: '{{ secret_website_repo_username }}'
+tawkie_website_repo_password: '{{ secret_website_repo_password }}'
+tawkie_website_repo_url: 'https://{{ tawkie_website_repo_username | urlencode }}:{{ tawkie_website_repo_password | urlencode }}@github.com/Tawkie/tawkiefr-website.git'
+tawkie_website_repo_version: 'main'
+
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
 devture_systemd_service_manager_services_list_auto: |

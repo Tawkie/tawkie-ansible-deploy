@@ -1,0 +1,22 @@
+- name: Installe Node.js et npm
+  become: true
+  apt:
+    name: ['nodejs', 'npm']
+    state: present
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Installe Tailwind CSS
+  command: npm install -g tailwindcss
+  become: true
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Compile Tailwind CSS files
+  command: npx tailwindcss -i /tawkiefr-website/assets/css/input.css -o /tawkiefr-website/assets/css/index.css --jit --minify
+  become: true
+  tags:
+    - setup-all
+    - setup-staticapache2
