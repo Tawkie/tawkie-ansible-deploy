@@ -2,10 +2,11 @@ dsn: "{{ tawkie_hydra_postgres_uri }}"
 
 urls:
   self:
-    issuer: http://127.0.0.1:4444
-  consent: http://127.0.0.1:3000/consent
-  login: http://127.0.0.1:3000/login
-  logout: http://127.0.0.1:3000/logout
+#    issuer: http://127.0.0.1:4444
+    issuer: {{ tawkie_hydra_urls_self_issuer }}
+  consent: {{ tawkie_hydra_urls_consent }}
+  login: {{ tawkie_hydra_urls_login }}
+  logout: {{ tawkie_hydra_urls_logout }}
 
 secrets:
   system:
