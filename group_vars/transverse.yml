@@ -77,7 +77,9 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': 'tawkie-kratos-panel.service', 'priority': 4000}])
     +
-    ([{'name': 'tawkie-wireguard-admin.service', 'priority': 4000}])
+    ([{'name': 'tawkie-hydra.service', 'priority': 4500}])
+    +
+    ([{'name': 'tawkie-wireguard-admin.service', 'priority': 5000}])
     +
     ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
   }}
