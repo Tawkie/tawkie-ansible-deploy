@@ -4,7 +4,7 @@
 rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/`)"
 # If the rule matches, forward to the kratos-panel service (declared below)
 service = "kratos-panel"
-entryPoints = ["web"]
+entryPoints = ["websecure"]
 
 [http.services]
 # Define how to reach an existing service on our infrastructure
