@@ -27,7 +27,7 @@
   when: "not password_auth"
   tags:
     - setup-all
-      
+
 # Required by chmod
 - name: Install acl package
   ansible.builtin.apt:
@@ -43,6 +43,7 @@
     - setup-all
     - setup-postgres
     - setup-kratos
+    - setup-hydra
     - setup-kratos-panel
     - setup-nats
     - setup-traefik

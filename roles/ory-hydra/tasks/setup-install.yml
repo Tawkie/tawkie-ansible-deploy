@@ -1,0 +1,91 @@
+---
+
+- name: Ensure hydra image is pulled
+  community.docker.docker_image:
+    name: "{{ tawkie_hydra_docker_image }}"
+    source: "pull"
+  register: result
+  retries: "{{ devture_playbook_help_container_retries_count }}"
+  delay: "{{ devture_playbook_help_container_retries_delay }}"
+  until: result is not failed
+  tags:
+    - setup-all
+    - setup-hydra
+
+
+- name: Ensure hydra paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0500"
+    owner: "hydra"
+    group: "hydra"
+  with_items:
+    - "/tawkie/hydra"
+  tags:
+    - setup-all
+    - setup-hydra
+
+
+- name: Ensure hydra config template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/config.yaml.j2"
+    dest: "/tawkie/hydra/config.yaml"
+    mode: "0400"
+    owner: "hydra"
+    group: "hydra"
+  tags:
+    - setup-all
+    - setup-hydra
+
+
+- name: Ensure systemd is running before migration
+  ansible.builtin.systemd:
+    name: devture-postgres
+    state: started
+  tags:
+    - setup-all
+    - setup-hydra
+
+
+- name: Migrate database
+  ansible.builtin.command:
+    cmd: >-
+      docker run
+      --rm
+      --user={{ tawkie_hydra_uid }}:{{ tawkie_hydra_gid }}
+      --cap-drop=ALL
+      --read-only
+      --network={{ devture_postgres_container_network }}
+      --mount type=bind,src=/tawkie/hydra,dst=/opt/hydra/config,ro
+      --entrypoint=/bin/sh
+      {{ tawkie_hydra_docker_image }}
+      -c
+      'hydra -c /opt/hydra/config/config.yaml migrate sql -y {{ tawkie_hydra_postgres_uri }}'
+  register: tawkie_hydra_db_migration_output
+  changed_when: "not 'Successfully applied migrations!' in tawkie_hydra_db_migration_output.stderr"
+  tags:
+    - setup-all
+    - setup-hydra
+
+
+- name: Ensure docker image is noted (for future migrations)
+  ansible.builtin.copy:
+    content: "{{ tawkie_hydra_docker_image }}"
+    dest: "/tawkie/hydra/image-version.txt"
+    mode: "0740"
+    owner: "hydra"
+    group: "hydra"
+  tags:
+    - setup-all
+    - setup-hydra
+
+- name: Ensure hydra systemd template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/tawkie-hydra.service.j2"
+    dest: "/etc/systemd/system/tawkie-hydra.service"
+    mode: "0600"
+    owner: "root"
+  tags:
+    - setup-all
+    - setup-hydra

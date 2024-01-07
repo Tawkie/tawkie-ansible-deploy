@@ -80,6 +80,36 @@
     - setup-all
     - setup-kratos
 
+- name: Ensure Hydra group is created
+  ansible.builtin.group:
+    name: "hydra"
+    state: present
+  register: hydra_group
+  tags:
+    - setup-all
+    - setup-hydra
+
+
+- name: Ensure Hydra user is created
+  ansible.builtin.user:
+    name: "hydra"
+    state: present
+    group: "hydra"
+    system: true
+    shell: '/bin/false'
+  register: hydra_user
+  tags:
+    - setup-hydra
+    - setup-all
+
+- name: Initialize tawkie_hydra_uid and tawkie_hydra_gid
+  ansible.builtin.set_fact:
+    tawkie_hydra_uid: "{{ hydra_user.uid }}"
+    tawkie_hydra_gid: "{{ hydra_group.gid }}"
+  tags:
+    - setup-all
+    - setup-hydra
+
 - name: Ensure Kratos Panel group is created
   ansible.builtin.group:
     name: "kratos-panel"

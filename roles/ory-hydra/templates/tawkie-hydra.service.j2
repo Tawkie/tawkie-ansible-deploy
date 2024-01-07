@@ -1,0 +1,39 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Ory Hydra
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-hydra 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-hydra 2>/dev/null || true'
+
+ExecStart=docker run \
+			--rm \
+			--name tawkie-hydra \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/hydra:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_hydra_uid }}:{{ tawkie_hydra_gid }} \
+			--network={{ devture_postgres_container_network }} \
+	    --mount type=bind,src=/tawkie/hydra,dst=/opt/hydra/config,ro \
+	    --entrypoint=/bin/sh \
+	    {{ tawkie_hydra_docker_image }} \
+	    -c \
+	    'hydra -c /opt/hydra/config/config.yaml serve'
+
+ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-hydra'
+
+ExecStop=-bash -c 'docker kill tawkie-hydra 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-hydra 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-hydra
+
+[Install]
+WantedBy=multi-user.target

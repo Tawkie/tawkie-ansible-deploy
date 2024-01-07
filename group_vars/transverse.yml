@@ -5,17 +5,6 @@ docker_install_compose: false
 devture_playbook_help_container_retries_delay: '10'
 devture_playbook_help_container_retries_count: '10'
 
-devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
-devture_postgres_base_path: "/postgres"
-devture_postgres_managed_databases_auto: |
-  {{
-    [{
-      'name': 'kratos',
-      'username': 'kratos',
-      'password': secret_postgres_db_kratos_password
-    }]
-  }}
-
 tawkie_panel_host: 'staging.tawkie.fr'
 
 tawkie_mail_username: '{{ secret_tawkie_mail_username }}'
@@ -30,6 +19,12 @@ tawkie_kratos_secrets_cookie: '{{ secret_tawkie_kratos_secrets_cookie }}'
 tawkie_kratos_secrets_cipher: '{{ secret_tawkie_kratos_secrets_cipher }}'
 tawkie_kratos_bcrypt_cost: '11'
 tawkie_kratos_courier_smtp_uri: '{{ tawkie_mail_uri }}'
+
+tawkie_hydra_docker_image: 'oryd/hydra:v2.2'
+tawkie_hydra_postgres_password: '{{ secret_tawkie_hydra_postgres_password }}'
+tawkie_hydra_postgres_uri: 'postgres://hydra:{{ tawkie_hydra_postgres_password }}@{{ devture_postgres_container_network }}:5432/hydra?sslmode=disable'
+tawkie_hydra_secrets_system: '{{ secret_tawkie_hydra_secrets_system }}'
+tawkie_hydra_oidc_subject_identifiers_pairwise_salt: '{{ secret_tawkie_hydra_oidc_subject_identifiers_pairwise_salt }}'
 
 tawkie_kratos_panel_repo_username: '{{ secret_tawkie_kratos_panel_repo_username }}'
 tawkie_kratos_panel_repo_password: '{{ secret_tawkie_kratos_panel_repo_password }}'
@@ -52,6 +47,21 @@ tawkie_wireguard_admin_conf_interface_private_key: '{{ secret_tawkie_wireguard_a
 tawkie_wireguard_admin_conf_peer_ip: '10.0.4.2'
 tawkie_wireguard_admin_conf_peer_public_key: '{{ secret_tawkie_wireguard_admin_conf_peer_public_key }}'
 # peer private key : see matrix ansible deploy
+
+devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
+devture_postgres_base_path: "/postgres"
+devture_postgres_managed_databases_auto: |
+  {{
+    [{
+      'name': 'kratos',
+      'username': 'kratos',
+      'password': secret_postgres_db_kratos_password
+    },{
+      'name': 'hydra',
+      'username': 'hydra',
+      'password': tawkie_hydra_postgres_password
+    }]
+  }}
 
 
 devture_systemd_service_manager_enabled: true
