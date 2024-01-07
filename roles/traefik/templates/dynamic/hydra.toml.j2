@@ -1,0 +1,13 @@
+#:schema https://json.schemastore.org/traefik-v2-file-provider.json
+
+[http.routers.hydra]
+rule = "Host(`{{ tawkie_hydra_host }}`)"
+# If the rule matches, forward to the whoami service (declared below)
+service = "hydra"
+entryPoints = ["websecure"]
+
+[http.services]
+# Define how to reach an existing service on our infrastructure
+[http.services.hydra.loadBalancer]
+[[http.services.hydra.loadBalancer.servers]]
+url = "http://tawkie-hydra:4444"

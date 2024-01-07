@@ -65,6 +65,7 @@
   loop:
     - kratos
     - kratos-panel
+    - hydra
   tags:
     - setup-all
     - setup-traefik
