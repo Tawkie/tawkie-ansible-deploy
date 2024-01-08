@@ -23,8 +23,10 @@ ExecStart=docker run \
 			--network={{ tawkie_traefik_container_network }} \
 	    --publish 8080:8080 \
 	    --publish 80:80 \
+	    --publish 443:443 \
 	    --mount type=bind,src=/tawkie/traefik/config.toml,dst=/etc/traefik/traefik.toml,ro \
 	    --mount type=bind,src=/tawkie/traefik/dynamic,dst=/etc/traefik/dynamic,ro \
+	    --mount type=bind,src=/tawkie/traefik/acme,dst=/etc/traefik/acme \
 	    --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock,ro \
 	    {{ tawkie_traefik_docker_image }}
 

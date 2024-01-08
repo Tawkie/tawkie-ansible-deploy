@@ -42,6 +42,7 @@ tawkie_nats_container_network: 'tawkie-nats'
 
 tawkie_traefik_docker_image: 'traefik:v2.10.3'
 tawkie_traefik_container_network: 'tawkie-traefik'
+tawkie_traefik_acme_email: 'paul@tawkie.fr'
 
 tawkie_wireguard_admin_docker_image: 'linuxserver/wireguard:1.0.20210914'
 tawkie_wireguard_admin_container_network: 'tawkie-wireguard-admin'

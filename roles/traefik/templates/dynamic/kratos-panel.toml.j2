@@ -6,6 +6,9 @@ rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/`)"
 service = "kratos-panel"
 entryPoints = ["websecure"]
 
+  [http.routers.kratos-panel.tls]
+    certResolver = "myresolver"
+
 [http.services]
 # Define how to reach an existing service on our infrastructure
 [http.services.kratos-panel.loadBalancer]

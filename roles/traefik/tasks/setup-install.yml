@@ -38,6 +38,7 @@
     group: "traefik"
   with_items:
     - "/tawkie/traefik"
+    - "/tawkie/traefik/acme"
   tags:
     - setup-all
     - setup-traefik
@@ -66,6 +67,26 @@
     - kratos
     - kratos-panel
     - hydra
+  tags:
+    - setup-all
+    - setup-traefik
+
+- name: Check if Traefik acme.json file exists
+  ansible.builtin.stat:
+    path: "/tawkie/traefik/acme/acme.json"
+  register: "acme_json"
+  tags:
+    - setup-all
+    - setup-traefik
+
+- name: Create the file if it doesn't exist
+  ansible.builtin.file:
+    path: "/tawkie/traefik/acme/acme.json"
+    state: "touch"
+    mode: "0600"
+    owner: "traefik"
+    group: "traefik"
+  when: "not acme_json.stat.exists"
   tags:
     - setup-all
     - setup-traefik
