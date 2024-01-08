@@ -1,16 +1,15 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
 [http.routers.kratos-panel]
-rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/`)"
-# If the rule matches, forward to the kratos-panel service (declared below)
-service = "kratos-panel"
-entryPoints = ["websecure"]
+  rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/`)"
+  # If the rule matches, forward to the kratos-panel service (declared below)
+  service = "kratos-panel"
+  entryPoints = ["websecure"]
 
   [http.routers.kratos-panel.tls]
     certResolver = "myresolver"
 
-[http.services]
 # Define how to reach an existing service on our infrastructure
 [http.services.kratos-panel.loadBalancer]
-[[http.services.kratos-panel.loadBalancer.servers]]
-url = "http://tawkie-kratos-panel:3000"
+  [[http.services.kratos-panel.loadBalancer.servers]]
+    url = "http://tawkie-kratos-panel:3000"

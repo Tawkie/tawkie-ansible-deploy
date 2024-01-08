@@ -1,13 +1,11 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
 [http.routers.kratos]
-rule = "Host(`tawkie-traefik`)"
-# If the rule matches, forward to the whoami service (declared below)
-service = "kratos"
-entryPoints = ["kratos"]
+  rule = "Host(`tawkie-traefik`)"
+  service = "kratos"
+  entryPoints = ["kratos"]
 
-[http.services]
 # Define how to reach an existing service on our infrastructure
 [http.services.kratos.loadBalancer]
-[[http.services.kratos.loadBalancer.servers]]
-url = "http://tawkie-kratos:4433"
+  [[http.services.kratos.loadBalancer.servers]]
+    url = "http://tawkie-kratos:4433"
