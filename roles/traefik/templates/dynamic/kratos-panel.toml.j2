@@ -1,7 +1,7 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
 [http.routers.kratos-panel]
-  rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/`)"
+  rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/panel`)"
   # If the rule matches, forward to the kratos-panel service (declared below)
   service = "kratos-panel"
   entryPoints = ["websecure"]
