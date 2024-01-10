@@ -27,7 +27,6 @@ ExecStart=docker run \
 	    --mount type=bind,src=/tawkie/traefik/config.toml,dst=/etc/traefik/traefik.toml,ro \
 	    --mount type=bind,src=/tawkie/traefik/dynamic,dst=/etc/traefik/dynamic,ro \
 	    --mount type=bind,src=/tawkie/traefik/acme,dst=/etc/traefik/acme \
-	    --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock,ro \
 	    {{ tawkie_traefik_docker_image }}
 
 ExecStop=-bash -c 'docker kill tawkie-traefik 2>/dev/null || true'
