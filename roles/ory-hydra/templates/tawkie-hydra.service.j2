@@ -25,7 +25,7 @@ ExecStart=docker run \
 	    --entrypoint=/bin/sh \
 	    {{ tawkie_hydra_docker_image }} \
 	    -c \
-	    'hydra -c /opt/hydra/config/config.yaml serve public'
+	    'hydra -c /opt/hydra/config/config.yaml serve all'
 
 ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-hydra'
 
