@@ -27,9 +27,9 @@ tawkie_hydra_postgres_uri: 'postgres://hydra:{{ tawkie_hydra_postgres_password }
 tawkie_hydra_secrets_system: '{{ secret_tawkie_hydra_secrets_system }}'
 tawkie_hydra_oidc_subject_identifiers_pairwise_salt: '{{ secret_tawkie_hydra_oidc_subject_identifiers_pairwise_salt }}'
 tawkie_hydra_urls_self_issuer: 'https://{{ tawkie_hydra_host }}'
-tawkie_hydra_urls_consent: 'https://{{ tawkie_panel_host }}/consent' # TODO
-tawkie_hydra_urls_login: 'https://{{ tawkie_panel_host }}/login'
-tawkie_hydra_urls_logout: 'https://{{ tawkie_panel_host }}/api/.ory/self-service/logout'
+tawkie_hydra_urls_consent: 'https://{{ tawkie_panel_host }}/panel/api/hydra/consent'
+tawkie_hydra_urls_login: 'https://{{ tawkie_panel_host }}/panel/api/hydra/login'
+tawkie_hydra_urls_logout: 'https://{{ tawkie_panel_host }}/panel/api/.ory/self-service/logout'
 
 tawkie_kratos_panel_repo_username: '{{ secret_tawkie_kratos_panel_repo_username }}'
 tawkie_kratos_panel_repo_password: '{{ secret_tawkie_kratos_panel_repo_password }}'

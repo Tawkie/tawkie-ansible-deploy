@@ -22,6 +22,8 @@ ExecStart=docker run \
 			--user={{ tawkie_kratos_panel_uid }}:{{ tawkie_kratos_panel_gid }} \
 			--network={{ tawkie_traefik_container_network }} \
 			-e ORY_SDK_URL=http://tawkie-traefik:4433/ \
+			-e KRATOS_PUBLIC_API=http://tawkie-kratos:4433/ \
+			-e HYDRA_ADMIN_API=http://tawkie-hydra:4445/ \
 	    tawkie-kratos-panel 
 
 ExecStop=-bash -c 'docker kill tawkie-kratos-panel 2>/dev/null || true'
