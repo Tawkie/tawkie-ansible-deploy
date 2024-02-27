@@ -48,3 +48,4 @@
     - setup-nats
     - setup-traefik
     - setup-wireguard-admin
+    - setup-matrix-signup
