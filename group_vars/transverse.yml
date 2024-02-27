@@ -58,6 +58,8 @@ tawkie_matrix_signup_repo_username: '{{ secret_tawkie_matrix_signup_repo_usernam
 tawkie_matrix_signup_repo_password: '{{ secret_tawkie_matrix_signup_repo_password }}'
 tawkie_matrix_signup_repo_url: 'https://{{ tawkie_matrix_signup_repo_username | urlencode }}:{{ tawkie_matrix_signup_repo_password | urlencode }}@github.com/Tawkie/tawkie-matrix-signup.git'
 tawkie_matrix_signup_repo_version: 'main' # TODO
+tawkie_matrix_signup_postgres_password: '{{ secret_tawkie_matrix_signup_postgres_password }}'
+tawkie_matrix_signup_postgres_uri: 'postgres://matrix-signup:{{ tawkie_matrix_signup_postgres_password }}@{{ devture_postgres_container_network }}/matrix-signup'
 
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_base_path: "/postgres"
@@ -71,7 +73,11 @@ devture_postgres_managed_databases_auto: |
       'name': 'hydra',
       'username': 'hydra',
       'password': tawkie_hydra_postgres_password
-    }]
+    },{
+      'name': 'matrix-signup',
+      'username': 'matrix-signup',
+      'password': tawkie_matrix_signup_postgres_password
+}]
   }}
 
 
