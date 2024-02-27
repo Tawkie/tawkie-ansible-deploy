@@ -54,6 +54,11 @@ tawkie_wireguard_admin_conf_peer_ip: '10.0.4.2'
 tawkie_wireguard_admin_conf_peer_public_key: '{{ secret_tawkie_wireguard_admin_conf_peer_public_key }}'
 # peer private key : see matrix ansible deploy
 
+tawkie_matrix_signup_repo_username: '{{ secret_tawkie_matrix_signup_repo_username }}'
+tawkie_matrix_signup_repo_password: '{{ secret_tawkie_matrix_signup_repo_password }}'
+tawkie_matrix_signup_repo_url: 'https://{{ tawkie_matrix_signup_repo_username | urlencode }}:{{ tawkie_matrix_signup_repo_password | urlencode }}@github.com/Tawkie/tawkie-matrix-signup.git'
+tawkie_matrix_signup_repo_version: 'main' # TODO
+
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_base_path: "/postgres"
 devture_postgres_managed_databases_auto: |
