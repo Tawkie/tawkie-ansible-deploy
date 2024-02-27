@@ -249,3 +249,32 @@
   tags:
     - setup-all
     - setup-wireguard-admin
+
+- name: Ensure matrix-signup group is created
+  ansible.builtin.group:
+    name: "matrix-signup"
+    state: present
+  register: matrix_signup_group
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Ensure matrix-signup user is created
+  ansible.builtin.user:
+    name: "matrix-signup"
+    state: present
+    group: "matrix-signup"
+    system: true
+    shell: '/bin/false'
+  register: matrix_signup_user
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Initialize tawkie_matrix_signup_uid and tawkie_matrix_signup_gid
+  ansible.builtin.set_fact:
+    tawkie_matrix_signup_uid: "{{ matrix_signup_user.uid }}"
+    tawkie_matrix_signup_gid: "{{ matrix_signup_group.gid }}"
+  tags:
+    - setup-all
+    - setup-matrix-signup
