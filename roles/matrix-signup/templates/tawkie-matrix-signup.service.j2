@@ -1,0 +1,37 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Matrix Signup
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-matrix-signup 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-matrix-signup 2>/dev/null || true'
+
+ExecStart=docker run \
+			--rm \
+			--name tawkie-matrix-signup \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/matrix-signup:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_matrix_signup_uid }}:{{ tawkie_matrix_signup_gid }} \
+			--network={{ devture_postgres_container_network }} \
+			-e TAWKIE_SIGNUP_POSTGRES_URI={{ tawkie_matrix_signup_postgres_uri }} \
+	    tawkie-matrix-signup
+	    # TODO matrix admin api
+
+ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-matrix-signup'
+
+ExecStop=-bash -c 'docker kill tawkie-matrix-signup 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-matrix-signup 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-matrix-signup
+
+[Install]
+WantedBy=multi-user.target
