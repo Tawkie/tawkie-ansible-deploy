@@ -1,3 +1,5 @@
 [transverse]
-staging ansible_host=staging.tawkie.fr ansible_user=debian
+staging ansible_host=staging.tawkie.fr ansible_user=debian ansible_host_ip=193.70.2.46
 
+[matrix]
+matrix-staging ansible_host=matrix.staging.tawkie.fr ansible_user=debian
