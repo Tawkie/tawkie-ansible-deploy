@@ -25,7 +25,7 @@ ExecStart=docker run \
 	    tawkie-matrix-signup
 	    # TODO matrix admin api
 
-ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-matrix-signup'
+ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-matrix-signup && docker network connect {{ tawkie_matrix_signup_container_network }} tawkie-matrix-signup'
 
 ExecStop=-bash -c 'docker kill tawkie-matrix-signup 2>/dev/null || true'
 ExecStop=-bash -c 'docker rm tawkie-matrix-signup 2>/dev/null || true'
