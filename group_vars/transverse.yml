@@ -60,6 +60,7 @@ tawkie_matrix_signup_repo_url: 'https://{{ tawkie_matrix_signup_repo_username | 
 tawkie_matrix_signup_repo_version: 'main' # TODO
 tawkie_matrix_signup_postgres_password: '{{ secret_tawkie_matrix_signup_postgres_password }}'
 tawkie_matrix_signup_postgres_uri: 'postgres://matrix_signup:{{ tawkie_matrix_signup_postgres_password }}@{{ devture_postgres_container_network }}/matrix_signup'
+tawkie_matrix_signup_container_network: 'tawkie-matrix-signup-overlay'
 
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_base_path: "/postgres"
