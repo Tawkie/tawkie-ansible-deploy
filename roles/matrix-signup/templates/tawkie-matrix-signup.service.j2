@@ -22,8 +22,9 @@ ExecStart=docker run \
 			--user={{ tawkie_matrix_signup_uid }}:{{ tawkie_matrix_signup_gid }} \
 			--network={{ devture_postgres_container_network }} \
 			-e TAWKIE_SIGNUP_POSTGRES_URI={{ tawkie_matrix_signup_postgres_uri }} \
+			-e MATRIX_ADMIN_BASE_URL={{ tawkie_matrix_signup_admin_base_url }} \
+			-e MATRIX_ADMIN_ACCESS_TOKEN={{ tawkie_matrix_signup_admin_access_token }} \
 	    tawkie-matrix-signup
-	    # TODO matrix admin api
 
 ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-matrix-signup && docker network connect {{ tawkie_matrix_signup_container_network }} tawkie-matrix-signup'
 
