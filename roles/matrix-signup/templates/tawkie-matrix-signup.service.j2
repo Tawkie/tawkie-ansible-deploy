@@ -10,7 +10,7 @@ Type=simple
 ExecStartPre=-bash -c 'docker kill tawkie-matrix-signup 2>/dev/null || true'
 ExecStartPre=-bash -c 'docker rm tawkie-matrix-signup 2>/dev/null || true'
 
-ExecStart=docker run \
+ExecStartPre=docker create \
 			--rm \
 			--name tawkie-matrix-signup \
 			--log-driver=none \
@@ -26,7 +26,10 @@ ExecStart=docker run \
 			-e MATRIX_ADMIN_ACCESS_TOKEN={{ tawkie_matrix_signup_admin_access_token }} \
 	    tawkie-matrix-signup
 
-ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-matrix-signup && docker network connect {{ tawkie_matrix_signup_container_network }} tawkie-matrix-signup'
+ExecStartPre=docker network connect {{ tawkie_traefik_container_network }} tawkie-matrix-signup
+ExecStartPre=docker network connect {{ tawkie_matrix_signup_container_network }} tawkie-matrix-signup
+
+ExecStart=docker start --attach tawkie-matrix-signup
 
 ExecStop=-bash -c 'docker kill tawkie-matrix-signup 2>/dev/null || true'
 ExecStop=-bash -c 'docker rm tawkie-matrix-signup 2>/dev/null || true'
