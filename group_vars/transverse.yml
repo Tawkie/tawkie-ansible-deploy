@@ -63,6 +63,11 @@ tawkie_matrix_signup_postgres_uri: 'postgres://matrix_signup:{{ tawkie_matrix_si
 tawkie_matrix_signup_admin_base_url: 'http://matrix-synapse:8008/_synapse/'
 tawkie_matrix_signup_admin_access_token: '{{ secret_tawkie_matrix_signup_admin_access_token }}'
 tawkie_matrix_signup_container_network: 'tawkie-matrix-signup-overlay'
+# openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+# openssl rsa -pubout -in private_key.pem -out public_key.pem
+tawkie_matrix_signup_jwt_private_key: '{{ secret_tawkie_matrix_signup_jwt_private_key }}'
+tawkie_matrix_signup_server_name: 'matrix.staging.tawkie.fr'
+
 
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_base_path: "/postgres"

@@ -11,12 +11,48 @@
     - setup-all
     - setup-matrix-signup
 
+- name: Ensure Matrix Signup paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0500"
+    owner: "matrix-signup"
+    group: "matrix-signup"
+  with_items:
+    - "/tawkie/matrix-signup"
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Ensure Matrix Signup JWT file exists
+  ansible.builtin.file:
+    path: "/tawkie/matrix-signup/private_key.pem"
+    state: touch
+    mode: '0600'
+    owner: "matrix-signup"
+    group: "matrix-signup"
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Set the Matrix Signup JWT private key content
+  ansible.builtin.copy:
+    dest: "/tawkie/matrix-signup/private_key.pem"
+    content: "{{ tawkie_matrix_signup_jwt_private_key }}"
+    force: true
+    mode: '0600'
+    owner: "matrix-signup"
+    group: "matrix-signup"
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
 - name: Ensure Tawkie Matrix Signup repository is present on self-build
   ansible.builtin.git:
     repo: "{{ tawkie_matrix_signup_repo_url }}"
     version: "{{ tawkie_matrix_signup_repo_version }}"
     dest: "/tawkie-docker-build/tawkie-matrix-signup"
-    force: "yes"
+    force: true
   become: true
   become_user: "matrix-signup" # requires `acl` package to work
   register: tawkie_matrix_signup_git_pull_results
