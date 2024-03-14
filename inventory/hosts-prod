@@ -1,0 +1,5 @@
+[transverse]
+prod ansible_host=tawkie.fr ansible_user=debian ansible_host_ip=164.132.244.184
+
+#[matrix]
+#matrix-staging ansible_host=matrix.staging.tawkie.fr ansible_user=debian
