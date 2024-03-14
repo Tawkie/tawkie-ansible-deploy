@@ -192,7 +192,7 @@
 
 - name: Ensure Traefik group is created
   ansible.builtin.group:
-    name: "docker"
+    name: "traefik"
     state: present
   register: traefik_group
   tags:
@@ -204,7 +204,7 @@
   ansible.builtin.user:
     name: "traefik"
     state: present
-    group: "docker"
+    group: "traefik"
     system: true
     shell: '/bin/false'
   register: traefik_user
