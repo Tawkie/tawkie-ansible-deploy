@@ -39,6 +39,7 @@
   with_items:
     - "/tawkie/traefik"
     - "/tawkie/traefik/acme"
+    - "/tawkie/traefik/dynamic"
   tags:
     - setup-all
     - setup-traefik
