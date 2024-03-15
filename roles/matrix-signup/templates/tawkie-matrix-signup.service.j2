@@ -25,6 +25,7 @@ ExecStartPre=docker create \
 			-e MATRIX_ADMIN_BASE_URL={{ tawkie_matrix_signup_admin_base_url }} \
 			-e MATRIX_ADMIN_ACCESS_TOKEN={{ tawkie_matrix_signup_admin_access_token }} \
 			-e JWT_PRIVATE_KEY_PATH=/app/private_key.pem \
+			-e JWT_ISSUER={{ tawkie_matrix_signup_jwt_issuer }} \
 			-e MATRIX_SERVER_NAME={{ tawkie_matrix_signup_server_name }} \
 			--mount type=bind,src=/tawkie/matrix-signup/private_key.pem,dst=/app/private_key.pem,ro \
 	    tawkie-matrix-signup
