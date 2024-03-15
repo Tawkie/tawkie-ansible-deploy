@@ -7,18 +7,20 @@
     mode: '0705'
   with_items:
     - '/tawkie/staticapache2/'
-    - '/tawkie/staticapache2/html/'
+    - '/tawkie/staticapache2/source/'
   tags:
     - setup-all
     - setup-staticapache2
 
-- name: Ensure static files are copied
-  ansible.builtin.template:
-    src: "{{ role_path }}/templates/index.html.j2"
-    dest: "/tawkie/staticapache2/html/index.html"
-    mode: "0404"
-    owner: "staticapache2"
-    group: "staticapache2"
+- name: Ensure Tawkie webiste repository is present on self-build
+  ansible.builtin.git:
+    repo: "{{ tawkie_static_apache2_website_repo_url }}"
+    version: "{{ tawkie_static_apache2_website_repo_version }}"
+    dest: "/tawkie/staticapache2/source/"
+    force: "yes"
+  become: true
+  become_user: "staticapache2" # requires `acl` package to work
+  register: tawkie_static_Apache2_website_git_pull_results
   tags:
     - setup-all
     - setup-staticapache2

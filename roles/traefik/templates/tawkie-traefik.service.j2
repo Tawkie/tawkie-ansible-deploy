@@ -10,7 +10,7 @@ Type=simple
 ExecStartPre=-bash -c 'docker kill tawkie-traefik 2>/dev/null || true'
 ExecStartPre=-bash -c 'docker rm tawkie-traefik 2>/dev/null || true'
 
-ExecStart=docker run \
+ExecStartPre=docker create \
 			--rm \
 			--name tawkie-traefik \
 			--log-driver=none \
@@ -28,6 +28,10 @@ ExecStart=docker run \
 	    --mount type=bind,src=/tawkie/traefik/dynamic,dst=/etc/traefik/dynamic,ro \
 	    --mount type=bind,src=/tawkie/traefik/acme,dst=/etc/traefik/acme \
 	    {{ tawkie_traefik_docker_image }}
+
+ExecStartPre=docker network connect {{ tawkie_staticapache2_container_network }} tawkie-traefik
+
+ExecStart=docker start --attach tawkie-traefik
 
 ExecStop=-bash -c 'docker kill tawkie-traefik 2>/dev/null || true'
 ExecStop=-bash -c 'docker rm tawkie-traefik 2>/dev/null || true'

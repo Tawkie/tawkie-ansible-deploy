@@ -69,6 +69,16 @@ tawkie_matrix_signup_jwt_private_key: '{{ secret_tawkie_matrix_signup_jwt_privat
 tawkie_matrix_signup_jwt_issuer: '{{ tawkie_panel_host }}'
 tawkie_matrix_signup_server_name: 'matrix.staging.tawkie.fr'
 
+tawkie_static_apache2_website_repo_username: '{{ secret_tawkie_static_apache2_website_repo_username }}'
+tawkie_static_apache2_website_repo_password: '{{ secret_tawkie_static_apache2_website_repo_password }}'
+tawkie_static_apache2_website_repo_url: 'https://{{ tawkie_static_apache2_website_repo_username | urlencode }}:{{ tawkie_static_apache2_website_repo_password | urlencode }}@github.com/Tawkie/tawkiefr-website.git'
+tawkie_static_apache2_website_repo_version: 'main' # TODO
+tawkie_static_apache2_website_baseurl: 'https://{{ tawkie_panel_host }}' # TODO
+tawkie_staticapache2_docker_image: 'httpd:2.4'
+tawkie_staticapache2_hugo_docker_image: 'klakegg/hugo:0.101.0'
+tawkie_staticapache2_tailwindcss_docker_image: 'd3fk/tailwindcss:stable'
+tawkie_staticapache2_container_network: 'staticapache2'
+
 
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_base_path: "/postgres"
@@ -107,4 +117,6 @@ devture_systemd_service_manager_services_list_auto: |
     ([{'name': 'tawkie-wireguard-admin.service', 'priority': 5000}])
     +
     ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
+    +
+    ([{'name': 'tawkie-staticapache2.service', 'priority': 11000}])
   }}

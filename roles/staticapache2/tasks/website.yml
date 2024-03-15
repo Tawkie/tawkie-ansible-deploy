@@ -1,28 +1,49 @@
-- name: Install Hugo packages
-  apt:
-    name: "hugo"
-    state: latest
-  changed_when: yes
+- name: Ensure Hugo image is pulled
+  community.docker.docker_image:
+    name: "{{ tawkie_staticapache2_hugo_docker_image }}"
+    source: "pull"
+  register: result
+  retries: "{{ devture_playbook_help_container_retries_count }}"
+  delay: "{{ devture_playbook_help_container_retries_delay }}"
+  until: result is not failed
   tags:
     - setup-all
     - setup-staticapache2
 
-- name: Clone sources code website
-  ansible.builtin.git:
-    repo: "{{ tawkie_website_repo_url }}"
-    version: "{{ tawkie_website_repo_version }}"
-    dest: "/tawkie-docker-build/tawkiefr-website"
-    force: "yes"
-    update: yes
-  register: tawkie_website_git_pull_results
+- name: Ensure Tailwindcss image is pulled
+  community.docker.docker_image:
+    name: "{{ tawkie_staticapache2_tailwindcss_docker_image }}"
+    source: "pull"
+  register: result
+  retries: "{{ devture_playbook_help_container_retries_count }}"
+  delay: "{{ devture_playbook_help_container_retries_delay }}"
+  until: result is not failed
   tags:
     - setup-all
     - setup-staticapache2
 
-- name: Construire le site Hugo
-  command: "hugo"
-  args:
-    chdir: "/tawkie-docker-build/tawkiefr-website"
+- name: Build website CSS with Tailwindcss
+  community.docker.docker_container:
+    name: hugo_build
+    image: "{{ tawkie_staticapache2_tailwindcss_docker_image }}"
+    command: '-i ./assets/css/input.css -o ./assets/css/index.css --jit --minify'
+    user: "{{ tawkie_staticapache2_uid }}:{{ tawkie_staticapache2_gid }}"
+    volumes:
+      - "/tawkie/staticapache2/source/:/project"
+    auto_remove: true
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Build website with Hugo
+  community.docker.docker_container:
+    name: hugo_build
+    image: "{{ tawkie_staticapache2_hugo_docker_image }}"
+    command: '--gc --minify -d public/ --baseURL {{ tawkie_static_apache2_website_baseurl }}'
+    user: "{{ tawkie_staticapache2_uid }}:{{ tawkie_staticapache2_gid }}"
+    volumes:
+      - "/tawkie/staticapache2/source/:/src"
+    auto_remove: true
   tags:
     - setup-all
     - setup-staticapache2

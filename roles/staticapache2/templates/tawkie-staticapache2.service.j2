@@ -18,7 +18,7 @@ ExecStart=docker run \
 			--shm-size=128m \
 			--publish 8070:80 \
 			--network={{ tawkie_staticapache2_container_network }} \
-	    --mount type=bind,src=/tawkie/staticapache2/html,dst=/usr/local/apache2/htdocs/,ro \
+	    --mount type=bind,src=/tawkie/staticapache2/source/public,dst=/usr/local/apache2/htdocs/,ro \
 	    {{ tawkie_staticapache2_docker_image }}
 
 #ExecStartPost=-bash -c 'sleep 1 && docker network connect {{ tawkie_traefik_container_network }} tawkie-staticapache2'

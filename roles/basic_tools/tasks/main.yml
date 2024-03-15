@@ -49,3 +49,4 @@
     - setup-traefik
     - setup-wireguard-admin
     - setup-matrix-signup
+    - setup-staticapache2
