@@ -68,6 +68,7 @@
     - kratos
     - kratos-panel
     - hydra
+    - staticapache2
   tags:
     - setup-all
     - setup-traefik

@@ -1,0 +1,16 @@
+#:schema https://json.schemastore.org/traefik-v2-file-provider.json
+
+[http.routers.staticapache2]
+  rule = "Host(`{{ tawkie_panel_host }}`, `www.{{ tawkie_panel_host }}`) && !PathPrefix(`/panel`)"
+  # If the rule matches, forward to the staticapache2 service (declared below)
+  service = "staticapache2"
+  entryPoints = ["websecure"]
+
+  [http.routers.staticapache2.tls]
+    certResolver = "myresolver"
+
+
+# Define how to reach an existing service on our infrastructure
+[http.services.staticapache2.loadBalancer]
+  [[http.services.staticapache2.loadBalancer.servers]]
+    url = "https://152.228.170.105:443"
