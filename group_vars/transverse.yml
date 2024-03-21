@@ -19,6 +19,8 @@ tawkie_kratos_secrets_cookie: '{{ secret_tawkie_kratos_secrets_cookie }}'
 tawkie_kratos_secrets_cipher: '{{ secret_tawkie_kratos_secrets_cipher }}'
 tawkie_kratos_bcrypt_cost: '11'
 tawkie_kratos_courier_smtp_uri: '{{ tawkie_mail_uri }}'
+tawkie_kratos_session_lifespan: '720h'
+tawkie_kratos_session_earliest_possible_extend: '48h'
 
 tawkie_hydra_host: 'auth.{{ tawkie_panel_host }}'
 tawkie_hydra_docker_image: 'oryd/hydra:v2.2'

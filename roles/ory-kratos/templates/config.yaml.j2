@@ -92,6 +92,10 @@ identity:
     - id: default
       url: file:///opt/kratos/config/identity.schema.json
 
+session:
+  lifespan: {{ tawkie_kratos_session_lifespan }}
+  earliest_possible_extend: {{ tawkie_kratos_session_earliest_possible_extend }}
+
 courier:
   smtp:
     connection_uri: {{ tawkie_kratos_courier_smtp_uri }}
