@@ -25,7 +25,7 @@ ExecStart=docker run \
 			-e KRATOS_PUBLIC_API=http://tawkie-kratos:4433/ \
 			-e HYDRA_ADMIN_API=http://tawkie-hydra:4445/ \
 			-e MATRIX_MATRIX_SIGNUP_API_URL=http://tawkie-matrix-signup:3000 \
-			-e TAWKIE_DEFAULT_MATRIX_SERVER=matrix.alpha.tawkie.fr \
+			-e TAWKIE_DEFAULT_MATRIX_SERVER={{ tawkie_kratos_panel_default_matrix_server }} \
 			-e AUTH_TOKEN={{ tawkie_kratos_panel_accept_user_token }} \
 	    tawkie-kratos-panel 
 

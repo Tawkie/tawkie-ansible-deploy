@@ -1,2 +1,3 @@
 tawkie_panel_host: 'tawkie.fr'
 tawkie_matrix_signup_server_name: 'matrix.alpha.tawkie.fr'
+tawkie_kratos_panel_default_matrix_server: 'matrix.alpha.tawkie.fr'
