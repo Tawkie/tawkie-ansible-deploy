@@ -9,3 +9,9 @@
   tags:
     - setup-all
     - setup-staticapache2
+
+- name: Include Tawkie web tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/tawkie-web.yml"
+  tags:
+    - setup-all
+    - setup-staticapache2

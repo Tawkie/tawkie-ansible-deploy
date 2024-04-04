@@ -78,6 +78,7 @@ tawkie_static_apache2_website_repo_password: '{{ secret_tawkie_static_apache2_we
 tawkie_static_apache2_website_repo_url: 'https://{{ tawkie_static_apache2_website_repo_username | urlencode }}:{{ tawkie_static_apache2_website_repo_password | urlencode }}@github.com/Tawkie/tawkiefr-website.git'
 tawkie_static_apache2_website_repo_version: 'main' # TODO
 tawkie_static_apache2_website_baseurl: 'https://{{ tawkie_panel_host }}' # TODO
+tawkie_static_apache2_tawkie_web_archive_url : 'https://github.com/Tawkie/tawkie-app/releases/download/v0.1.5/tawkie-web.tar.gz'
 tawkie_staticapache2_docker_image: 'httpd:2.4'
 tawkie_staticapache2_hugo_docker_image: 'klakegg/hugo:0.101.0'
 tawkie_staticapache2_tailwindcss_docker_image: 'd3fk/tailwindcss:stable'

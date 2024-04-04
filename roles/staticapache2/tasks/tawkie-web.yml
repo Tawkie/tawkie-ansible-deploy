@@ -1,0 +1,36 @@
+- name: Download Tawkie web tar archive from Github releases
+  ansible.builtin.get_url:
+    url: "{{ tawkie_static_apache2_tawkie_web_archive_url }}"
+    dest: "/tawkie/staticapache2/tawkie-web-archive/tawkie-web.tar.gz"
+    owner: 'staticapache2'
+    group: 'staticapache2'
+    mode: '0700'
+    timeout: 60
+    force: true
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Decompress the tar archive
+  ansible.builtin.unarchive:
+    src: "/tawkie/staticapache2/tawkie-web-archive/tawkie-web.tar.gz"
+    dest: "/tawkie/staticapache2/tawkie-web-archive/"
+    owner: 'staticapache2'
+    group: 'staticapache2'
+    mode: '0705'
+    remote_src: true
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Copy files to apache2 directory
+  ansible.builtin.copy:
+    src: "/tawkie/staticapache2/tawkie-web-archive/build/web"
+    dest: "/tawkie/staticapache2/source/public/"
+    owner: 'staticapache2'
+    group: 'staticapache2'
+    mode: '0705'
+    remote_src: true
+  tags:
+    - setup-all
+    - setup-staticapache2

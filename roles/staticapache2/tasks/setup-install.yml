@@ -8,6 +8,7 @@
   with_items:
     - '/tawkie/staticapache2/'
     - '/tawkie/staticapache2/source/'
+    - '/tawkie/staticapache2/tawkie-web-archive/'
   tags:
     - setup-all
     - setup-staticapache2
