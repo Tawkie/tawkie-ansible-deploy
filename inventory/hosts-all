@@ -9,5 +9,5 @@ matrix-loveto ansible_host=matrix.loveto.party ansible_user=debian
 matrix-alpha ansible_host=51.178.130.15 ansible_port=32508 ansible_user=debian
 matrix-staging ansible_host=matrix.staging.tawkie.fr ansible_user=debian
 
-[other]
-old-alpha ansible_host=10.0.0.12 ansible_port=22 ansible_user=paul
+#[other]
+#old-alpha ansible_host=10.0.0.12 ansible_port=22 ansible_user=paul
