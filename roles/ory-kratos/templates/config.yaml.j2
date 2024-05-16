@@ -17,7 +17,7 @@ selfservice:
 
   methods:
     password:
-      enabled: true
+      enabled: false
     totp:
       config:
         issuer: Tawkie
@@ -28,6 +28,7 @@ selfservice:
       enabled: true
     code:
       enabled: true
+      passwordless_enabled: true
 
   flows:
     error:
@@ -62,7 +63,7 @@ selfservice:
       lifespan: 10m
       ui_url: {{ tawkie_kratos_selfservice_base_url }}/registration
       after:
-        password:
+        code:
           hooks:
             - hook: session
             - hook: show_verification_ui
@@ -87,8 +88,10 @@ hashers:
     cost: {{ tawkie_kratos_bcrypt_cost }}
 
 identity:
-  default_schema_id: default
+  default_schema_id: v2
   schemas:
+    - id: v2
+      url: file:///opt/kratos/config/identity-v2.schema.json
     - id: default
       url: file:///opt/kratos/config/identity.schema.json
 

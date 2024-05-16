@@ -40,10 +40,22 @@
     - setup-kratos
 
 
-- name: Ensure Kratos identity schema template set
+- name: Ensure Kratos identity schema v1 template set
   ansible.builtin.template:
     src: "{{ role_path }}/templates/identity.schema.json.j2"
     dest: "/tawkie/kratos/identity.schema.json"
+    mode: "0400"
+    owner: "kratos"
+    group: "kratos"
+  tags:
+    - setup-all
+    - setup-kratos
+
+
+- name: Ensure Kratos identity schema v2 template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/identity-v2.schema.json.j2"
+    dest: "/tawkie/kratos/identity-v2.schema.json"
     mode: "0400"
     owner: "kratos"
     group: "kratos"
