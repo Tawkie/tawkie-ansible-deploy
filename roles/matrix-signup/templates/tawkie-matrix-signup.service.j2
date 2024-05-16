@@ -27,6 +27,7 @@ ExecStartPre=docker create \
 			-e JWT_PRIVATE_KEY_PATH=/app/private_key.pem \
 			-e JWT_ISSUER={{ tawkie_matrix_signup_jwt_issuer }} \
 			-e MATRIX_SERVER_NAME={{ tawkie_matrix_signup_server_name }} \
+			-e HOOKSHOT_URL={{ tawkie_matrix_signup_hookshot_url }} \
 			--mount type=bind,src=/tawkie/matrix-signup/private_key.pem,dst=/app/private_key.pem,ro \
 	    tawkie-matrix-signup
 
