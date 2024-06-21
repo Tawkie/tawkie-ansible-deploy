@@ -36,7 +36,7 @@ tawkie_hydra_urls_logout: 'https://{{ tawkie_panel_host }}/panel/api/.ory/self-s
 tawkie_kratos_panel_repo_username: '{{ secret_tawkie_kratos_panel_repo_username }}'
 tawkie_kratos_panel_repo_password: '{{ secret_tawkie_kratos_panel_repo_password }}'
 tawkie_kratos_panel_repo_url: 'https://{{ tawkie_kratos_panel_repo_username | urlencode }}:{{ tawkie_kratos_panel_repo_password | urlencode }}@github.com/Tawkie/kratos-panel.git'
-tawkie_kratos_panel_repo_version: 'matrix-signup' # TODO
+tawkie_kratos_panel_repo_version: 'main'
   # base path is hardcoded into the panel
 tawkie_kratos_panel_accept_user_token: '{{ secret_tawkie_kratos_panel_accept_user_token }}'
 tawkie_kratos_panel_default_matrix_server: 'matrix.staging.tawkie.fr'
