@@ -1,0 +1,5 @@
+# Uncomment to disable emails
+#tawkie_mail_uri: 'smtps://{{ tawkie_mail_username }}:{{ tawkie_mail_password }}@localhost:465/'
+
+# Uncomment to receive notifications in "Dopamine" room
+#tawkie_matrix_signup_hookshot_url: 'https://matrix.loveto.party/hookshot/webhooks/5039db41-409c-44dc-b74f-8826ce550ed9'
