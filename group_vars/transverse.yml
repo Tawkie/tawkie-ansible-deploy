@@ -1,91 +1,91 @@
-docker_apt_gpg_key: 'https://download.docker.com/linux/debian/gpg'
-docker_apt_repository: 'deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable'
+docker_apt_gpg_key: "https://download.docker.com/linux/debian/gpg"
+docker_apt_repository: "deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable"
 docker_install_compose: false
 
-devture_playbook_help_container_retries_delay: '10'
-devture_playbook_help_container_retries_count: '10'
+devture_playbook_help_container_retries_delay: "10"
+devture_playbook_help_container_retries_count: "10"
 
-tawkie_panel_host: 'staging.tawkie.fr'
+tawkie_panel_host: "staging.tawkie.fr"
 
-tawkie_mail_username: '{{ secret_tawkie_mail_username }}'
-tawkie_mail_password: '{{ secret_tawkie_mail_password }}'
-tawkie_mail_uri: 'smtps://{{ tawkie_mail_username }}:{{ tawkie_mail_password }}@smtp.tem.scw.cloud:465/'
+tawkie_mail_username: "{{ secret_tawkie_mail_username }}"
+tawkie_mail_password: "{{ secret_tawkie_mail_password }}"
+tawkie_mail_uri: "smtps://{{ tawkie_mail_username }}:{{ tawkie_mail_password }}@smtp.tem.scw.cloud:465/"
 
-tawkie_kratos_docker_image: 'oryd/kratos:v1.1.0'
-tawkie_kratos_public_base_url: 'https://{{ tawkie_panel_host }}/panel/api/.ory/'
-tawkie_kratos_admin_base_url: 'http://127.0.0.1:4434/'
-tawkie_kratos_selfservice_base_url: 'https://{{ tawkie_panel_host }}/panel'
-tawkie_kratos_secrets_cookie: '{{ secret_tawkie_kratos_secrets_cookie }}'
-tawkie_kratos_secrets_cipher: '{{ secret_tawkie_kratos_secrets_cipher }}'
-tawkie_kratos_bcrypt_cost: '11'
-tawkie_kratos_courier_smtp_uri: '{{ tawkie_mail_uri }}'
-tawkie_kratos_session_lifespan: '14400h' # ie 20 months
-tawkie_kratos_session_earliest_possible_extend: '48h'
+tawkie_kratos_docker_image: "oryd/kratos:v1.1.0"
+tawkie_kratos_public_base_url: "https://{{ tawkie_panel_host }}/panel/api/.ory/"
+tawkie_kratos_admin_base_url: "http://127.0.0.1:4434/"
+tawkie_kratos_selfservice_base_url: "https://{{ tawkie_panel_host }}/panel"
+tawkie_kratos_secrets_cookie: "{{ secret_tawkie_kratos_secrets_cookie }}"
+tawkie_kratos_secrets_cipher: "{{ secret_tawkie_kratos_secrets_cipher }}"
+tawkie_kratos_bcrypt_cost: "11"
+tawkie_kratos_courier_smtp_uri: "{{ tawkie_mail_uri }}"
+tawkie_kratos_session_lifespan: "14400h" # ie 20 months
+tawkie_kratos_session_earliest_possible_extend: "48h"
 
-tawkie_hydra_host: 'auth.{{ tawkie_panel_host }}'
-tawkie_hydra_docker_image: 'oryd/hydra:v2.2'
-tawkie_hydra_postgres_password: '{{ secret_tawkie_hydra_postgres_password }}'
-tawkie_hydra_postgres_uri: 'postgres://hydra:{{ tawkie_hydra_postgres_password }}@{{ devture_postgres_container_network }}:5432/hydra?sslmode=disable'
-tawkie_hydra_secrets_system: '{{ secret_tawkie_hydra_secrets_system }}'
-tawkie_hydra_oidc_subject_identifiers_pairwise_salt: '{{ secret_tawkie_hydra_oidc_subject_identifiers_pairwise_salt }}'
-tawkie_hydra_urls_self_issuer: 'https://{{ tawkie_hydra_host }}'
-tawkie_hydra_urls_consent: 'https://{{ tawkie_panel_host }}/panel/api/hydra/consent'
-tawkie_hydra_urls_login: 'https://{{ tawkie_panel_host }}/panel/api/hydra/login'
-tawkie_hydra_urls_logout: 'https://{{ tawkie_panel_host }}/panel/api/.ory/self-service/logout'
+tawkie_hydra_host: "auth.{{ tawkie_panel_host }}"
+tawkie_hydra_docker_image: "oryd/hydra:v2.2"
+tawkie_hydra_postgres_password: "{{ secret_tawkie_hydra_postgres_password }}"
+tawkie_hydra_postgres_uri: "postgres://hydra:{{ tawkie_hydra_postgres_password }}@{{ devture_postgres_container_network }}:5432/hydra?sslmode=disable"
+tawkie_hydra_secrets_system: "{{ secret_tawkie_hydra_secrets_system }}"
+tawkie_hydra_oidc_subject_identifiers_pairwise_salt: "{{ secret_tawkie_hydra_oidc_subject_identifiers_pairwise_salt }}"
+tawkie_hydra_urls_self_issuer: "https://{{ tawkie_hydra_host }}"
+tawkie_hydra_urls_consent: "https://{{ tawkie_panel_host }}/panel/api/hydra/consent"
+tawkie_hydra_urls_login: "https://{{ tawkie_panel_host }}/panel/api/hydra/login"
+tawkie_hydra_urls_logout: "https://{{ tawkie_panel_host }}/panel/api/.ory/self-service/logout"
 
-tawkie_kratos_panel_repo_username: '{{ secret_tawkie_kratos_panel_repo_username }}'
-tawkie_kratos_panel_repo_password: '{{ secret_tawkie_kratos_panel_repo_password }}'
-tawkie_kratos_panel_repo_url: 'https://{{ tawkie_kratos_panel_repo_username | urlencode }}:{{ tawkie_kratos_panel_repo_password | urlencode }}@github.com/Tawkie/kratos-panel.git'
-tawkie_kratos_panel_repo_version: 'main'
+tawkie_kratos_panel_repo_username: "{{ secret_tawkie_kratos_panel_repo_username }}"
+tawkie_kratos_panel_repo_password: "{{ secret_tawkie_kratos_panel_repo_password }}"
+tawkie_kratos_panel_repo_url: "https://{{ tawkie_kratos_panel_repo_username | urlencode }}:{{ tawkie_kratos_panel_repo_password | urlencode }}@github.com/Tawkie/kratos-panel.git"
+tawkie_kratos_panel_repo_version:
+  "main"
   # base path is hardcoded into the panel
-tawkie_kratos_panel_accept_user_token: '{{ secret_tawkie_kratos_panel_accept_user_token }}'
-tawkie_kratos_panel_default_matrix_server: 'matrix.staging.tawkie.fr'
+tawkie_kratos_panel_accept_user_token: "{{ secret_tawkie_kratos_panel_accept_user_token }}"
+tawkie_kratos_panel_default_matrix_server: "matrix.staging.tawkie.fr"
 
-tawkie_nats_docker_image: 'nats:2.9.19-scratch'
-tawkie_nats_container_network: 'tawkie-nats'
+tawkie_nats_docker_image: "nats:2.9.19-scratch"
+tawkie_nats_container_network: "tawkie-nats"
 
-tawkie_traefik_docker_image: 'traefik:v2.10.3'
-tawkie_traefik_container_network: 'tawkie-traefik'
-tawkie_traefik_acme_email: 'paul@tawkie.fr'
+tawkie_traefik_docker_image: "traefik:v2.10.3"
+tawkie_traefik_container_network: "tawkie-traefik"
+tawkie_traefik_acme_email: "paul@tawkie.fr"
 
-tawkie_wireguard_admin_docker_image: 'linuxserver/wireguard:1.0.20210914'
-tawkie_wireguard_admin_container_network: 'tawkie-wireguard-admin'
-tawkie_wireguard_admin_listen_port: '5530'
-tawkie_wireguard_admin_conf_interface_ip: '10.0.4.1'
-tawkie_wireguard_admin_conf_interface_private_key: '{{ secret_tawkie_wireguard_admin_conf_interface_private_key }}'
+tawkie_wireguard_admin_docker_image: "linuxserver/wireguard:1.0.20210914"
+tawkie_wireguard_admin_container_network: "tawkie-wireguard-admin"
+tawkie_wireguard_admin_listen_port: "5530"
+tawkie_wireguard_admin_conf_interface_ip: "10.0.4.1"
+tawkie_wireguard_admin_conf_interface_private_key: "{{ secret_tawkie_wireguard_admin_conf_interface_private_key }}"
 # interface public key : vDFTT+5yIYK1LOicDkLAUO0O4MoSZ3VJVMmthpyeyW0=
-tawkie_wireguard_admin_conf_peer_ip: '10.0.4.2'
-tawkie_wireguard_admin_conf_peer_public_key: '{{ secret_tawkie_wireguard_admin_conf_peer_public_key }}'
+tawkie_wireguard_admin_conf_peer_ip: "10.0.4.2"
+tawkie_wireguard_admin_conf_peer_public_key: "{{ secret_tawkie_wireguard_admin_conf_peer_public_key }}"
 # peer private key : see matrix ansible deploy
 
-tawkie_matrix_signup_repo_username: '{{ secret_tawkie_matrix_signup_repo_username }}'
-tawkie_matrix_signup_repo_password: '{{ secret_tawkie_matrix_signup_repo_password }}'
-tawkie_matrix_signup_repo_url: 'https://{{ tawkie_matrix_signup_repo_username | urlencode }}:{{ tawkie_matrix_signup_repo_password | urlencode }}@github.com/Tawkie/tawkie-matrix-signup.git'
-tawkie_matrix_signup_repo_version: 'main' # TODO
-tawkie_matrix_signup_postgres_password: '{{ secret_tawkie_matrix_signup_postgres_password }}'
-tawkie_matrix_signup_postgres_uri: 'postgres://matrix_signup:{{ tawkie_matrix_signup_postgres_password }}@{{ devture_postgres_container_network }}/matrix_signup'
-tawkie_matrix_signup_admin_base_url: 'http://matrix-synapse:8008/_synapse/'
-tawkie_matrix_signup_admin_access_token: '{{ secret_tawkie_matrix_signup_admin_access_token }}'
-tawkie_matrix_signup_hookshot_url : '' # used to receive notifications on matrix
-tawkie_matrix_signup_container_network: 'tawkie-matrix-signup-overlay'
+tawkie_matrix_signup_repo_username: "{{ secret_tawkie_matrix_signup_repo_username }}"
+tawkie_matrix_signup_repo_password: "{{ secret_tawkie_matrix_signup_repo_password }}"
+tawkie_matrix_signup_repo_url: "https://{{ tawkie_matrix_signup_repo_username | urlencode }}:{{ tawkie_matrix_signup_repo_password | urlencode }}@github.com/Tawkie/tawkie-matrix-signup.git"
+tawkie_matrix_signup_repo_version: "main" # TODO
+tawkie_matrix_signup_postgres_password: "{{ secret_tawkie_matrix_signup_postgres_password }}"
+tawkie_matrix_signup_postgres_uri: "postgres://matrix_signup:{{ tawkie_matrix_signup_postgres_password }}@{{ devture_postgres_container_network }}/matrix_signup"
+tawkie_matrix_signup_admin_base_url: "http://matrix-synapse:8008/_synapse/"
+tawkie_matrix_signup_admin_access_token: "{{ secret_tawkie_matrix_signup_admin_access_token }}"
+tawkie_matrix_signup_hookshot_url: "" # used to receive notifications on matrix
+tawkie_matrix_signup_container_network: "tawkie-matrix-signup-overlay"
 # openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
 # openssl rsa -pubout -in private_key.pem -out public_key.pem
-tawkie_matrix_signup_jwt_private_key: '{{ secret_tawkie_matrix_signup_jwt_private_key }}'
-tawkie_matrix_signup_jwt_issuer: '{{ tawkie_panel_host }}'
-tawkie_matrix_signup_server_name: 'matrix.staging.tawkie.fr'
+tawkie_matrix_signup_jwt_private_key: "{{ secret_tawkie_matrix_signup_jwt_private_key }}"
+tawkie_matrix_signup_jwt_issuer: "{{ tawkie_panel_host }}"
+tawkie_matrix_signup_server_name: "matrix.staging.tawkie.fr"
 
-tawkie_static_apache2_website_repo_username: '{{ secret_tawkie_static_apache2_website_repo_username }}'
-tawkie_static_apache2_website_repo_password: '{{ secret_tawkie_static_apache2_website_repo_password }}'
-tawkie_static_apache2_website_repo_url: 'https://{{ tawkie_static_apache2_website_repo_username | urlencode }}:{{ tawkie_static_apache2_website_repo_password | urlencode }}@github.com/Tawkie/tawkiefr-website.git'
-tawkie_static_apache2_website_repo_version: 'main' # TODO
-tawkie_static_apache2_website_baseurl: 'https://{{ tawkie_panel_host }}' # TODO
-tawkie_static_apache2_tawkie_web_archive_url : 'https://github.com/Tawkie/tawkie-app/releases/download/v0.1.5/tawkie-web.tar.gz'
+tawkie_static_apache2_website_repo_username: "{{ secret_tawkie_static_apache2_website_repo_username }}"
+tawkie_static_apache2_website_repo_password: "{{ secret_tawkie_static_apache2_website_repo_password }}"
+tawkie_static_apache2_website_repo_url: "https://{{ tawkie_static_apache2_website_repo_username | urlencode }}:{{ tawkie_static_apache2_website_repo_password | urlencode }}@github.com/Tawkie/tawkiefr-website.git"
+tawkie_static_apache2_website_repo_version: "main" # TODO
+tawkie_static_apache2_website_baseurl: "https://{{ tawkie_panel_host }}" # TODO
+tawkie_static_apache2_tawkie_web_archive_url: "https://github.com/Tawkie/tawkie-app/releases/download/v0.1.5/tawkie-web.tar.gz"
 # tawkie_static_apache2_tawkie_web_archive_url : 'https://github.com/Tawkie/tawkie-app/releases/download/v1.18.0-06/tawkie-web.tar.gz'
-tawkie_staticapache2_docker_image: 'httpd:2.4'
-tawkie_staticapache2_hugo_docker_image: 'klakegg/hugo:0.101.0'
-tawkie_staticapache2_tailwindcss_docker_image: 'd3fk/tailwindcss:stable'
-tawkie_staticapache2_container_network: 'staticapache2'
-
+tawkie_staticapache2_docker_image: "httpd:2.4"
+tawkie_staticapache2_hugo_docker_image: "klakegg/hugo:0.101.0"
+tawkie_staticapache2_tailwindcss_docker_image: "d3fk/tailwindcss:stable"
+tawkie_staticapache2_container_network: "staticapache2"
 
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_base_path: "/postgres"
@@ -105,7 +105,6 @@ devture_postgres_managed_databases_auto: |
       'password': tawkie_matrix_signup_postgres_password
     }]
   }}
-
 
 devture_systemd_service_manager_enabled: true
 devture_systemd_service_manager_services_autostart_enabled: true
