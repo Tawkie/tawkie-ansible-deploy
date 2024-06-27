@@ -60,6 +60,10 @@ selfservice:
       lifespan: 10m
 
     registration:
+      # Mentioned in changelog, but not in code or docs.
+      # Should disable two step registration.
+      # https://github.com/ory/kratos/releases/tag/v1.2.0
+      #enable_legacy_flow: true
       lifespan: 10m
       ui_url: {{ tawkie_kratos_selfservice_base_url }}/registration
       after:
