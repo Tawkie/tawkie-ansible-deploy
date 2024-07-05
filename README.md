@@ -10,7 +10,7 @@ to guaranty style throughout the codebase.
 
 [ansible-doc]: https://docs.ansible.com/ansible/latest/index.html
 [matrix-deploy]: https://github.com/spantaleev/matrix-docker-ansible-deploy/
-[fqcn]: https://ansible.readthedocs.io/projects/lint/rules/fqcn/
+[ansible-fqcn]: https://ansible.readthedocs.io/projects/lint/rules/fqcn/
 [ansible-linter]: https://ansible.readthedocs.io/projects/lint/
 
 ## Usage
@@ -24,7 +24,7 @@ ansible-galaxy install -r requirements.yml --force
 Run playbook :
 
 ```
-ansible-playbook -i hosts-staging -e @secrets-staging.enc --ask-vault-pass transverse.yml --tags setup-all -K
+ansible-playbook -i hosts-staging -e @secrets-staging.enc --ask-vault-pass transverse.yml --tags setup-all
 ```
 
 Existing tags (incomplete list, see custom roles in `roles/`):
@@ -34,10 +34,29 @@ Existing tags (incomplete list, see custom roles in `roles/`):
 - setup-ntfy-pam
 - setup-ntfy-apt
 
+To run on production, use `hosts-prod` AND `secrets-prod.enc`.
+
+## A few examples
+
 Update apt packages on all hosts :
 
 ```
 ansible-playbook -i hosts-all apt-update.yml  -K
+```
+
+Deploy `matrix-signup` service on `staging`, without restarting services :
+
+```
+ansible-playbook -i hosts-staging -e @secrets-staging.enc --ask-vault-pass transverse.yml --tags setup-matrix-signup
+```
+
+You can then ssh into the server and restart the service with `service tawkie-matrix-signup restart`
+and check its logs with `journalctl -xfu tawkie-matrix-signup`.
+
+Restart all services on `staging` :
+
+```
+ansible-playbook -i hosts-staging -e @secrets-staging.enc --ask-vault-pass transverse.yml --tags start-all
 ```
 
 ## Editing variables
