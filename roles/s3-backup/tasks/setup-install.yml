@@ -1,0 +1,45 @@
+- name: Ensure /scripts/ directory exists
+  ansible.builtin.file:
+    path: "/scripts/"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "0700"
+  tags:
+    - setup-all
+    - setup-s3-backup
+
+- name: Ensure packages are installed
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "cron"
+    - "s3cmd"
+  tags:
+    - setup-all
+    - setup-s3-backup
+
+- name: Ensure S3 backup script files are set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/{{ item }}.j2"
+    dest: "/scripts/{{ item }}"
+    mode: "0600"
+    owner: "root"
+  with_items:
+    - ".s3cfg"
+    - "backup-s3.sh"
+    - "tawkie-admins.pub"
+  tags:
+    - setup-all
+    - setup-s3-backup
+
+- name: Schedule cron backup for 4 AM
+  ansible.builtin.cron:
+    name: Run backup at 4 AM
+    minute: 0
+    hour: 4
+    job: "/bin/bash /scripts/backup-s3.sh"
+  tags:
+    - setup-all
+    - setup-s3-backup

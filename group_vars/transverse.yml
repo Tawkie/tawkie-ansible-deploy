@@ -126,3 +126,12 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': 'tawkie-staticapache2.service', 'priority': 11000}])
   }}
+
+tawkie_s3_backup_ntfy_endpoint: "https://n.rie.re/matrix-technique-UXzpWpzMWGPN8Iww"
+tawkie_s3_backup_retention_days: "14"
+tawkie_s3_backup_server_name: "{{ tawkie_panel_host | replace('.','_')}}"
+tawkie_s3_backup_bucket_location: "GRA"
+tawkie_s3_backup_host_base: "s3.gra.io.cloud.ovh.net"
+tawkie_s3_backup_bucket_name: "tawkie-backup-staging"
+tawkie_s3_backup_access_key: "{{ secret_tawkie_s3_backup_access_key }}"
+tawkie_s3_backup_secret_key: "{{ secret_tawkie_s3_backup_secret_key }}"

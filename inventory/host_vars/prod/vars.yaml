@@ -2,3 +2,4 @@ tawkie_panel_host: 'tawkie.fr'
 tawkie_matrix_signup_server_name: 'matrix.alpha.tawkie.fr'
 tawkie_kratos_panel_default_matrix_server: 'matrix.alpha.tawkie.fr'
 tawkie_matrix_signup_hookshot_url: 'https://matrix.loveto.party/hookshot/webhooks/5039db41-409c-44dc-b74f-8826ce550ed9'
+tawkie_s3_backup_bucket_name: "tawkie-backup-prod"

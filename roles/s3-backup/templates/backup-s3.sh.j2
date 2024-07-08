@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# Server name
+server_name="{{ tawkie_s3_backup_server_name }}"
+
+# Set the OVH S3 bucket name
+bucket_name="{{ tawkie_s3_backup_bucket_name }}"
+
+# Set the encryption public key file path
+public_key="/scripts/tawkie-admins.pub"
+
+# Set the number of days to keep archives
+archive_retention_days={{ tawkie_s3_backup_retention_days }}
+
+# Set the ntfy notification endpoint
+ntfy_endpoint="{{ tawkie_s3_backup_ntfy_endpoint }}"
+
+# Set the temporary directory path
+temp_dir=$(mktemp -d)
+date=$(date +%Y%m%d%H%M%S)
+
+# Postgres backup
+postgres_dump="$temp_dir/${server_name}_backup_${date}_postgres.sql.gz"
+sudo /usr/bin/docker exec \
+--env-file=/postgres/env-postgres-psql \
+devture-postgres \
+/usr/local/bin/pg_dumpall \
+| gzip -c \
+> $postgres_dump
+
+# Encrypt the dump
+gpg_postgres_dump="$postgres_dump.gpg"
+gpg --encrypt --recipient-file "$public_key" --output "$gpg_postgres_dump" "$postgres_dump"
+
+# Upload the encrypted archive to OVH S3
+s3cmd_options="--config=/scripts/.s3cfg --acl-private"
+s3cmd put $s3cmd_options "$gpg_postgres_dump" "s3://$bucket_name/$server_name/"
+
+# Delete archives older than retention period
+older_than=$(date -d "$archive_retention_days days ago" +%s)
+deleted_archives=0
+
+while IFS= read -r -d '' archive; do
+  echo "Looking at $archive"
+  archive_name=$(basename "$archive")
+  date_string="${archive_name#*_backup_}"
+  date_string="${date_string%%.*}"
+  date_string="${date_string%%_postgres}"
+  #date="${date_string:0:8}"
+  archive_date=$(date -d "${date_string:0:8} ${date_string:8:2}:${date_string:10:2}:${date_string:12:2}" +%s)
+  #archive_date=$(date -d $date_string)
+
+  echo "Found $archive_name with date $date_string. Current date is $date, archive date is $archive_date. Older than is $older_than"
+
+  if [[ $archive_date && $older_than && $archive_date -lt $older_than ]]; then
+    echo "Deleting $archive"
+    s3cmd del $s3cmd_options "$archive"
+    ((deleted_archives++))
+  fi
+done < <(s3cmd ls $s3cmd_options "s3://$bucket_name/${server_name}/${server_name}_backup_*" | awk '{print $NF}' RS='\n' ORS='\0')
+
+echo "Done deleting files"
+
+#:'
+# Fetch size on S3
+archive_size=$(s3cmd $s3cmd_options du "s3://$bucket_name/$server_name/`basename $gpg_file`"| awk '{print $1}')
+dump_size=$(s3cmd $s3cmd_options du "s3://$bucket_name/$server_name/`basename $gpg_postgres_dump`"| awk '{print $1}')
+#'
+echo "archive_size = $archive_size ; dump_size = $dump_size"
+
+if [[ $archive_size = 0 || $dump_size = 0 || ! -n "$archive_size" || ! -n "$dump_size" ]]
+then
+  curl \
+  -H "Title: Failed Tawkie backup : $server_name" \
+  -H "Priority: high" \
+  -H "Tags: warning" \
+  -d "Expected files are not on S3 Storage. Deleted $deleted_archives files over $archive_retention_days days old." \
+  $ntfy_endpoint
+  echo 1
+else
+  curl \
+  -H "Title: Successful Tawkie backup : $server_name" \
+  -H "Priority: low" \
+  -H "Tags: file_cabinet" \
+  -d "Backed up $server_name Matrix instance. Postgres size $dump_size. Deleted $deleted_archives files over $archive_retention_days days old." \
+  $ntfy_endpoint
+  echo 2
+fi
+
+# Clean up temporary files
+rm -rf "$temp_dir"

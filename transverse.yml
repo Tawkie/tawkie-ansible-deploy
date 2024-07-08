@@ -15,6 +15,7 @@
     - wireguard-admin
     - matrix-signup
     - staticapache2
+    - s3-backup
 
     - when: devture_systemd_service_manager_enabled | bool
       role: com.devture.ansible.role.systemd_service_manager
