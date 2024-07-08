@@ -20,7 +20,6 @@
     - when: devture_systemd_service_manager_enabled | bool
       role: com.devture.ansible.role.systemd_service_manager
 
-
 # Setups up docker swarm so we can connect the matrix-signup process to
 # Matrix admin APIs
 # https://docs.docker.com/network/drivers/overlay/
@@ -36,7 +35,7 @@
 
     - name: Create overlay network
       community.docker.docker_network:
-        name: '{{ tawkie_matrix_signup_container_network }}'
+        name: "{{ tawkie_matrix_signup_container_network }}"
         state: present
         driver: overlay
         driver_options:
@@ -45,7 +44,6 @@
   tags:
     - setup-all
     - setup-docker-swarm
-
 
 - name: Join Docker Swarm Nodes
   hosts: matrix
