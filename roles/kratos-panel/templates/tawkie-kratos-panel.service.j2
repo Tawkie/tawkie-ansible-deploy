@@ -27,6 +27,7 @@ ExecStart=docker run \
 			-e MATRIX_MATRIX_SIGNUP_API_URL=http://tawkie-matrix-signup:3000 \
 			-e TAWKIE_DEFAULT_MATRIX_SERVER={{ tawkie_kratos_panel_default_matrix_server }} \
 			-e AUTH_TOKEN={{ tawkie_kratos_panel_accept_user_token }} \
+			-e MAX_USER_COUNT={{ tawkie_kratos_panel_max_user_count }} \
 	    tawkie-kratos-panel 
 
 ExecStop=-bash -c 'docker kill tawkie-kratos-panel 2>/dev/null || true'

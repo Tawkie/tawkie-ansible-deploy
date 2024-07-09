@@ -41,6 +41,7 @@ tawkie_kratos_panel_repo_version:
   # base path is hardcoded into the panel
 tawkie_kratos_panel_accept_user_token: "{{ secret_tawkie_kratos_panel_accept_user_token }}"
 tawkie_kratos_panel_default_matrix_server: "matrix.staging.tawkie.fr"
+tawkie_kratos_panel_max_user_count: "350"
 
 tawkie_nats_docker_image: "nats:2.9.19-scratch"
 tawkie_nats_container_network: "tawkie-nats"
