@@ -1,0 +1,16 @@
+#:schema https://json.schemastore.org/traefik-v2-file-provider.json
+
+[http.routers.matomo]
+  rule = "Host(`{{ tawkie_matomo_host }}`)"
+  # If the rule matches, forward to the matomo service (declared below)
+  service = "matomo"
+  entryPoints = ["websecure"]
+
+  [http.routers.matomo.tls]
+    certResolver = "myresolver"
+
+
+# Define how to reach an existing service on our infrastructure
+[http.services.matomo.loadBalancer]
+  [[http.services.matomo.loadBalancer.servers]]
+    url = "http://tawkie-matomo:80"

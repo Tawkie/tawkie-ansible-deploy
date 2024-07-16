@@ -1,0 +1,46 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Matrix Signup
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-matrix-signup 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-matrix-signup 2>/dev/null || true'
+
+ExecStartPre=docker create \
+			--rm \
+			--name tawkie-matrix-signup \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/matrix-signup:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_matrix_signup_uid }}:{{ tawkie_matrix_signup_gid }} \
+			--network={{ devture_postgres_container_network }} \
+			-e TAWKIE_SIGNUP_POSTGRES_URI={{ tawkie_matrix_signup_postgres_uri }} \
+			-e MATRIX_ADMIN_BASE_URL={{ tawkie_matrix_signup_admin_base_url }} \
+			-e MATRIX_ADMIN_ACCESS_TOKEN={{ tawkie_matrix_signup_admin_access_token }} \
+			-e JWT_PRIVATE_KEY_PATH=/app/private_key.pem \
+			-e JWT_ISSUER={{ tawkie_matrix_signup_jwt_issuer }} \
+			-e MATRIX_SERVER_NAME={{ tawkie_matrix_signup_server_name }} \
+			-e HOOKSHOT_URL={{ tawkie_matrix_signup_hookshot_url }} \
+			--mount type=bind,src=/tawkie/matrix-signup/private_key.pem,dst=/app/private_key.pem,ro \
+	    tawkie-matrix-signup
+
+ExecStartPre=docker network connect {{ tawkie_traefik_container_network }} tawkie-matrix-signup
+ExecStartPre=docker network connect {{ tawkie_matrix_signup_container_network }} tawkie-matrix-signup
+
+ExecStart=docker start --attach tawkie-matrix-signup
+
+ExecStop=-bash -c 'docker kill tawkie-matrix-signup 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-matrix-signup 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-matrix-signup
+
+[Install]
+WantedBy=multi-user.target

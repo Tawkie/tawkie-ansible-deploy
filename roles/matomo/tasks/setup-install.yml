@@ -1,0 +1,122 @@
+---
+- name: Ensure mariadb group is created
+  ansible.builtin.group:
+    name: "mariadb"
+    state: present
+  register: mariadb_group
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure mariadb user is created
+  ansible.builtin.user:
+    name: "mariadb"
+    state: present
+    group: "mariadb"
+    system: true
+    shell: "/bin/false"
+  register: mariadb_user
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Initialize tawkie_mariadb_uid and tawkie_mariadb_gid
+  ansible.builtin.set_fact:
+    tawkie_mariadb_uid: "{{ mariadb_user.uid }}"
+    tawkie_mariadb_gid: "{{ mariadb_group.gid }}"
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure Matomo Mariadb paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0700"
+    owner: "mariadb"
+    group: "mariadb"
+  with_items:
+    - "/tawkie/mariadb"
+    - "/tawkie/mariadb/data"
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure matomo group is created
+  ansible.builtin.group:
+    name: "matomo"
+    state: present
+  register: matomo_group
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure matomo user is created
+  ansible.builtin.user:
+    name: "matomo"
+    state: present
+    group: "matomo"
+    system: true
+    shell: "/bin/false"
+  register: matomo_user
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Initialize tawkie_matomo_uid and tawkie_matomo_gid
+  ansible.builtin.set_fact:
+    tawkie_matomo_uid: "{{ matomo_user.uid }}"
+    tawkie_matomo_gid: "{{ matomo_group.gid }}"
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure Matomo paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0700"
+    owner: "matomo"
+    group: "matomo"
+  with_items:
+    - "/tawkie/matomo"
+    - "/tawkie/matomo/files"
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure Docker images are pulled
+  community.docker.docker_image:
+    name: "{{ item }}"
+    source: "pull"
+  register: result
+  retries: "{{ devture_playbook_help_container_retries_count }}"
+  delay: "{{ devture_playbook_help_container_retries_delay }}"
+  until: result is not failed
+  with_items:
+    - "{{ tawkie_mariadb_docker_image }}"
+    - "{{ tawkie_matomo_docker_image }}"
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure Matomo container network is created
+  community.general.docker_network:
+    name: "{{ tawkie_matomo_container_network }}"
+    driver: bridge
+  tags:
+    - setup-all
+    - setup-matomo
+
+- name: Ensure systemd templates set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/{{ item }}.service.j2"
+    dest: "/etc/systemd/system/{{ item }}.service"
+    mode: "0600"
+    owner: "root"
+  with_items:
+    - "tawkie-matomo"
+    - "tawkie-mariadb"
+  tags:
+    - setup-all
+    - setup-matomo

@@ -30,6 +30,7 @@ ExecStartPre=docker create \
 	    {{ tawkie_traefik_docker_image }}
 
 ExecStartPre=docker network connect {{ tawkie_staticapache2_container_network }} tawkie-traefik
+ExecStartPre=docker network connect {{ tawkie_matomo_container_network }} tawkie-traefik
 
 ExecStart=docker start --attach tawkie-traefik
 

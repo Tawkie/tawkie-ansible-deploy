@@ -16,6 +16,7 @@
     - matrix-signup
     - staticapache2
     - s3-backup
+    - matomo
 
     - when: devture_systemd_service_manager_enabled | bool
       role: com.devture.ansible.role.systemd_service_manager

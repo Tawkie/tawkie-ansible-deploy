@@ -88,6 +88,15 @@ tawkie_staticapache2_hugo_docker_image: "klakegg/hugo:0.101.0"
 tawkie_staticapache2_tailwindcss_docker_image: "d3fk/tailwindcss:stable"
 tawkie_staticapache2_container_network: "staticapache2"
 
+tawkie_matomo_host: "metrics.{{ tawkie_panel_host }}"
+tawkie_matomo_docker_image: "matomo:5.1.0"
+tawkie_matomo_container_network: "tawkie-matomo"
+tawkie_matomo_db_user: "matomo"
+tawkie_matomo_db_password: "{{ secret_tawkie_matomo_db_password }}"
+tawkie_matomo_db_name: "matomo"
+tawkie_mariadb_docker_image: "mariadb:11.4.2"
+tawkie_mariadb_root_password: "{{ secret_tawkie_mariadb_root_password }}"
+
 devture_postgres_connection_password: "{{ secret_postgres_db_default_password }}"
 devture_postgres_base_path: "/postgres"
 devture_postgres_managed_databases_auto: |
@@ -126,6 +135,10 @@ devture_systemd_service_manager_services_list_auto: |
     ([{'name': 'tawkie-traefik.service', 'priority': 10000}])
     +
     ([{'name': 'tawkie-staticapache2.service', 'priority': 11000}])
+    +
+    ([{'name': 'tawkie-mariadb.service', 'priority': 12000}])
+    +
+    ([{'name': 'tawkie-matomo.service', 'priority': 13000}])
   }}
 
 tawkie_s3_backup_ntfy_endpoint: "https://n.rie.re/matrix-technique-UXzpWpzMWGPN8Iww"

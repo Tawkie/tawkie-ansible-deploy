@@ -1,0 +1,85 @@
+---
+
+- name: Ensure Tawkie Matrix Signup building directory is created
+  ansible.builtin.file:
+    path: '/tawkie-docker-build/tawkie-matrix-signup/'
+    state: directory
+    owner: 'matrix-signup'
+    group: 'matrix-signup'
+    mode: '0700'
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Ensure Matrix Signup paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0500"
+    owner: "matrix-signup"
+    group: "matrix-signup"
+  with_items:
+    - "/tawkie/matrix-signup"
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Ensure Matrix Signup JWT file exists
+  ansible.builtin.file:
+    path: "/tawkie/matrix-signup/private_key.pem"
+    state: touch
+    mode: '0600'
+    owner: "matrix-signup"
+    group: "matrix-signup"
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Set the Matrix Signup JWT private key content
+  ansible.builtin.copy:
+    dest: "/tawkie/matrix-signup/private_key.pem"
+    content: "{{ tawkie_matrix_signup_jwt_private_key }}"
+    force: true
+    mode: '0600'
+    owner: "matrix-signup"
+    group: "matrix-signup"
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Ensure Tawkie Matrix Signup repository is present on self-build
+  ansible.builtin.git:
+    repo: "{{ tawkie_matrix_signup_repo_url }}"
+    version: "{{ tawkie_matrix_signup_repo_version }}"
+    dest: "/tawkie-docker-build/tawkie-matrix-signup"
+    force: true
+  become: true
+  become_user: "matrix-signup" # requires `acl` package to work
+  register: tawkie_matrix_signup_git_pull_results
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Ensure Tawkie Matrix Signup container image is built
+  community.docker.docker_image:
+    name: "tawkie-matrix-signup"
+    source: build
+    force_source: "{{ tawkie_matrix_signup_git_pull_results.changed if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
+    force: "{{ omit if ansible_version.major > 2 or ansible_version.minor >= 8 else tawkie_matrix_signup_git_pull_results.changed }}"
+    build:
+      dockerfile: Dockerfile
+      path: "/tawkie-docker-build/tawkie-matrix-signup/"
+      pull: true
+  tags:
+    - setup-all
+    - setup-matrix-signup
+
+- name: Ensure Matrix Signup systemd template set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/tawkie-matrix-signup.service.j2"
+    dest: "/etc/systemd/system/tawkie-matrix-signup.service"
+    mode: "0600"
+    owner: "root"
+  tags:
+    - setup-all
+    - setup-matrix-signup

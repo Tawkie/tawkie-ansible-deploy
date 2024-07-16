@@ -10,7 +10,6 @@
     - setup-all
     - setup-traefik
 
-
 - name: Ensure Traefik systemd template set
   ansible.builtin.template:
     src: "{{ role_path }}/templates/tawkie-traefik.service.j2"
@@ -44,7 +43,6 @@
     - setup-all
     - setup-traefik
 
-
 - name: Ensure Traefik config template set
   ansible.builtin.template:
     src: "{{ role_path }}/templates/config.toml.j2"
@@ -55,7 +53,6 @@
   tags:
     - setup-all
     - setup-traefik
-
 
 - name: Ensure Traefik dynamic service templates set
   ansible.builtin.template:
@@ -69,6 +66,7 @@
     - kratos-panel
     - hydra
     - staticapache2
+    - matomo
   tags:
     - setup-all
     - setup-traefik

@@ -1,0 +1,41 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Matomo Mariadb
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-mariadb 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-mariadb 2>/dev/null || true'
+
+ExecStartPre=docker create \
+			--rm \
+			--name tawkie-mariadb \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--shm-size=128m \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/run/mysqld:rw,noexec,nosuid,size=100m \
+			--read-only \
+			--user={{ tawkie_mariadb_uid }}:{{ tawkie_mariadb_gid }} \
+			--env MARIADB_USER={{ tawkie_matomo_db_user }} \
+			--env MARIADB_PASSWORD={{ tawkie_matomo_db_password }} \
+			--env MARIADB_DATABASE={{ tawkie_matomo_db_name }} \
+			--env MARIADB_ROOT_PASSWORD={{ tawkie_mariadb_root_password }} \
+			--mount type=bind,src=/tawkie/mariadb/data,dst=/var/lib/mysql \
+	    "{{ tawkie_mariadb_docker_image }}"
+
+ExecStartPre=docker network connect {{ tawkie_matomo_container_network }} tawkie-mariadb
+
+ExecStart=docker start --attach tawkie-mariadb
+
+ExecStop=-bash -c 'docker kill tawkie-mariadb 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-mariadb 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-mariadb
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,41 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Tawkie Matomo
+After=network.target
+Requires=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStartPre=-bash -c 'docker kill tawkie-matomo 2>/dev/null || true'
+ExecStartPre=-bash -c 'docker rm tawkie-matomo 2>/dev/null || true'
+
+ExecStartPre=docker create \
+			--rm \
+			--name tawkie-matomo \
+			--log-driver=none \
+			--cap-drop=ALL \
+			--read-only \
+			--tmpfs=/tmp:rw,noexec,nosuid,size=100m \
+			--tmpfs=/var/run/apache2:rw,noexec,nosuid,size=100m \
+			--shm-size=128m \
+			--user={{ tawkie_matomo_uid }}:{{ tawkie_matomo_gid }} \
+      --env MATOMO_DATABASE_HOST=tawkie-mariadb \
+			--env MATOMO_DATABASE_USERNAME={{ tawkie_matomo_db_user }} \
+			--env MATOMO_DATABASE_PASSWORD={{ tawkie_matomo_db_password }} \
+			--env MATOMO_DATABASE_DBNAME={{ tawkie_matomo_db_name }} \
+			--mount type=bind,src=/tawkie/matomo/files,dst=/var/www/html \
+	    "{{ tawkie_matomo_docker_image }}"
+
+ExecStartPre=docker network connect {{ tawkie_matomo_container_network }} tawkie-matomo
+
+ExecStart=docker start --attach tawkie-matomo
+
+ExecStop=-bash -c 'docker kill tawkie-matomo 2>/dev/null || true'
+ExecStop=-bash -c 'docker rm tawkie-matomo 2>/dev/null || true'
+Restart=always
+RestartSec=3
+SyslogIdentifier=tawkie-matomo
+
+[Install]
+WantedBy=multi-user.target
