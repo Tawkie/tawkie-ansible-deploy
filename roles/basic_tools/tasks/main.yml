@@ -45,7 +45,6 @@
     - setup-kratos
     - setup-hydra
     - setup-kratos-panel
-    - setup-nats
     - setup-traefik
     - setup-wireguard-admin
     - setup-matrix-signup

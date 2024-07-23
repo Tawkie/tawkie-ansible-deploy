@@ -10,7 +10,6 @@
     - ory-kratos
     - ory-hydra
     - kratos-panel
-    - nats
     - traefik
     - wireguard-admin
     - matrix-signup
