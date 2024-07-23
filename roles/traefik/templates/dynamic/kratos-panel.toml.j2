@@ -5,9 +5,15 @@
   # If the rule matches, forward to the kratos-panel service (declared below)
   service = "kratos-panel"
   entryPoints = ["websecure"]
+  middlewares = ["kratos-panel-rate-limit"]
 
   [http.routers.kratos-panel.tls]
     certResolver = "myresolver"
+
+[http.middlewares.kratos-panel-rate-limit.rateLimit]
+  average = 1
+  burst = 15
+  period = "1s"
 
 # Define how to reach an existing service on our infrastructure
 [http.services.kratos-panel.loadBalancer]
