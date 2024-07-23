@@ -14,8 +14,8 @@
 - name: Check if PasswordAuthentication is set to 'no'
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^PasswordAuthentication'
-    line: 'PasswordAuthentication no'
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
     state: present
   register: password_auth
   tags:

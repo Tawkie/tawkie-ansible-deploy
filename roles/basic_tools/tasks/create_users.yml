@@ -1,12 +1,10 @@
 ---
-
 - name: Ensure tawkie group is created
   ansible.builtin.group:
     name: "tawkie"
     state: present
   tags:
     - setup-all
-
 
 - name: Ensure tawkie user is created
   ansible.builtin.user:
@@ -26,7 +24,6 @@
     - setup-all
     - setup-postgres
 
-
 - name: Ensure Postgres user is created
   ansible.builtin.user:
     name: "postgres"
@@ -40,7 +37,6 @@
     - setup-postgres
     - setup-all
 
-
 - name: Initialize devture_postgres_uid and devture_postgres_gid
   ansible.builtin.set_fact:
     devture_postgres_uid: "{{ postgres_user.uid }}"
@@ -48,7 +44,6 @@
   tags:
     - setup-all
     - setup-postgres
-
 
 - name: Ensure Kratos group is created
   ansible.builtin.group:
@@ -59,14 +54,13 @@
     - setup-all
     - setup-kratos
 
-
 - name: Ensure Kratos user is created
   ansible.builtin.user:
     name: "kratos"
     state: present
     group: "kratos"
     system: true
-    shell: '/bin/false'
+    shell: "/bin/false"
   register: kratos_user
   tags:
     - setup-kratos
@@ -89,14 +83,13 @@
     - setup-all
     - setup-hydra
 
-
 - name: Ensure Hydra user is created
   ansible.builtin.user:
     name: "hydra"
     state: present
     group: "hydra"
     system: true
-    shell: '/bin/false'
+    shell: "/bin/false"
   register: hydra_user
   tags:
     - setup-hydra
@@ -125,7 +118,7 @@
     state: present
     group: "kratos-panel"
     system: true
-    shell: '/bin/false'
+    shell: "/bin/false"
   register: kratos_panel_user
   tags:
     - setup-kratos-panel
@@ -145,7 +138,7 @@
     state: directory
     owner: tawkie
     group: tawkie
-    mode: '0771'
+    mode: "0771"
   tags:
     - setup-all
 
@@ -155,7 +148,7 @@
     state: directory
     owner: tawkie
     group: tawkie
-    mode: '0771'
+    mode: "0771"
   tags:
     - setup-all
     - setup-kratos-panel
@@ -177,19 +170,17 @@
     - setup-all
     - setup-traefik
 
-
 - name: Ensure Traefik user is created
   ansible.builtin.user:
     name: "traefik"
     state: present
     group: "traefik"
     system: true
-    shell: '/bin/false'
+    shell: "/bin/false"
   register: traefik_user
   tags:
     - setup-all
     - setup-traefik
-
 
 - name: Initialize tawkie_traefik_uid and tawkie_traefik_gid
   ansible.builtin.set_fact:
@@ -214,7 +205,7 @@
     state: present
     group: "wireguard-admin"
     system: true
-    shell: '/bin/false'
+    shell: "/bin/false"
   register: wireguard_admin_user
   tags:
     - setup-all
@@ -243,7 +234,7 @@
     state: present
     group: "matrix-signup"
     system: true
-    shell: '/bin/false'
+    shell: "/bin/false"
   register: matrix_signup_user
   tags:
     - setup-all
@@ -272,7 +263,7 @@
     state: present
     group: "staticapache2"
     system: true
-    shell: '/bin/false'
+    shell: "/bin/false"
   register: apache_user
   tags:
     - setup-all
