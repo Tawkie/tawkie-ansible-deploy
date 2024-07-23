@@ -46,7 +46,7 @@ tawkie_kratos_panel_max_user_count: "350"
 tawkie_nats_docker_image: "nats:2.9.19-scratch"
 tawkie_nats_container_network: "tawkie-nats"
 
-tawkie_traefik_docker_image: "traefik:v2.10.3"
+tawkie_traefik_docker_image: "traefik:v3.1.0"
 tawkie_traefik_container_network: "tawkie-traefik"
 tawkie_traefik_acme_email: "paul@tawkie.fr"
 
