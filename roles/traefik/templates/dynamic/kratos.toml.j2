@@ -1,9 +1,28 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
-[http.routers.kratos]
+# Used by Kratos-Panel to authenticate users, isn't exposed to the public internet or rate limited
+[http.routers.kratosPrivate]
   rule = "Host(`tawkie-traefik`)"
   service = "kratos"
   entryPoints = ["kratos"]
+
+# Used by users to access the Kratos-Panel, is exposed to the public internet and rate limited
+[http.routers.kratosPublic]
+  rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/panel/api/.ory`)"
+  service = "kratos"
+  entryPoints = ["websecure"]
+  middlewares = ["kratos-public-remove-prefix", "kratos-public-rate-limit"]
+
+  [http.routers.kratosPublic.tls]
+    certResolver = "myresolver"
+
+[http.middlewares.kratos-public-remove-prefix.stripPrefix]
+  prefixes = ["/panel/api/.ory"]
+
+[http.middlewares.kratos-public-rate-limit.rateLimit]
+  average = 1
+  burst = 10
+  period = "1s"
 
 # Define how to reach an existing service on our infrastructure
 [http.services.kratos.loadBalancer]
