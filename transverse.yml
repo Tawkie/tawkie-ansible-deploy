@@ -8,7 +8,10 @@
     - com.devture.ansible.role.systemd_docker_base
     - com.devture.ansible.role.postgres
     - ory-kratos
-    - ory-hydra
+    - role: ory-hydra
+      tags:
+        - setup-all
+        - setup-hydra
     - kratos-panel
     - traefik
     - wireguard-admin

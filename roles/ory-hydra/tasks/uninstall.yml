@@ -1,0 +1,25 @@
+---
+- name: Stop and disable Hydra service
+  ansible.builtin.systemd:
+    name: tawkie-hydra.service
+    state: stopped
+    enabled: no
+
+- name: Remove Hydra systemd service file
+  ansible.builtin.file:
+    path: /etc/systemd/system/tawkie-hydra.service
+    state: absent
+
+- name: Remove Hydra files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/tawkie/hydra/config.yaml"
+    - "/tawkie/hydra/image-version.txt"
+    - "/tawkie/hydra"
+
+- name: Remove Hydra Docker image
+  community.docker.docker_image:
+    name: "{{ tawkie_hydra_docker_image }}"
+    state: absent

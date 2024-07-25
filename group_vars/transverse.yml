@@ -22,6 +22,7 @@ tawkie_kratos_courier_smtp_uri: "{{ tawkie_mail_uri }}"
 tawkie_kratos_session_lifespan: "14400h" # ie 20 months
 tawkie_kratos_session_earliest_possible_extend: "48h"
 
+tawkie_hydra_enabled: false
 tawkie_hydra_host: "auth.{{ tawkie_panel_host }}"
 tawkie_hydra_docker_image: "oryd/hydra:v2.2"
 tawkie_hydra_postgres_password: "{{ secret_tawkie_hydra_postgres_password }}"
@@ -55,6 +56,8 @@ tawkie_traefik_dynamic_services: |
     ([{'name': 'staticapache2', 'enabled': true}])
     +
     ([{'name': 'matomo', 'enabled': true}])
+    +
+    ([{'name': 'hydra', 'enabled': tawkie_hydra_enabled}])
   }}
 
 tawkie_wireguard_admin_docker_image: "linuxserver/wireguard:1.0.20210914"
@@ -113,14 +116,16 @@ devture_postgres_managed_databases_auto: |
       'username': 'kratos',
       'password': secret_postgres_db_kratos_password
     },{
-      'name': 'hydra',
-      'username': 'hydra',
-      'password': tawkie_hydra_postgres_password
-    },{
       'name': 'matrix_signup',
       'username': 'matrix_signup',
       'password': tawkie_matrix_signup_postgres_password
     }]
+    +
+    ([{
+      'name': 'hydra',
+      'username': 'hydra',
+      'password': tawkie_hydra_postgres_password
+    }] if tawkie_hydra_enabled else [])
   }}
 
 devture_systemd_service_manager_enabled: true
@@ -135,7 +140,7 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': 'tawkie-kratos-panel.service', 'priority': 4000}])
     +
-    ([{'name': 'tawkie-hydra.service', 'priority': 4500}])
+    ([{'name': 'tawkie-hydra.service', 'priority': 4500}] if tawkie_hydra_enabled else [])
     +
     ([{'name': 'tawkie-wireguard-admin.service', 'priority': 5000}])
     +

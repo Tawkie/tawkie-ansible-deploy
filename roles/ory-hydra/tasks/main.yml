@@ -1,5 +1,13 @@
 - name: Include install tasks
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup-install.yml"
+  when: "tawkie_hydra_enabled"
+  tags:
+    - setup-all
+    - setup-hydra
+
+- name: Include uninstall tasks
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/uninstall.yml"
+  when: "not tawkie_hydra_enabled"
   tags:
     - setup-all
     - setup-hydra
