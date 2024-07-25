@@ -56,20 +56,23 @@
 
 - name: Ensure Traefik dynamic service templates set
   ansible.builtin.template:
-    src: "{{ role_path }}/templates/dynamic/{{ item }}.toml.j2"
-    dest: "/tawkie/traefik/dynamic/{{ item }}.toml"
+    src: "{{ role_path }}/templates/dynamic/{{ item.name }}.toml.j2"
+    dest: "/tawkie/traefik/dynamic/{{ item.name }}.toml"
     mode: "0400"
     owner: "traefik"
     group: "traefik"
-  loop:
-    - kratos
-    - kratos-panel
-    - hydra
-    - staticapache2
-    - matomo
+  when: "item.enabled == true"
+  loop: "{{ tawkie_traefik_dynamic_services }}"
   tags:
     - setup-all
     - setup-traefik
+
+- name: Ensure Traefik dynamic service templates removed if disabled
+  ansible.builtin.file:
+    path: "/tawkie/traefik/dynamic/{{ item.name }}.toml"
+    state: "absent"
+  when: "item.enabled == false"
+  loop: "{{ tawkie_traefik_dynamic_services }}"
 
 - name: Check if Traefik acme.json file exists
   ansible.builtin.stat:

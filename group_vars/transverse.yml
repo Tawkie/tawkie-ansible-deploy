@@ -46,6 +46,16 @@ tawkie_kratos_panel_max_user_count: "350"
 tawkie_traefik_docker_image: "traefik:v3.1.0"
 tawkie_traefik_container_network: "tawkie-traefik"
 tawkie_traefik_acme_email: "paul@tawkie.fr"
+tawkie_traefik_dynamic_services: |
+  {{
+    ([{'name': 'kratos', 'enabled': true}])
+    +
+    ([{'name': 'kratos-panel', 'enabled': true}])
+    +
+    ([{'name': 'staticapache2', 'enabled': true}])
+    +
+    ([{'name': 'matomo', 'enabled': true}])
+  }}
 
 tawkie_wireguard_admin_docker_image: "linuxserver/wireguard:1.0.20210914"
 tawkie_wireguard_admin_container_network: "tawkie-wireguard-admin"
