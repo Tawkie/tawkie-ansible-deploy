@@ -1,5 +1,2 @@
 - name: Include install tasks
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup-install.yml"
-  tags:
-    - setup-all
-    - setup-traefik

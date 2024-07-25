@@ -6,9 +6,6 @@
   retries: "{{ devture_playbook_help_container_retries_count }}"
   delay: "{{ devture_playbook_help_container_retries_delay }}"
   until: result is not failed
-  tags:
-    - setup-all
-    - setup-traefik
 
 - name: Ensure Traefik systemd template set
   ansible.builtin.template:
@@ -16,17 +13,11 @@
     dest: "/etc/systemd/system/tawkie-traefik.service"
     mode: "0600"
     owner: "root"
-  tags:
-    - setup-all
-    - setup-traefik
 
 - name: Ensure Traefik container network is created
   community.general.docker_network:
     name: "{{ tawkie_traefik_container_network }}"
     driver: bridge
-  tags:
-    - setup-all
-    - setup-traefik
 
 - name: Ensure Traefik paths exist
   ansible.builtin.file:
@@ -39,9 +30,6 @@
     - "/tawkie/traefik"
     - "/tawkie/traefik/acme"
     - "/tawkie/traefik/dynamic"
-  tags:
-    - setup-all
-    - setup-traefik
 
 - name: Ensure Traefik config template set
   ansible.builtin.template:
@@ -50,9 +38,6 @@
     mode: "0400"
     owner: "traefik"
     group: "traefik"
-  tags:
-    - setup-all
-    - setup-traefik
 
 - name: Ensure Traefik dynamic service templates set
   ansible.builtin.template:
@@ -63,9 +48,6 @@
     group: "traefik"
   when: "item.enabled == true"
   loop: "{{ tawkie_traefik_dynamic_services }}"
-  tags:
-    - setup-all
-    - setup-traefik
 
 - name: Ensure Traefik dynamic service templates removed if disabled
   ansible.builtin.file:
@@ -78,9 +60,6 @@
   ansible.builtin.stat:
     path: "/tawkie/traefik/acme/acme.json"
   register: "acme_json"
-  tags:
-    - setup-all
-    - setup-traefik
 
 - name: Create the file if it doesn't exist
   ansible.builtin.file:
@@ -90,6 +69,3 @@
     owner: "traefik"
     group: "traefik"
   when: "not acme_json.stat.exists"
-  tags:
-    - setup-all
-    - setup-traefik

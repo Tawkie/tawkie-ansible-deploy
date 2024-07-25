@@ -13,7 +13,10 @@
         - setup-all
         - setup-hydra
     - kratos-panel
-    - traefik
+    - role: traefik
+      tags:
+        - setup-all
+        - setup-traefik
     - wireguard-admin
     - matrix-signup
     - staticapache2
