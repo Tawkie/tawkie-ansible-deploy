@@ -3,7 +3,8 @@
   ansible.builtin.systemd:
     name: tawkie-hydra.service
     state: stopped
-    enabled: no
+    enabled: false
+  failed_when: false
 
 - name: Remove Hydra systemd service file
   ansible.builtin.file:
