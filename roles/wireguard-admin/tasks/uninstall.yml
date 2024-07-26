@@ -1,0 +1,25 @@
+---
+- name: Stop and Disable WireGuard Service
+  ansible.builtin.systemd:
+    name: "tawkie-wireguard-admin"
+    state: stopped
+    enabled: false
+  failed_when: false
+
+- name: Remove wireguard-admin docker image
+  community.docker.docker_image:
+    name: "{{ tawkie_wireguard_admin_docker_image }}"
+    state: absent
+
+- name: Remove wireguard-admin paths
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/tawkie/wireguard-admin"
+    - "/etc/systemd/system/tawkie-wireguard-admin.service"
+
+- name: Remove wireguard-admin container network
+  community.general.docker_network:
+    name: "{{ tawkie_wireguard_admin_container_network }}"
+    state: absent

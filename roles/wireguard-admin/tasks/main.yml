@@ -1,5 +1,14 @@
-- name: Include install tasks
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup-install.yml"
-  tags:
+---
+- tags:
     - setup-all
     - setup-wireguard-admin
+  block:
+    - when: tawkie_wireguard_admin_enabled | bool
+      ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup-install.yml"
+
+- tags:
+    - setup-all
+    - setup-wireguard-admin
+  block:
+    - when: not tawkie_wireguard_admin_enabled | bool
+      ansible.builtin.include_tasks: "{{ role_path }}/tasks/uninstall.yml"
