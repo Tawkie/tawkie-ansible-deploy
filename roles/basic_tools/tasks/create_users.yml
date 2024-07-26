@@ -153,14 +153,6 @@
     - setup-all
     - setup-kratos-panel
 
-- name: Initialize tawkie_nats_uid and tawkie_nats_gid
-  ansible.builtin.set_fact:
-    tawkie_nats_uid: "{{ nats_user.uid }}"
-    tawkie_nats_gid: "{{ nats_group.gid }}"
-  tags:
-    - setup-all
-    - setup-nats
-
 - name: Ensure Traefik group is created
   ansible.builtin.group:
     name: "traefik"
