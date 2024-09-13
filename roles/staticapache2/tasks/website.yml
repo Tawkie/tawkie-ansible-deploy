@@ -47,3 +47,27 @@
   tags:
     - setup-all
     - setup-staticapache2
+
+- name: Ensure Matrix well-known directory is created
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "staticapache2"
+    group: "staticapache2"
+    mode: "0705"
+  with_items:
+    - "/tawkie/staticapache2/source/public/.well-known"
+    - "/tawkie/staticapache2/source/public/.well-known/matrix"
+  tags:
+    - setup-all
+    - setup-staticapache2
+
+- name: Ensure Matrix .well-known server delegation file is set
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/matrix-wellknown.json.j2"
+    dest: "/tawkie/staticapache2/source/public/.well-known/matrix/server"
+    mode: "0404"
+    owner: "staticapache2"
+  tags:
+    - setup-all
+    - setup-staticapache2
