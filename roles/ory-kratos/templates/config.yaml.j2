@@ -23,9 +23,9 @@ selfservice:
         issuer: Tawkie
       enabled: true
     lookup_secret:
-      enabled: true
+      enabled: false
     link:
-      enabled: true
+      enabled: false
     code:
       enabled: true
       passwordless_enabled: true
@@ -40,12 +40,12 @@ selfservice:
       required_aal: highest_available
 
     recovery:
-      enabled: true
+      enabled: false
       ui_url: {{ tawkie_kratos_selfservice_base_url }}/recovery
       use: code
 
     verification:
-      enabled: true
+      enabled: false
       ui_url: {{ tawkie_kratos_selfservice_base_url }}/verification
       use: code
       after:
@@ -70,7 +70,7 @@ selfservice:
         code:
           hooks:
             - hook: session
-            - hook: show_verification_ui
+            #- hook: show_verification_ui
 
 log:
   level: info
