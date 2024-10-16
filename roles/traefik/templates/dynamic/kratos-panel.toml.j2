@@ -1,11 +1,13 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
 [http.routers.kratos-panel]
-  rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/panel`) && !PathPrefix(`/panel/api/.ory`)"
+  rule = "Host(`{{ tawkie_panel_host }}`) && PathPrefix(`/panel`)"
   # If the rule matches, forward to the kratos-panel service (declared below)
   service = "kratos-panel"
   entryPoints = ["websecure"]
   middlewares = ["kratos-panel-rate-limit"]
+  # Before staticapache2 but after kratos
+  priority = 3
 
   [http.routers.kratos-panel.tls]
     certResolver = "myresolver"

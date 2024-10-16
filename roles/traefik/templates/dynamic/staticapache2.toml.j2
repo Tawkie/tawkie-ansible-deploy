@@ -1,10 +1,12 @@
 #:schema https://json.schemastore.org/traefik-v2-file-provider.json
 
 [http.routers.staticapache2]
-  rule = "(Host(`{{ tawkie_panel_host }}`) || Host(`www.{{ tawkie_panel_host }}`)) && !PathPrefix(`/panel`)"
+  rule = "Host(`{{ tawkie_panel_host }}`) || Host(`www.{{ tawkie_panel_host }}`)"
   # If the rule matches, forward to the staticapache2 service (declared below)
   service = "staticapache2"
   entryPoints = ["websecure"]
+  # Last service
+  priority = 1
 
   [http.routers.staticapache2.tls]
     certResolver = "myresolver"

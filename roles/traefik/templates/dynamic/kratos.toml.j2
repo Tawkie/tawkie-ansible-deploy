@@ -12,6 +12,8 @@
   service = "kratos"
   entryPoints = ["websecure"]
   middlewares = ["kratos-public-remove-prefix", "kratos-public-rate-limit"]
+  # Before staticapache2 and kratis-panel
+  priority = 7
 
   [http.routers.kratosPublic.tls]
     certResolver = "myresolver"
