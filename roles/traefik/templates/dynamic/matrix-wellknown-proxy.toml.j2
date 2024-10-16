@@ -1,0 +1,20 @@
+#:schema https://json.schemastore.org/traefik-v2-file-provider.json
+
+[http.routers.matrix-wellknown-proxy]
+  rule = "Host(`{{ tawkie_panel_host }}`)  && PathPrefix(`/.well-known/matrix`)"
+  # If the rule matches, forward to the matrix-wellknown-proxy service (declared below)
+  service = "matrix-wellknown-proxy"
+  entryPoints = ["websecure"]
+  priority = 5
+
+  [http.routers.matrix-wellknown-proxy.tls]
+    certResolver = "myresolver"
+
+
+# Define how to reach an existing service on our infrastructure
+[http.services.matrix-wellknown-proxy.loadBalancer]
+  # otherwise the host header will not include `matrix.`
+  passHostHeader = false
+  [[http.services.matrix-wellknown-proxy.loadBalancer.servers]]
+    url = "https://{{ tawkie_kratos_panel_default_matrix_server }}"
+    # url = "https://ifconfig.me/all"

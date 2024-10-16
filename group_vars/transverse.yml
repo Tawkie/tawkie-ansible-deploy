@@ -58,6 +58,8 @@ tawkie_traefik_dynamic_services: |
     ([{'name': 'matomo', 'enabled': true}])
     +
     ([{'name': 'hydra', 'enabled': tawkie_hydra_enabled}])
+    +
+    ([{'name': 'matrix-wellknown-proxy', 'enabled': true}])
   }}
 
 # Has since been disabled
